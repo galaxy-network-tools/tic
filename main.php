@@ -269,7 +269,7 @@
 				</td>
 			</tr></table>
 		</div></div></div></div>
-<?
+<?php
 	if ($_REQUEST['autoclose'] == "now") {
 ?>
 	<script language="javascript" type="text/javascript">
@@ -277,7 +277,7 @@
 	window.close();
 	-->
 	</script>
-<?
+<?php
 	}
 ?>
 	</body>

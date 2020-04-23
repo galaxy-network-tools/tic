@@ -1,4 +1,4 @@
-<?
+<?php
 // Ticks
 
 //	$Ticks['angriffsflug'] = 30;
@@ -47,7 +47,7 @@
 						<TABLE>
 							<TR>
 								<TD>
-									<?
+									<?php
 										$tmp_selected = 0;
 										if (mysql_result($SQL_Result, 0, 'modus') == 1) {
 											echo '<INPUT TYPE="radio" NAME="optModus" VALUE="1" CHECKED><B>'.mysql_result($SQL_Result, 0, 'angreifer_galaxie').':'.mysql_result($SQL_Result, 0, 'angreifer_planet').' </B> greift <B>'.mysql_result($SQL_Result, 0, 'verteidiger_galaxie').':'.mysql_result($SQL_Result, 0, 'verteidiger_planet').' </B> an. ETA: <SELECT NAME="lst_ETA" SIZE=1>';
@@ -106,7 +106,7 @@
 								<TD>
 									Flotte:
 									<SELECT NAME="lst_Flotte" SIZE=1>
-										<?
+										<?php
 										$_name['0']='Unbekannt';
                     $_name['1']='1. Flotte';
                     $_name['2']='2. Flotte';
@@ -129,6 +129,6 @@
 		</TR>
 	</TABLE>
 <CENTER>
-<?
+<?php
 	}
 ?>

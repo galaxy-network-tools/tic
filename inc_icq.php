@@ -1,4 +1,4 @@
-<?
+<?php
 /***************************************************************************
  *   Copyright (C) 2006 by Andreas Hemel <dai.shan@gmx.net>, Pascal Gollor *
  *                                                                         *
@@ -30,7 +30,7 @@
 <td align="middle">Rang</td>
 </tr>
 
-<?
+<?php
 
 include ('globalvars.php');
 

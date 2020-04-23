@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 include 'sessionhelpers.inc.php';
 echo 'Sie sind ';

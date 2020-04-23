@@ -1,4 +1,4 @@
-<?
+<?php
 	$_scanmaxalter = 72; // Stunden
 
 	//include('./accdata.php');

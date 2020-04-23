@@ -29,7 +29,7 @@
 			<th class="datatablehead" colspan="2">Wird angegriffen von</th>
 			<th class="datatablehead" colspan="2">Wird verteidigt von</th>
 		</tr>
-<?
+<?php
 	for ($n = 0; $n < $SQL_Num_user; $n++) {
 		$farb_zusatz = '';
 

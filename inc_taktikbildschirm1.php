@@ -29,7 +29,7 @@
 			<th class="datatablehead" colspan="2">Wird angegriffen von</th>
 			<th class="datatablehead" colspan="2">Wird verteidigt von</th>
 		</tr>
-<?
+<?php
 	$help_scan = "Hier klicken um die Scans einzusehen.<br /><br />";
 	$help_fleet = "Hier klicken um die Flottennummer zu ändern.<br /><br />";
 	$help_safe = "Hier klicken um den Status zu ändern.<br /><br />";

@@ -55,7 +55,7 @@
 			</tr>
 			<tr>
 
-<?
+<?php
 	$attanzahl = AttAnzahl($Benutzer['allianz'],$Benutzer['ticid'],0);
 	echo '			<td class="menu"><a href="./main.php?modul=attplanung"><img src="bilder/skin/menu_item_icon.bmp" alt="" style="padding:0px 5px 0px 5px;" />Att-Planung (';
 	echo '<font color="#'.$ATTSTATUSHTML[1].'">'.$attanzahl.'</font>/';

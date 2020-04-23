@@ -1,4 +1,4 @@
-<?
+<?php
 // ATT-Planer Administration / Configuration Methode GET
     if (!isset($_GET['fkt'])) $_GET['fkt'] = '';
 

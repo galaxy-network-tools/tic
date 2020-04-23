@@ -13,7 +13,7 @@
   <tr>
     <td class="datatablehead">Attplaner II</td>
   </tr>
-<?
+<?php
   // Erweierung von Bytehoppers 20.07.05 fr Attplaner2
    if ($Benutzer['rang'] >= $Rang_VizeAdmiral) {
 

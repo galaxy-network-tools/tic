@@ -1,4 +1,4 @@
-<?
+<?php
 
 $title = "GN-Kampfsimulator";
 //echo "<body bgcolor=#333333 text=#ffffff>";

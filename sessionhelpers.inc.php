@@ -1,4 +1,4 @@
-<?
+<?php
 function injsafe($value) {
 	if (get_magic_quotes_gpc())
 		return $value;

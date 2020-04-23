@@ -1,4 +1,4 @@
-<?
+<?php
 	$SQL_Result = tic_mysql_query('SELECT * FROM `gn4vars` ORDER BY id;');
 	for ($n = 0; $n < mysql_num_rows($SQL_Result); $n++) {
 		$var = mysql_result($SQL_Result, $n, 'name');

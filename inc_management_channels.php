@@ -20,7 +20,7 @@ if (isset($_REQUEST['selectChan'])) {
 		<tr>
 			<td align="center" class="fieldnormallight" colspan="4">Channel: 
 				<select onchange="this.form.submit();" name="selectChan">
-<?
+<?php
 $i = 0;
 $joinCommand = "";
 $pass = "";
@@ -61,7 +61,7 @@ mysql_data_seek($Result_Chans, 0);
 		<tr class="fieldnormallight">
 			<td>Join-Kommando:</td>
 			<td><select name="joincommand">
-<?
+<?php
 foreach (array("join", "privmsg L invite", "privmsg Q invite") as $jn => $jc) {
 	printf("<option %s value=\"%d\">%s</option>\n", $joinCommand == $jc ? "selected" : "", $jn, $jc);
 };
@@ -78,7 +78,7 @@ foreach (array("join", "privmsg L invite", "privmsg Q invite") as $jn => $jc) {
 			<td>
 				<select name="ally">
 					<option value="0">--keine--</option>
-<?
+<?php
 while ($allyrow = mysql_fetch_object($Result_Allies)) {
 	printf("<option %s value=\"%d\">%s</option>\n", $ally == $allyrow->id ? "selected" : "", $allyrow->id, $allyrow->tag);
 };
@@ -89,7 +89,7 @@ while ($allyrow = mysql_fetch_object($Result_Allies)) {
 		<tr class="fieldnormaldark">
 			<td>Zugang ab Rang:</td>
 			<td><select name="accessfor">
-<?
+<?php
 printf("<option %s value=\"%d\">%s</option>\n", $accessfor == -1 ? "selected" : "", -1, "unbeschr&auml;nkt");
 foreach ($RangName as $afrang => $afname) {
 	printf("<option %s value=\"%d\">%s</option>\n", $accessfor == $afrang ? "selected" : "", $afrang, $afname);
@@ -101,7 +101,7 @@ foreach ($RangName as $afrang => $afname) {
 		<tr class="fieldnormallight">
 			<td>Invite ab Rang:</td>
 			<td><select name="invitefor">
-<?
+<?php
 printf("<option %s value=\"%d\">%s</option>\n", $invitefor == -1 ? "selected" : "", -1, "gar nicht");
 foreach ($RangName as $ifrang => $ifname) {
 	printf("<option %s value=\"%d\">%s</option>\n", $invitefor == $ifrang ? "selected" : "", $ifrang, $ifname);
@@ -113,7 +113,7 @@ foreach ($RangName as $ifrang => $ifname) {
 		<tr class="fieldnormaldark">
 			<td>Op vergeben ab Rang:</td>
 			<td><select name="opfor">
-<?
+<?php
 printf("<option %s value=\"%d\">%s</option>\n", $opfor == -1 ? "selected" : "", -1, "gar nicht");
 foreach ($RangName as $ofrang => $ofname) {
 	printf("<option %s value=\"%d\">%s</option>\n", $opfor == $ofrang ? "selected" : "", $ofrang, $ofname);
@@ -126,7 +126,7 @@ foreach ($RangName as $ofrang => $ofname) {
 		<tr class="fieldnormallight">
 			<td>Voice vergeben ab Rang:</td>
 			<td><select name="voicefor">
-<?
+<?php
 printf("<option %s value=\"%d\">%s</option>\n", $voicefor == -1 ? "selected" : "", -1, "gar nicht");
 foreach ($RangName as $vfrang => $vfname) {
 	printf("<option %s value=\"%d\">%s</option>\n", $voicefor == $vfrang ? "selected" : "", $vfrang, $vfname);

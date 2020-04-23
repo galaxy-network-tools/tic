@@ -14,7 +14,7 @@
 			<font size="-1">
 				[ <?=$AllianzTag[$Benutzer['allianz']]?> ] <?=$Benutzer['name']?><br />
 				<img src="<?=$RangImage[$Benutzer['rang']]?>" width="20" height="20" border="0" alt="<?=$RangName[$Benutzer['rang']]?>" title="<?=$RangName[$Benutzer['rang']]?>" align="middle" /> <?=$Benutzer['galaxie']?>:<?=$Benutzer['planet']?>
-<?
+<?php
 	if ($Benutzer['umod'] != '') {
 		echo "				<br /><font size=\"-2\" color=\"#".$htmlstyle['dunkel_blau']."\"><b>".$Benutzer['umod']."</b></font>\n";
 	}
@@ -53,7 +53,7 @@
 	window.onload = serverzeit_anzeigen;
 //-->
 </script>
-<?
+<?php
 	if (@$MetaInfo['sysmsg'] !="") {
 		echo "<br /><div class=\"sysmessage\">\n";
 		echo nl2br(htmlentities($MetaInfo['sysmsg'] ))."\n";

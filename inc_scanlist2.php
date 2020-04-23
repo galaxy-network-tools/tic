@@ -1,4 +1,4 @@
-<?
+<?php
   // File: inc_scanlist2.php
   // by Bytehoppers from CCBLOCK
 

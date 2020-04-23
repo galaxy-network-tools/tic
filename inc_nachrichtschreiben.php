@@ -18,7 +18,7 @@
       </tr>
       <tr class="fieldnormallight">
         <td>
-<?
+<?php
             if ($Benutzer['rang'] >= $Rang_VizeAdmiral) {
                echo '<select name="txtHC">';
                   echo '<option selected="selected" value="META">MetaInfo</option>';
@@ -35,7 +35,7 @@
       </tr>
     </table>
     </form>
-<?
+<?php
             echo '<a href="./main.php?modul=nachrichten" style="font-weight:bold">Alle Nachrichten anzeigen</a>';
 ?>
 </center>

@@ -59,7 +59,7 @@
     </TR>
     <TR>
       <TD>
-<?
+<?php
 // Anzeige des Lastlogins in der Headline
        echo '<P CLASS="dunkel"><B><font size="-1">Spielerinformationen: (last login '.($user_ll?date("d.m.Y H:i", $user_ll):"<i>nie</i>").')</font></B></P>';
 ?>
@@ -115,7 +115,7 @@
         </TABLE>
         <font size="-1"></P> </font></TD>
     </TR>
-    <?
+    <?php
             if ($zeig_umod != '') {
                 echo '<TR><TD><BR></TD></TR>';
                 echo '<TR>';
@@ -172,7 +172,7 @@
     </TR>
     <TR>
       <TD> <font size="-1">
-        <?
+        <?php
                     $SQL_Result = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` WHERE modus="1" AND angreifer_galaxie="'.$zeig_galaxie.'" AND angreifer_planet="'.$zeig_planet.'" ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
                     $SQL_Num = mysql_num_rows($SQL_Result);
                     if ($SQL_Num == 0)
@@ -212,7 +212,7 @@
                 ?>
         </font></TD>
     </TR>
-    <?
+    <?php
 //            if ($Benutzer['rang'] > $Rang_GC || !($Benutzer['rang'] <= $Rang_GC && $Benutzer['galaxie'] != $zeig_galaxie)) {
 
     echo '<TR>';
@@ -240,7 +240,7 @@
     </TR>
     <TR>
       <TD> <font size="-1">
-        <?
+        <?php
                     $SQL_Result = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` WHERE modus="2" AND angreifer_galaxie="'.$zeig_galaxie.'" AND angreifer_planet="'.$zeig_planet.'" ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
                     $SQL_Num = mysql_num_rows($SQL_Result);
                     if ($SQL_Num == 0)
@@ -278,7 +278,7 @@
                 ?>
         </font></TD>
     </TR>
-    <?
+    <?php
 //            if ($Benutzer['rang'] > $Rang_GC || !($Benutzer['rang'] <= $Rang_GC && $Benutzer['galaxie'] != $zeig_galaxie)) {
 
     echo '<TR>';
@@ -306,7 +306,7 @@
     </TR>
     <TR>
       <TD> <font size="-1">
-        <?
+        <?php
                     $zeig_deff='0';
 					$SQL_Result = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` WHERE modus="1" AND verteidiger_galaxie="'.$zeig_galaxie.'" AND verteidiger_planet="'.$zeig_planet.'" ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
                     $SQL_Num = mysql_num_rows($SQL_Result);
@@ -359,7 +359,7 @@
                 ?>
         </font></TD>
     </TR>
-    <?
+    <?php
 //            if ($Benutzer['rang'] > $Rang_GC || !($Benutzer['rang'] <= $Rang_GC && $Benutzer['galaxie'] != $zeig_galaxie)) {
 
     echo '<TR>';
@@ -387,7 +387,7 @@
     </TR>
     <TR>
       <TD> <font size="-1">
-        <?
+        <?php
                     $SQL_Result = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` WHERE modus="2" AND verteidiger_galaxie="'.$zeig_galaxie.'" AND verteidiger_planet="'.$zeig_planet.'" ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
                     $SQL_Num = mysql_num_rows($SQL_Result);
                     if ($SQL_Num == 0)
@@ -426,7 +426,7 @@
                 ?>
         </font></TD>
     </TR>
-    <?
+    <?php
 //            if ($Benutzer['rang'] > $Rang_GC || !($Benutzer['rang'] <= $Rang_GC && $Benutzer['galaxie'] != $zeig_galaxie)) {
 
     echo '<TR>';
@@ -454,7 +454,7 @@
     </TR>
     <TR>
       <TD> <font size="-1">
-        <?
+        <?php
                     $SQL_Result = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` WHERE ( modus="0" or modus="3" or modus="4" ) AND angreifer_galaxie="'.$zeig_galaxie.'" AND angreifer_planet="'.$zeig_planet.'" ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
                     $SQL_Num = mysql_num_rows($SQL_Result);
                     if ($SQL_Num == 0)
@@ -494,6 +494,6 @@
     </TR>
   </TABLE>
 </CENTER>
-<?
+<?php
     }
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 	include('./accdata.php');
 	include('./functions.php');
 	include('./globalvars.php');

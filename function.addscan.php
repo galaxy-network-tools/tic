@@ -6,11 +6,11 @@ class bewegung {
 
 ?>
 <!--
-<?
+<?php
 //print_r($_POST);
 ?>
 -->
-<?
+<?php
 
 function addGalaxieSekScans($galaxiemitglieder) {
 	global $Benutzer;

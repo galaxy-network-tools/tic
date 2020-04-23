@@ -1,4 +1,4 @@
-<?
+<?php
 
 echo "<html><head><title>Parser</title></head>";
 if(isset($parse))

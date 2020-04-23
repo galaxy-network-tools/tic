@@ -24,7 +24,7 @@
         <INPUT TYPE="hidden" NAME="modul" VALUE="anzeigen">
         <INPUT TYPE="hidden" NAME="action" VALUE="flottenbewegung">
         <INPUT TYPE="hidden" NAME="id" VALUE="<?=$_POST['id']?>">
-        <?
+        <?php
             if (!isset($_POST['selected'])) $_POST['selected'] = '';
             if ($_POST['selected'] == 'greiftan') {
                 echo '<INPUT TYPE="hidden" NAME="modus" VALUE="angreifen">';
@@ -105,6 +105,6 @@
   </TR>
 </TABLE>
 </CENTER>
-<?
+<?php
     }
 ?>

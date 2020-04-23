@@ -100,7 +100,7 @@
 		</tr>
 		<tr>
 		<td align="left">
-			<?
+			<?php
 				$sql = "select authnick, handy, messangerID, infotext from gn4accounts where id=".$Benutzer["id"].";";
 				$SQL_Result = tic_mysql_query($sql, $SQL_DBConn);
 				$pdaten = mysql_fetch_array($SQL_Result);

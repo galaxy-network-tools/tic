@@ -1,4 +1,4 @@
-<?
+<?php
 	$tsec = $Ticks['lange']*60;
 
 	// Diverenzberechnung ohne Cron-JOB!!!

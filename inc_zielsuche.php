@@ -1,4 +1,4 @@
-<?
+<?php
     // Filename: inc_zielsuche.php
     // by Bytehoppers from CCBLOCK
     // Variable d[] enthält die Werte
@@ -22,7 +22,7 @@
       <table align="center">
       <tr><td class="datatablehead" colspan="3">Zielsuchsystem</td></tr>
       <tr style="font-weight:bold;" class="fieldnormaldark"><td>Typ</td><td>Funktion</td><td>Wert</td></tr>
-    <?
+    <?php
     $fktopt[0]="=";
     $fktopt[1]="<=";
     $fktopt[2]=">=";

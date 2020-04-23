@@ -54,7 +54,7 @@
 			<th><a class="<?=($_GET['orderby'] == "stype" ? "datatablesortselected":"datatablesort")?>" href="main.php?modul=allianz&amp;allianz=<?=$allianz?>&amp;orderby=stype&amp;orderdir=<?=$orderdir_new?>">Scantyp</a></th>
 			<th><a class="<?=($_GET['orderby'] == "login" ? "datatablesortselected":"datatablesort")?>" href="main.php?modul=allianz&amp;allianz=<?=$allianz?>&amp;orderby=login&amp;orderdir=<?=$orderdir_new?>">Last Login</a></th>
 		</tr>
-<?
+<?php
 	if($_GET['orderdir'] == "desc")
 		$orderdir = "DESC";
 	else

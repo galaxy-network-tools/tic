@@ -149,7 +149,7 @@ window.setTimeout = my_setTimeout;window.setInterval = my_setInterval;window.ope
 
 <h4><font color="white">Bei Problemen beim Login bitte an folgende Leute wenden:
 <table border="0" bgcolor="black">
-<?
+<?php
 include("./accdata.php");
 $DBConn = mysql_connect($db_info['host'], $db_info['user'], $db_info['password']) or die(mysql_errno() . ": " . mysql_error(). "\n");
 mysql_select_db($db_info['dbname'], $DBConn) or die(mysql_errno() . ": " . mysql_error(). "\n");

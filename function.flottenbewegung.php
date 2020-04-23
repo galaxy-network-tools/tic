@@ -1,4 +1,4 @@
-<?
+<?php
 // Ticks
 //	$Ticks['angriffsflug'] = 30;
 //	$Ticks['angriff'] = 5;

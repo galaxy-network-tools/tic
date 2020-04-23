@@ -1,4 +1,4 @@
-<?
+<?php
 // File: ink_ScanHeader.php
 // by Bytehoppers from CCBLOCK
 

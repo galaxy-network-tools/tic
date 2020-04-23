@@ -438,14 +438,14 @@ if($debug == 1){
 				//berechnung des gewählten tickes mit ausgabe
 ?>
 <table border="0" cellspacing="5" cellpadding="0" bgcolor="#999999"><tr><td>
-<?
+<?php
 				if($val[deff] == '') { $tmp = '';} else {$tmp = " <br>Verteidiger:".$val[deff];}
 				echo "Tick: ".$key." >> <br>Opfer: ". $_GET['xgala'].':'.$_GET['xplanet'].$tmp." <br><font color=red>vs.</font><br> Angreifer: ".$val[att]."<br>\n";
 				$gnsimu->Compute($i==$ticks-1);
 				$gnsimu->PrintStates();
 ?>
 </td></tr></table><br>
-<?
+<?php
 				for($i = 0; $i < 9; $i++) {
 					$averlust[$i] = $gnsimu->Oldatt[$i] - $gnsimu->attaking[$i];
 				}
@@ -481,7 +481,7 @@ if($debug == 1){
 echo "\n";
 ?>
 <!-- Überreste der einzelnen Flotten
-<?
+<?php
 reset($flug[angreifer]);
 while(list($key,$val) = each($flug[angreifer])){
  if(trim($key) != "") {

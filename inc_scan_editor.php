@@ -73,7 +73,7 @@ function sek_edit() {
     </tr>
   </table>
 </form>
-<?
+<?php
 }
 
 function unit_edit() {
@@ -169,7 +169,7 @@ function unit_edit() {
     </tr>
   </table>
 </form>
-<?
+<?php
 }
 
 function g_edit() {
@@ -240,7 +240,7 @@ function g_edit() {
     </tr>
   </table>
   </form>
-<?
+<?php
 }
 
 function mili_edit() {
@@ -430,7 +430,7 @@ function mili_edit() {
     </tr>
   </table>
 </form>
-<?
+<?php
 }
 
 if (isset($_POST['scanart'])) {
