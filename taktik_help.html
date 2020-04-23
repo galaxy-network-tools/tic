@@ -1,0 +1,54 @@
+<HTML>
+    <HEAD>
+        <TITLE>Taktik.php Help - T.I.C.</TITLE>
+    </HEAD>
+    <BODY>
+        <B><H2>Taktik.php Help</H2></B>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <B><U>Parameter:</U></B><BR>
+        <BR>
+        <BR>
+        <U>Immer benötigte Parameter:</U><BR>
+        <BR>
+        g - Galaxie des Spielers<BR>
+        p - Planet des Spielers<BR>
+        pw - Passwort des Spielers<BR>
+        [gala - Galaxie deren Flottenbewegungen gelöscht werden sollen. Optional!]<BR>
+        flotten - Alle Flottenbewegungen hintereinander.<BR>
+        <BR>
+        <BR>
+        <U>Flottenbewegung hinzufügen</U><BR>
+        <BR>
+        Syntax einer Flottenbewegung:<BR>
+        MODUS:VON_GALAXIE:VON_PLANET:VON_NAME:ZU_GALAXIE:ZU_PLANET:ZU_NAME:ETA:FLUGZEIT:FLOTTENNUMMER;<BR>
+        <BR>
+        Mehrere Flottenbewegungen dann einfach hintereinander schreiben: FLOTTENBEWEGUNG1;FLOTTENBEEGUNG2;FLOTTEN...<BR>
+        <BR>
+        <BR>
+        <BR>
+        MODUS - Flottenmodus [siehe unten]<BR>
+        VON_GALAXIE - Galaxie des Spieler von dem die Flotte stammt<BR>
+        VON_PLANET - Planet des Spieler von dem die Flotte stammt<BR>
+        VON_NAME - Name des Spieler von dem die Flotte stammt<BR>
+        ZU_GALAXIE - Galaxie des Spieler zu dem die Flotte fliegt<BR>
+        ZU_PLANET - Planet des Spieler zu dem die Flotte fliegt<BR>
+        ZU_NAME - Name des Spieler zu dem die Flotte fliegt<BR>
+        ETA - ETA des Fluges<BR>
+        FLUGZEIT - Angriffs- bzw. Verteidigungsdauer am Ziel<BR>
+        FLOTTENNUMMER - Flottennummer der Flotte [0 = Unbekannt]<BR>
+        <BR>
+        <BR>
+        <U>Modus</U><BR>
+        <BR>
+        <ul>
+        <li>0 = Rückflug (alt bzw. unbenutzt) </li>
+        <li>1 = Angriffsflug</li>
+        <li>2 = Verteidigungsflug</li>
+        <li>3 = Rückflug von Angriff</li>
+        <li>4 = Rückflug von Verteidigung</li>
+        </ul>
+    </BODY>
+</HTML>
