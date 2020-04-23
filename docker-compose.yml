@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  app:
+    image: galaxynetwork/tic
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    # entrypoint: tail -f /dev/null
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/tic
+  database:
+    image: mysql:5.7
+    # ports:
+    #   - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tic
+      MYSQL_USER: tic
+      MYSQL_PASSWORD: tic
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
