@@ -42,10 +42,10 @@ CREATE TABLE `gn4allianzen` (
   `ticid` varchar(5) NOT NULL default '',
   `name` varchar(255) NOT NULL default '',
   `tag` varchar(10) NOT NULL default '',
-  `info_bnds` text NOT NULL,
-  `info_naps` text NOT NULL,
-  `info_inoffizielle_naps` text NOT NULL,
-  `info_kriege` text NOT NULL,
+  `info_bnds` varchar(50) NOT NULL default '',
+  `info_naps` varchar(50) NOT NULL default '',
+  `info_inoffizielle_naps` varchar(50) NOT NULL default '',
+  `info_kriege` varchar(50) NOT NULL default '',
   `code` int(11) NOT NULL default '0',
   `blind` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
@@ -91,7 +91,7 @@ CREATE TABLE `gn4forum` (
   `zeit` varchar(20) NOT NULL default '',
   `belongsto` int(11) NOT NULL default '0',
   `topic` varchar(50) NOT NULL default '',
-  `text` text NOT NULL,
+  `text` varchar(50) NOT NULL default '',
   `allianz` int(11) NOT NULL default '0',
   `priority` bigint(20) NOT NULL default '0',
   `wichtig` int(11) NOT NULL default '0',
@@ -120,7 +120,7 @@ CREATE TABLE `gn4log` (
   `rang` int(11) NOT NULL default '0',
   `allianz` int(11) NOT NULL default '0',
   `zeit` varchar(20) NOT NULL default '',
-  `aktion` text NOT NULL default '',
+  `aktion` varchar(50) NOT NULL default '',
   `type` tinyint(1) NOT NULL default '0',
   `ip` varchar(15) NOT NULL default '',
   PRIMARY KEY  (`id`)
@@ -133,7 +133,7 @@ CREATE TABLE `gn4nachrichten` (
   `name` varchar(60) NOT NULL default '0',
   `titel` varchar(50) NOT NULL default '',
   `zeit` varchar(20) NOT NULL default '',
-  `text` text NOT NULL,
+  `text` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ;";
 
@@ -248,7 +248,7 @@ DROP TABLE IF EXISTS `gn4vars`;
 CREATE TABLE `gn4vars` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
-  `value` text NOT NULL,
+  `value` varchar(50) NOT NULL default '',
   `ticid` varchar(5) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ;";
@@ -258,7 +258,7 @@ DROP TABLE IF EXISTS `gn4meta`;
 CREATE TABLE `gn4meta` (
   `id` tinyint(3) unsigned NOT NULL auto_increment,
   `name` varchar(20) NOT NULL default '',
-  `sysmsg` text NOT NULL,
+  `sysmsg` varchar(255) NOT NULL default '',
   `bnds` varchar(255) NOT NULL default '',
   `naps` varchar(255) NOT NULL default '',
   `wars` varchar(255) NOT NULL default '',
