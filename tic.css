@@ -1,0 +1,331 @@
+.title {
+	background-color:#5e6cd4;
+	padding:0px;
+	margin:0px;
+	font-family: Verdana;
+	font-size: large;
+}
+
+.tabletext { background-color:#888888; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.hell { background-color:#eeeeee; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1px}
+.dunkel { background-color:#dddddd; padding:0px; margin:0px; }
+.hell_rot { background-color:#ffaaaa; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.dunkel_rot { background-color:#ff8888; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.hell_gruen { background-color:#aaffaa; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.dunkel_gruen { background-color:#88ff88; padding:0px; margin:0px; ; font-family: Verdana; font-size: small}
+body {
+	margin:0px;
+	padding:0px;
+	background-image:url('./bilder/skin/background.bmp');
+	scrollbar-DarkShadow-Color:#333333;
+	scrollbar-Track-Color:#F5F5F5;
+	scrollbar-Face-Color:#ffffff;
+	scrollbar-Shadow-Color:#555555;
+	scrollbar-Highlight-Color:#999999;
+	scrollbar-3dLight-Color:#BBBBBB;
+	scrollbar-Arrow-Color:#0000ff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	background-attachment:fixed;
+}
+
+table {
+	font-size: 9pt;
+}
+
+a {
+	text-decoration: none;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+a:visited {
+    text-decoration: none; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1: #ffffff
+}
+a:active {
+    text-decoration: none; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1: ##ffffff
+}
+a:hover {
+    color: #ff0000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: -1
+}
+.normal {  font-family: Verdana; font-size: small}
+.normalrechts { font-family: Verdana; font-size: x-small; text-align: right}
+.stand { background-color:#5e6cd4; padding:0px; margin:0px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; text-align: right}
+.textdunkel { background-color:#ffffff; padding:0px; margin:0px; font-family: Verdana; font-size: small}
+
+.menutop {
+	font-family:sans-serif;
+	font-size:10pt;
+	font-weight:bold;
+	color:#ffffff;
+	background-image:url('bilder/skin/menu_title_bg.bmp');
+	border:1px #000000 solid;
+	height:25px;
+	text-align:left;
+}
+
+
+.menu {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #ffffff;
+	background-image:url('bilder/skin/menu_title_bg.bmp');
+	height:16px;
+	white-space:nowrap;
+	padding-top:2px;
+	text-align:left;
+}
+
+.menu a {
+	text-decoration: none;
+	color:#ffffff;
+}
+
+.menu a:hover {
+	color: #ff0000;
+}
+
+.menu img {
+	border-width:0px;
+}
+
+#ticsummary {
+	font-size: 10pt;
+	padding: 5px 5px 5px 5px;
+	vertical-align: bottom;
+	white-space: nowrap;
+}
+
+#ticsummary td {
+	background-color: #cccccc;
+	color:#000000;
+	white-space: nowrap;
+}
+
+.textincnone {
+	color: #000000;
+}
+
+.textincopen {
+	color: #F00000;
+}
+
+.textincsafe {
+	color: #008000;
+}
+
+.textincovertime {
+	color: #333333;
+}
+
+#ticktime {
+	font-size: 8pt;
+	padding: 2px 2px 2px 2px;
+	white-space: nowrap;
+}
+
+.sysmessage {
+	border-style: solid;
+	border-color: #ff0000;
+	border-width: 1px;
+	background-color: #ffaaaa;
+	color: #990000;
+	margin: 3px;
+	padding: 3px;
+	font-size: 8pt;
+	font-weight: bold;
+	text-align: left;
+	width:500px;
+}
+
+.sysmessage font {
+	color: #ff0000;
+	font-size: 8pt;
+	font-weight: bold;
+}
+
+
+
+.datatable {
+	font-size: 8pt;
+	color: #000000;	
+	white-space: nowrap;
+}
+
+.datatable a:link {
+	color: #0000cc;
+	text-decoration: none;
+}
+
+.datatable a:visited {
+	color: #0000cc;
+	text-decoration: none;
+}
+
+.datatable a:hover {
+	color: #6666cc;
+	text-decoration: none;
+}
+
+.datatable a:active {
+	color: #0000cc;
+	text-decoration: none;
+}
+
+.datatablehead {
+	font-size: 9pt;
+/*	background-color: #666666; */
+	background-image:url('bilder/skin/menu_title_bg.bmp');
+	color: #ffffff;	
+	white-space: nowrap;
+	padding:3px;
+	font-weight:bold;
+}
+
+.datatablefoot {
+    background-color:#999999;
+}
+
+.datatablesort {
+	color: #dddd66;
+}
+
+.datatablesortselected {
+	color: #dd6666;
+}
+
+.fieldinclight {
+	background-color: #ffaaaa;
+	color: #000000;
+}
+
+.fieldincdark {
+	background-color: #ff8888;
+	color: #000000;
+}
+
+.fieldincsafelight {
+	background-color: #aaffaa;
+	color: #000000;
+}
+
+.fieldincsafedark {
+	background-color: #88ff88;
+	color: #000000;
+}
+
+.fieldumodelight {
+	background-color: #aaaaff;
+	color: #000000;
+}
+
+.fieldumodedark {
+	background-color: #8888ff;
+	color: #000000;
+}
+
+.fieldmyselflight {
+	background-color: #aaffaa;
+	color: #000000;
+}
+
+.fieldmyselfdark {
+	background-color: #88ff88;
+	color: #000000;
+}
+
+
+.fieldinactivelight {
+	background-color: #ffaaaa;
+	color: #000000;
+}
+
+.fieldinactivedark {
+	background-color: #ff8888;
+	color: #000000;
+}
+
+.fieldownlight {
+	background-color: #ffffaa;
+	color: #000000;
+}
+
+.fieldowndark {
+	background-color: #ffff88;
+	color: #000000;
+}
+
+.fieldnormallight {
+	background-color: #eeeeee;
+	color: #000000;
+}
+
+.fieldnormaldark {
+	background-color: #DDDDDD;
+	color: #000000;
+}
+
+.fieldscanneronlight {
+	background-color: #aaffaa;
+	color: #000000;	
+}
+
+.fieldscannerondark {
+	background-color: #88ff88;
+	color: #000000;	
+}
+
+.loginwarn {
+	color: #CC0000;
+}
+
+.texttaktik {
+	color: #000000;
+}
+
+.fleetatt {
+	color: #CC0000;
+}
+
+.fleetdeff {
+	color: #009900;
+}
+
+.scanok {
+	color: #009900;
+}
+
+.scanwarn {
+	color: #999900;
+}
+
+.scanold {
+	color: #CC0000;
+}
+
+div.main {
+	border:1px #000000 solid;
+	background-color:#ffffff;
+	padding:4px;
+	text-align: center;
+	position: absolute;
+}
+
+div.navi {
+	position: absolute;
+	left:5px;
+	top:10px;
+	z-index:2;
+}
+
+div.info {
+	top:10px;
+	position:relative;
+}
+
+.error {
+    color:#aa0000;
+}

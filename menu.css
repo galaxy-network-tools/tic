@@ -1,0 +1,46 @@
+.title { background-color:#5e6cd4; padding:0px; margin:0px; ; font-family: Verdana; font-size: large;div.bg background-image: url(../images/bg.jpg);
+}
+.tabletext { background-color:#888888; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.hell { background-color:#eeeeee; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1px}
+.dunkel { background-color:#dddddd; padding:0px; margin:0px; }
+.hell_rot { background-color:#ffaaaa; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.dunkel_rot { background-color:#ff8888; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.hell_gruen { background-color:#aaffaa; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1}
+.dunkel_gruen { background-color:#88ff88; padding:0px; margin:0px; ; font-family: Verdana; font-size: small}
+BODY {
+    scrollbar-DarkShadow-Color:#333333;
+    scrollbar-Track-Color:#F5F5F5;
+    scrollbar-Face-Color:#FFFFFF;
+    scrollbar-Shadow-Color:#555555;
+    scrollbar-Highlight-Color:#999999;
+    scrollbar-3dLight-Color:#BBBBBB;
+    scrollbar-Arrow-Color:#0000FF
+; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1
+}
+A {
+    text-decoration: none;
+    color: #ffffff
+; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1
+}
+A:visited {
+    text-decoration: none; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1: #ffffff
+}
+A:active {
+    text-decoration: none; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1: ##FFFFFF
+}
+A:hover {
+    color: #FF0000
+; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: -1
+}
+.normal {  font-family: Verdana; font-size: small color: #ffffff}
+.normalrechts { font-family: Verdana; font-size: x-small; text-align: right}
+.stand { background-color:#5e6cd4; padding:0px; margin:0px; ; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; text-align: right}
+.textdunkel { background-color:#FFFFFF; padding:0px; margin:0px; ; font-family: Verdana; font-size: small}
+.menu {
+	cursor: hand;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}

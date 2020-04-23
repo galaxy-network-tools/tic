@@ -1,0 +1,16 @@
+Hilfedatei für die Progger von Bots 
+
+diese datei bezieht sich auf die Bot-Fleet.php datei
+
+Folgende Bewegungen sind möglich
+
+greift_an, 
+verteidigt, 
+wird_angegriffen, 
+wird_verteidigt
+
+Eine Zeile sieht dann wie folgt aus:
+
+http://localhost/tic/bot-fleet.php?typ=greift_an&ursprungsgala=894&ursprungssek=2&ursprungsname=Maier&zielgala=798&zielsek=5&zielname=UniSolo&eta=440&flotte=1&flugzeit=75&rueckkehr=0
+
+MFG Pretoreaner
