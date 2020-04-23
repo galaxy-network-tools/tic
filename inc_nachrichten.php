@@ -1,7 +1,7 @@
 <center>
     <h1>Nachrichten</h1>
     (neues aus den Allies und dem T.I.C.)<br />
-    <?PHP
+    <?php
         $ccode = "333333";
         if ($Benutzer['rang'] == $Rang_Mitglied) {
            $SQL_Result = tic_mysql_query('SELECT * FROM `gn4nachrichten` where ticid="'.$Benutzer['ticid'].'" OR ticid="alle" ORDER BY id DESC;', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());

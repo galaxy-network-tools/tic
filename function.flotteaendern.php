@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Flottenbewegung ändern
     if ($_POST['action'] == 'flotteaendern') {
         if (!isset($_POST['flottenid'])) $_POST['flottenid'] = '';

@@ -1,4 +1,4 @@
-<?PHP
+<?php
 class bewegung {
 	var $ag, $ap, $vg, $vp, $modus, $safe, $eta, $flottennr, $erfasser, $erfasst_am, $aname, $vname;
 };

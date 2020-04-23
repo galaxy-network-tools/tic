@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Informationen ändern
 	if ($_POST['action'] == 'infoaendern') {
 		if (!isset($_POST['txtSVs']))		$_POST['txtSVs'] = 0;

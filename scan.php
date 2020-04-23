@@ -1,4 +1,4 @@
-<?PHP
+<?php
     include('./accdata.php');
 
     // Verbindung zur Datenbank aufbauen

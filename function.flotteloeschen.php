@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Flottenbewegung löschen
     if ($_POST['action'] == 'flotteloeschen') {
         if (!isset($_POST['flottenid'])) $_POST['flottenid'] = '';

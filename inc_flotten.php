@@ -1,4 +1,4 @@
-<?PHP
+<?php
     if (!isset($_POST['id'])) $_POST['id'] = 0;
     if ($_POST['id'] == 0) $error_code = 8;
     $SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE id="'.$_POST['id'].'";', $SQL_DBConn) or $error_code = 4;

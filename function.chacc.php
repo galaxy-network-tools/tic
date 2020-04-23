@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Accountinformationen ändern
     if ($_GET['action'] == 'chacc') {
         if (!isset($_GET['id'])) $_GET['id'] = '';

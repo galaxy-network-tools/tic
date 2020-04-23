@@ -1,4 +1,4 @@
-<?PHP
+<?php
     include('./accdata.php');
 
     $SQL_DBConn = mysql_connect($db_info['host'], $db_info['user'], $db_info['password']);

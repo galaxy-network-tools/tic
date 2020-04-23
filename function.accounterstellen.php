@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Account erstellen
     if ($_POST['action'] == 'accounterstellen') {
         $SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE UPPER(name)=UPPER("'.$_POST['txtAccName'].'") OR (galaxie="'.$_POST['txtAccGalaxie'].'" AND planet="'.$_POST['txtAccPlanet'].'");', $SQL_DBConn) or $error_code = 4;

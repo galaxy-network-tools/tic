@@ -1,4 +1,4 @@
-<?PHP
+<?php
     include('./accdata.php');
     include('./functions.php');
 

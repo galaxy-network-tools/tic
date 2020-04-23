@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // ATT-Planer Administration / Configuration
     if (!isset($_POST['fkt'])) $_POST['fkt'] = '';
 

@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
     $passwort = $_GET['passwort'];
     if (!isset($_GET['passwort'])) $passwort = '';

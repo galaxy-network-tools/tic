@@ -1,4 +1,4 @@
-<?PHP
+<?php
     if (isset($_POST['faction'])) $faction = $_POST['faction'];
     if (isset($_POST['ftopic'])) $ftopic = $_POST['ftopic'];
     if (isset($_POST['falli'])) $falli = $_POST['falli'];

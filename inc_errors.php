@@ -1,4 +1,4 @@
-<?PHP
+<?php
     $error_code_message[1] = 'Konnte keine Verbindung zur Datenbank aufbauen.';
     $error_code_message[2] = 'Konnte Datenbank nicht auswählen.';
     $error_code_message[3] = 'Sie sind momentan nicht eingelogt.';

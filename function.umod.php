@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // U-Mod einstellen
     if ($_POST['action'] == 'umod') {
         if (!isset($_POST['UModID'])) $_POST['UModID'] = '';

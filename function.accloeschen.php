@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Account löschen
     if ($_GET['action'] == 'accloeschen') {
         if (!isset($_GET['id'])) $_GET['id'] = '';

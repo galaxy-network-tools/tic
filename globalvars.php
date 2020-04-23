@@ -1,4 +1,4 @@
-<?PHP
+<?php
     // Raenge
     $RangName[0] = 'Mitglied';
     $RangName[1] = 'Kommodore';

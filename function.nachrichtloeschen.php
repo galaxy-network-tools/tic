@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Nachricht löschen
     if ($_POST['action'] == 'nachrichtloeschen') {
         if ($Benutzer['rang'] < $Rang_GC)

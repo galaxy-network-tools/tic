@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // Nachricht schreiben
     if ($_POST['action'] == 'nachrichtschreiben') {
         if ($Benutzer['rang'] <= $Rang_GC)

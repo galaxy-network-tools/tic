@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /*
     print("typ           ".$_GET['typ']           ."<br>" );
     print("ursprungsgala ".$_GET['ursprungsgala'] ."<br>" );

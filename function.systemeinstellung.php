@@ -1,4 +1,4 @@
-<?PHP
+<?php
 // System-/Allianzeinstellungen ändern
     if ($_POST['action'] == 'systemeinstellung') {
         if ($Benutzer['rang'] <= $Rang_GC)

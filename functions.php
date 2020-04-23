@@ -1,4 +1,4 @@
-<?PHP
+<?php
     function GetScans($SQL_DBConn, $galaxie, $planet) {
         $scan_type[0] = 'S';
         $scan_type[1] = 'E';
