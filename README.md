@@ -16,10 +16,10 @@ If you want to clear the database and start from scratch:
 
     $ docker volume rm tic_mysql-data
 
-In your browser go to `http://localhost`to see the TIC. Start the initial setup procedure by going to `http://localhost/installer` and follow the steps there.
+In your browser go to `http://localhost` to see the TIC. Start the initial setup procedure by going to `http://localhost/installer` and follow the steps there.
 
 ### Notes
 
-docker-compose starts a MySQL server to hold the data. An initial user `root` will be automatically created with the password `root`. A database is automatically created called `tic`, to which `root`has full access as serveradmin.
+docker-compose starts a MySQL server to hold the data. An initial user `root` will be automatically created with the password `root`. A database is automatically created called `tic`, to which `root` has full access as serveradmin.
 
 **DISCLAIMER:** DO NOT USE THIS IN PRODUCTION!!!!
