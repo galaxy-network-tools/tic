@@ -1,6 +1,6 @@
 # Tactical Information Center
 This project is an aditional website-software for the online game www.galaxy-network.de.
-You coordinate the whole tactic of it of your alliance without the restrictions you' ve got in Galaxy-Network. 
+You coordinate the whole tactic of it of your alliance without the restrictions you' ve got in Galaxy-Network.
 The project is written in PHP and uses Mysql.
 
 This code base on the version 1.36.3
@@ -8,21 +8,18 @@ This code base on the version 1.36.3
 
 ## Running with Docker
 
-This project can be run as a Docker container
+This project can be run as a Docker container:
 
-## ToDos
+    $ docker-compose down --remove-orphans && docker-compose build && docker-compose up
 
-### Webserver
+If you want to clear the database and start from scratch:
 
-### PHP (Welche Version?)
+    $ docker volume rm tic_mysql-data
 
-### MySQL (Welche Version?)
+In your browser go to `http://localhost`to see the TIC. Start the initial setup procedure by going to `http://localhost/installer` and follow the steps there.
 
-## Some HowTos
+### Notes
 
-### Interacting with Postman
+docker-compose starts a MySQL server to hold the data. An initial user `root` will be automatically created with the password `root`. A database is automatically created called `tic`, to which `root`has full access as serveradmin.
 
-Interacting with TIC via Postman can help you better understand how it reacts and which requests do what.
-
-I will also provide a Postman collection as soon as I can to help you work with it.
-
+**DISCLAIMER:** DO NOT USE THIS IN PRODUCTION!!!!
