@@ -29,6 +29,10 @@ RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm \
 RUN yum install -y \
     vim
 
+RUN yum-config-manager --enable remi-php56 \
+    && yum install -y \
+    php-xdebug
+
 RUN mkdir -p /run/php-fpm
 
 COPY docker/etc /etc
