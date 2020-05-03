@@ -31,14 +31,14 @@ function addGalaxieSekScans($galaxiemitglieder) {
 
 function parseBewegung($in, $modus, $bew_html, $eta_html, $gala, $pos, $myname, &$flottenbewegungen) {
 	global $Ticks;
-	
+
 	preg_match_all('/(-)*([0-9]+):([0-9]+) (.*?)<br>/', $bew_html, $mao, PREG_SET_ORDER);
 	preg_match_all('/<nobr>([^<]+)<\/nobr>/', $eta_html, $maoe, PREG_SET_ORDER);
 
 	/*echo $eta_html."\n";
 	print_r($mao); echo "\n";
 	print_r($maoe); echo "\n";*/
-	
+
 	foreach($mao as $num=>$att) {
 		$bew = new bewegung();
 
@@ -50,7 +50,7 @@ function parseBewegung($in, $modus, $bew_html, $eta_html, $gala, $pos, $myname, 
 		if ($in && $modus == 2 && $gala == $mao[$num][2]) {
 			continue;
 		}
-	
+
 		if ($in) {
 			$bew->vg = $gala;
 			$bew->vp = $pos;
@@ -82,16 +82,16 @@ function parseBewegung($in, $modus, $bew_html, $eta_html, $gala, $pos, $myname, 
 		}
 
 		array_push($flottenbewegungen, array(
-			"modus" => $bew->modus, 
-			"start_galaxie" => $bew->ag, 
-			"start_planet" => $bew->ap, 
-			"start_name" => $bew->aname, 
-			"ziel_galaxie" => $bew->vg, 
-			"ziel_planet" => $bew->vp, 
-			"ziel_name" => $bew->vname, 
-			"eta" => $bew->eta, 
-			"fleet" => 0, 
-			"safe" => 0, 
+			"modus" => $bew->modus,
+			"start_galaxie" => $bew->ag,
+			"start_planet" => $bew->ap,
+			"start_name" => $bew->aname,
+			"ziel_galaxie" => $bew->vg,
+			"ziel_planet" => $bew->vp,
+			"ziel_name" => $bew->vname,
+			"eta" => $bew->eta,
+			"fleet" => 0,
+			"safe" => 0,
 			"mod" => 0
 		));
 	}
@@ -104,6 +104,14 @@ function parseLine( $line_in) {
 	$templine = str_replace( '.', '', $templine );
 
 	return explode( ' ', trim( $templine ));
+}
+
+function grabShipData($data) {
+    if (empty($data)) {
+        return 0;
+    } else {
+        return trim($data);
+    }
 }
 
 // Uebergebene Werte setzen
@@ -143,8 +151,8 @@ function parseLine( $line_in) {
 					$html = preg_replace('/<a href=."http:\/\/www.galaxy-network.de\/game\/comsys.php\?action=sendmsg&toid1=([0-9]+)&toid2=([0-9]+)(&sid=[a-z0-9]+){0,1}.">(.*?)<\/a>/i', "$4", $html);
 					$html = preg_replace('/<a href=."comsys.php\?action=sendmsg&toid1=([0-9]+)&toid2=([0-9]+)(&sid=[a-z0-9]+){0,1}.">(.*?)<\/a>/i', "$4", $html);
 					$html = preg_replace('/R.{0,3}ckflug *<br>\((.*?) *\)/i', "-$1", $html);
-				
-				
+
+
 					$members = array();
 
 					$i = preg_match_all('/.*?tr class=."R.">(.*?)<\/tr>/i', $html, $matches, PREG_PATTERN_ORDER);
@@ -154,11 +162,11 @@ function parseLine( $line_in) {
 					}; // 5
 
 					preg_match('/<td class=."welcometext.">Willkommen.*?([0-9]+):[0-9]+\)\!<\/td>/i', $html, $mm);
-					$this_galaxy = $mm[1];	
+					$this_galaxy = $mm[1];
 
 
 					foreach ($members as $member) { // 5
-						if (preg_match('/<td class=."r.">(.*?):(.*?)<\/td>.*<td class=."r2.">(.*?)[ *]*<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>/i', 
+						if (preg_match('/<td class=."r.">(.*?):(.*?)<\/td>.*<td class=."r2.">(.*?)[ *]*<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>.*?<td>(.*?)<\/td>.*?<td class=."r2.">(.*?)<\/td>/i',
 								$member, $matches) == 1) { // 6
 							$gala = $matches[1];
 							$pos = $matches[2];
@@ -171,7 +179,7 @@ function parseLine( $line_in) {
 							$at_in_etas = $matches[9];
 							$de_in = $matches[10];
 							$de_in_etas = $matches[11];
-							
+
 							/*if ($Benutzer['name'] == 'daishan') {
 								echo "at out\n";
 								print_r($at_out);
@@ -353,7 +361,7 @@ function parseLine( $line_in) {
 								$flotten = explode(chr(13).chr(10), $taktik[$i][7]);
 								$etas = explode(chr(13).chr(10), $taktik[$i][8]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
-									if (strpos($etas[$ii], ":")>0) { // 9 
+									if (strpos($etas[$ii], ":")>0) { // 9
 										if (ereg("00:00", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
@@ -375,7 +383,7 @@ function parseLine( $line_in) {
 											array_push($flottenbewegungen, array("modus" => $modus, "start_galaxie" => $flotte_galaxy, "start_planet" => $flotte_planet, "start_name" => $flotte_name, "ziel_galaxie" => $local_galaxy, "ziel_planet" => $local_planet, "ziel_name" => $local_name, "eta" => $etas[$ii], "fleet" => 0, "safe" => 0, "mod" => 0));
 									} // 9
 								} // 8
-							} // 7 
+							} // 7
 						} // 6
 					} // 5
 				}; // 4
@@ -436,13 +444,13 @@ function parseLine( $line_in) {
 
 			} // 3
 
-			if (ereg("(Galaxiemitglieder[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) || 
+			if (ereg("(Galaxiemitglieder[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) ||
 					ereg("Galaxiemitglieder.*Nachricht an die gesamte Galaxie senden", urldecode($txtScanOrg), $throwaway)) { // 3
 				$text_in = $ereg_tmp[1];
 				$html = urldecode($txtScanOrg);
 				if (preg_match('/DC.Publisher/', $html)) { // 4: Wir haben HTML-Code bekommen!
 					preg_match('/<td class="welcometext">Willkommen.*?([0-9]+):[0-9]+\)\!<\/td>/i', $html, $mm);
-					$this_galaxy = $mm[1];	
+					$this_galaxy = $mm[1];
 
 					$html = preg_replace('/[\n\r]+/mi', "", $html);
 					$html = preg_replace('/.*Galaxiemitglieder/', '', $html);
@@ -571,61 +579,61 @@ function parseLine( $line_in) {
                 } // 4
 
                 $daten = parseLine( $zeilen[$idx] );            // Jäger
-                $scan_sf0j = trim(   $daten[1]);
-                $scan_sf1j = trim(   $daten[2]);
-                $scan_sf2j = trim(   $daten[3]);
+                $scan_sf0j = grabShipData($daten[1]);
+                $scan_sf1j = grabShipData($daten[2]);
+                $scan_sf2j = grabShipData($daten[3]);
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx] );            // bomber
-                $scan_sf0b = trim(   $daten[1]);
-                $scan_sf1b = trim(   $daten[2]);
-                $scan_sf2b = trim(   $daten[3]);
+                $scan_sf0b = grabShipData($daten[1]);
+                $scan_sf1b = grabShipData($daten[2]);
+                $scan_sf2b = grabShipData($daten[3]);
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx] );            // fregs
-                $scan_sf0f = trim(   $daten[1]);
-                $scan_sf1f = trim(   $daten[2]);
-                $scan_sf2f = trim(   $daten[3]);
+                $scan_sf0f = grabShipData($daten[1]);
+                $scan_sf1f = grabShipData($daten[2]);
+                $scan_sf2f = grabShipData($daten[3]);
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx] );            // zerries
-                $scan_sf0z = trim(   $daten[1]);
-                $scan_sf1z = trim(   $daten[2]);
-                $scan_sf2z = trim(   $daten[3]);
+                $scan_sf0z = grabShipData($daten[1]);
+                $scan_sf1z = grabShipData($daten[2]);
+                $scan_sf2z = grabShipData($daten[3]);
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx]);            // kreuzer
-                $scan_sf0kr = trim(   $daten[1]);
-                $scan_sf1kr = trim(   $daten[2]);
-                $scan_sf2kr = trim(   $daten[3]);
+                $scan_sf0kr = grabShipData($daten[1]);
+                $scan_sf1kr = grabShipData($daten[2]);
+                $scan_sf2kr = grabShipData($daten[3]);
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx] );            // schlachter
-                $scan_sf0sa = trim(   $daten[1]);
-                $scan_sf1sa = trim(   $daten[2]);
-                $scan_sf2sa = trim(   $daten[3]);
+                $scan_sf0sa = grabShipData($daten[1]);
+                $scan_sf1sa = grabShipData($daten[2]);
+                $scan_sf2sa = grabShipData($daten[3]);
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx] );            // träger
-                $scan_sf0t  = trim(   $daten[1]);
-                $scan_sf1t  = trim(   $daten[2]);
-                $scan_sf2t  = trim(   $daten[3]);
+                $scan_sf0t = grabShipData($daten[1]);
+                $scan_sf1t = grabShipData($daten[2]);
+                $scan_sf2t = grabShipData($daten[3]);
 
-                $sf0ko = 0;
-                $sf1ko = 0;
-                $sf2ko = 0;
+                $sf0ko = $scan_sf0ko = 0;
+                $sf1ko = $scan_sf1ko = 0;
+                $sf2ko = $scan_sf2ko = 0;
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx] );            // Kaper
-                $scan_sf0ka = trim(   $daten[1]);
-                $scan_sf1ka = trim(   $daten[2]);
-                $scan_sf2ka = trim(   $daten[3]);
+                $scan_sf0ka = grabShipData($daten[1]);
+                $scan_sf1ka = grabShipData($daten[2]);
+                $scan_sf2ka = grabShipData($daten[3]);
 
                 $idx++;
                 $daten = parseLine( $zeilen[$idx] );            // schutzies
-                $scan_sf0su = trim(   $daten[1]);
-                $scan_sf1su = trim(   $daten[2]);
-                $scan_sf2su = trim(   $daten[3]);
+                $scan_sf0su = grabShipData($daten[1]);
+                $scan_sf1su = grabShipData($daten[2]);
+                $scan_sf2su = grabShipData($daten[3]);
 
 
                 $scan_status0 = 4;
@@ -640,7 +648,28 @@ function parseLine( $line_in) {
                 $insert_values = $insert_values.', "'.$scan_sf1j.'", "'.$scan_sf1b.'", "'.$scan_sf1f.'", "'.$scan_sf1z.'", "'.$scan_sf1kr.'", "'.$scan_sf1sa.'", "'.$scan_sf1t.'", "'.$scan_sf1ko.'", "'.$scan_sf1ka.'", "'.$scan_sf1su.'", "'.$scan_status1.'"';
                 $insert_values = $insert_values.', "'.$scan_sf2j.'", "'.$scan_sf2b.'", "'.$scan_sf2f.'", "'.$scan_sf2z.'", "'.$scan_sf2kr.'", "'.$scan_sf2sa.'", "'.$scan_sf2t.'", "'.$scan_sf2ko.'", "'.$scan_sf2ka.'", "'.$scan_sf2su.'", "'.$scan_status2.'"';
                 addgnuser($scan_rg, $scan_rp, $scan_rn);
-                $SQL_Result = tic_mysql_query('INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, '.$insert_names.') VALUES ("'.$scan_type.'", "'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'", "'.$Benutzer['galaxie'].'", "'.$Benutzer['planet'].'", "'.$scan_rg.'", "'.$scan_rp.'", "'.$scan_gen.'", '.$insert_values.');', $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben');
+                $SQL_Result = tic_mysql_query(
+                    'INSERT INTO `gn4scans` (
+                            type,
+                            zeit,
+                            g,
+                            p,
+                            rg,
+                            rp,
+                            gen,
+                            '.$insert_names.'
+                        ) VALUES (
+                            "'.$scan_type.'",
+                            "'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'",
+                            "'.$Benutzer['galaxie'].'",
+                            "'.$Benutzer['planet'].'",
+                            "'.$scan_rg.'",
+                            "'.$scan_rp.'",
+                            "'.$scan_gen.'",
+                            '.$insert_values.'
+                        );',
+                        $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben'
+                );
 
                 // insert unit  ............................................
                 $scan_type = 1;
@@ -666,7 +695,7 @@ function parseLine( $line_in) {
                 $scan_sft  = $scan_sf0t  + $scan_sf1t + $scan_sf2t;
 
                 // komisches ding
-                $sfko = 0;
+                $sfko = $scan_sfko = 0;
 
                 // Kaper
                 $scan_sfka = $scan_sf0ka + $scan_sf1ka + $scan_sf2ka;
@@ -801,53 +830,53 @@ function parseLine( $line_in) {
 					} // 4
 
 					$daten = parseLine( $zeilen[4]);            // Jäger
-					$scan_sf0j = trim(   $daten[3]);
-					$scan_sf1j = trim(   $daten[4]);
-					$scan_sf2j = trim(   $daten[5]);
+                    $scan_sf0j = grabShipData($daten[3]);
+                    $scan_sf1j = grabShipData($daten[4]);
+                    $scan_sf2j = grabShipData($daten[5]);
 
 					$daten = parseLine( $zeilen[5]);            // bomber
-					$scan_sf0b = trim(   $daten[3]);
-					$scan_sf1b = trim(   $daten[4]);
-					$scan_sf2b = trim(   $daten[5]);
+                    $scan_sf0b = grabShipData($daten[3]);
+                    $scan_sf1b = grabShipData($daten[4]);
+                    $scan_sf2b = grabShipData($daten[5]);
 
 					$daten = parseLine( $zeilen[6]);            // fregs
-					$scan_sf0f = trim(   $daten[3]);
-					$scan_sf1f = trim(   $daten[4]);
-					$scan_sf2f = trim(   $daten[5]);
+                    $scan_sf0f = grabShipData($daten[3]);
+                    $scan_sf1f = grabShipData($daten[4]);
+                    $scan_sf2f = grabShipData($daten[5]);
 
 					$daten = parseLine( $zeilen[7]);            // zerries
-					$scan_sf0z = trim(   $daten[3]);
-					$scan_sf1z = trim(   $daten[4]);
-					$scan_sf2z = trim(   $daten[5]);
+                    $scan_sf0z = grabShipData($daten[3]);
+                    $scan_sf1z = grabShipData($daten[4]);
+                    $scan_sf2z = grabShipData($daten[5]);
 
 					$daten = parseLine( $zeilen[8]);            // kreuzer
-					$scan_sf0kr = trim(   $daten[3]);
-					$scan_sf1kr = trim(   $daten[4]);
-					$scan_sf2kr = trim(   $daten[5]);
+                    $scan_sf0kr = grabShipData($daten[3]);
+                    $scan_sf1kr = grabShipData($daten[4]);
+                    $scan_sf2kr = grabShipData($daten[5]);
 
 					$daten = parseLine( $zeilen[9]);            // schlachter
-					$scan_sf0sa = trim(   $daten[3]);
-					$scan_sf1sa = trim(   $daten[4]);
-					$scan_sf2sa = trim(   $daten[5]);
+                    $scan_sf0sa = grabShipData($daten[3]);
+                    $scan_sf1sa = grabShipData($daten[4]);
+                    $scan_sf2sa = grabShipData($daten[5]);
 
 					$daten = parseLine( $zeilen[10]);            // träger
-					$scan_sf0t  = trim(   $daten[3]);
-					$scan_sf1t  = trim(   $daten[4]);
-					$scan_sf2t  = trim(   $daten[5]);
+                    $scan_sf0t = grabShipData($daten[3]);
+                    $scan_sf1t = grabShipData($daten[4]);
+                    $scan_sf2t = grabShipData($daten[5]);
 
-					$sf0ko = 0;
-					$sf1ko = 0;
-					$sf2ko = 0;
+					$sf0ko = $scan_sf0ko = 0;
+					$sf1ko = $scan_sf1ko = 0;
+					$sf2ko = $scan_sf2ko = 0;
 
 					$daten = parseLine( $zeilen[11]);            // Kaper
-					$scan_sf0ka = trim(   $daten[3]);
-					$scan_sf1ka = trim(   $daten[4]);
-					$scan_sf2ka = trim(   $daten[5]);
+                    $scan_sf0ka = grabShipData($daten[3]);
+                    $scan_sf1ka = grabShipData($daten[4]);
+                    $scan_sf2ka = grabShipData($daten[5]);
 
 					$daten = parseLine( $zeilen[12]);            // schutzies
-					$scan_sf0su = trim(   $daten[3]);
-					$scan_sf1su = trim(   $daten[4]);
-					$scan_sf2su = trim(   $daten[5]);
+                    $scan_sf0su = grabShipData($daten[3]);
+                    $scan_sf1su = grabShipData($daten[4]);
+                    $scan_sf2su = grabShipData($daten[5]);
 
 					$ipos = parseLine( $zeilen[13]);
 
@@ -934,7 +963,7 @@ function parseLine( $line_in) {
 					$scan_sfkr = $scan_sf0kr + $scan_sf1kr + $scan_sf2kr; // kreuzer
 					$scan_sfsa = $scan_sf0sa + $scan_sf1sa + $scan_sf2sa; // schlachter
 					$scan_sft  = $scan_sf0t  + $scan_sf1t + $scan_sf2t; // träger
-					$sfko = 0; // komisches ding
+					$sfko = $scan_sfko = 0; // komisches ding
 					$scan_sfka = $scan_sf0ka + $scan_sf1ka + $scan_sf2ka; // Kaper
 					$scan_sfsu = $scan_sf0su + $scan_sf1su +$scan_sf2su; // schutzies
 
@@ -966,7 +995,7 @@ function parseLine( $line_in) {
             $txtScanGalaxie = $scan_rg;
             $txtScanPlanet = $scan_rp;
         } else { // 1
-		$error_code = 6; 
+		$error_code = 6;
 	}; // 1
 
     // Abrafax:
@@ -979,5 +1008,5 @@ function parseLine( $line_in) {
     } // 0
 
 //error_reporting (E_ALL ^ E_NOTICE);
-    
+
 ?>
