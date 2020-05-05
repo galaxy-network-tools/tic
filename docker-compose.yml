@@ -10,7 +10,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/var/www/tic
+      - ./src:/var/www/tic
   database:
     image: mysql:5.7
     # ports:
