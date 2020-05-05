@@ -18,6 +18,18 @@ If you want to clear the database and start from scratch:
 
 In your browser go to `http://localhost` to see the TIC. Start the initial setup procedure by going to `http://localhost/installer` and follow the steps there.
 
+## Deployment
+
+For now this project is deployed like so:
+
+Archive & scp the entire tic folder to the server, unarchive it there:
+
+    $ tar -czf tic.tar.gz tic
+    $ scp tic.tar.gz your-user@your-server:~/tic.tar.gz
+    $ ssh user@server
+    $ tar -xf tic.tar.gz
+    $ cd tic/
+
 ### Notes
 
 docker-compose starts a MySQL server to hold the data. An initial user `root` will be automatically created with the password `root`. A database is automatically created called `tic`, to which `root` has full access as serveradmin.
