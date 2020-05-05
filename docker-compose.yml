@@ -18,8 +18,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: tic
-      MYSQL_USER: tic
-      MYSQL_PASSWORD: tic
     volumes:
       - mysql-data:/var/lib/mysql
 

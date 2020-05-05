@@ -105,6 +105,7 @@
 	else
 		$modul = "nachrichten";
 
+    // Get the logged in user
 	$SQL_Result2 = tic_mysql_query("SELECT pts, s, d, me, ke FROM `gn4scans` WHERE rg='".$Benutzer['galaxie']."' AND rp='".$Benutzer['planet']."' AND type='0'") or die(tic_mysql_error(__FILE__,__LINE__));
 	if (mysql_num_rows($SQL_Result2) != 1)
 	{
