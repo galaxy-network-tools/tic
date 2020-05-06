@@ -95,7 +95,7 @@
         if ($modus == "rueckflug" || $modus == "rueckflug_angreifen" ||$modus == "rueckflug_verteidigen")
         {
             $_ankunft  = 0;
-            $_flugzeit = 0;
+            $_flugzeit = $lst_Flugzeit = 0;
             $_ruckflug = $_time + ($lst_ETA * $tsec);
         }
 
