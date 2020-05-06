@@ -10,25 +10,44 @@ This code base on the version 1.36.3
 
 This project can be run as a Docker container:
 
-    $ docker-compose down --remove-orphans && docker-compose build && docker-compose up
+    $ docker-compose down --remove-orphans && docker-compose build && docker-compose up -d
 
-If you want to clear the database and start from scratch:
+What does this do?
+
+`docker-compose down --remove-orphans` will shutdown any existing Docker composition currently running, removing containers instead of just stopping them. The containers are stateless so this is no problem.
+
+`docker-compose build` will make sure that the Docker image for the app container is always freshly built to make sure that code updates are installed.
+
+Finally `docker-compose up -d` will bring the container(s) up and running, both the application container as well as a database container. They will be started in detached mode (`-d` flag), meaning they will run in the background.
+
+If you want to clear the database and start from scratch (backup your Docker volume if you want to keep the data for later, `volume rm` cannot be undone unless backups are made):
 
     $ docker volume rm tic_mysql-data
 
 In your browser go to `http://localhost` to see the TIC. Start the initial setup procedure by going to `http://localhost/installer` and follow the steps there.
 
-## Deployment
+### Deployment
 
-For now this project is deployed like so:
+Requirements:
 
-Archive & scp the entire tic folder to the server, unarchive it there:
+You need to have a server running Docker ([HowTo](https://docs.docker.com/get-docker/)). `docker-compose` needs to be installed ([HowTo](https://docs.docker.com/compose/install/)).
 
-    $ tar -czf tic.tar.gz tic
-    $ scp tic.tar.gz your-user@your-server:~/tic.tar.gz
-    $ ssh user@server
-    $ tar -xf tic.tar.gz
-    $ cd tic/
+For now this project is deployed via git checkout:
+
+    $ cd <your-project-root-folder>
+    $ git checkout https://github.com/galaxy-network-tools/tic.git
+    $ cd tic
+
+    # Then start docker-compose as mentioned above
+
+### Updating
+
+To get code updates, pull the master branch:
+
+    $ cd <your-project-root-folder>
+    $ git pull
+
+    # Then run docker-compose as mentioned above
 
 ### Notes
 
