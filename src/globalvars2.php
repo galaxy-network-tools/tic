@@ -2,13 +2,13 @@
     // Global Vars 2 für Funktions
 
     // Schiffe
-    $Schiffe[0] = 'j';      // Jï¿½er
+    $Schiffe[0] = 'j';      // Jäger
     $Schiffe[1] = 'b';      // Bomber
     $Schiffe[2] = 'f';      // Fregatte
-    $Schiffe[3] = 'z';      // Zerstï¿½er
+    $Schiffe[3] = 'z';      // Zerstörer
     $Schiffe[4] = 'kr';     // Kreuzer
     $Schiffe[5] = 'sa';     // Schlachtschiff
-    $Schiffe[6] = 't';      // Trï¿½erschiff
+    $Schiffe[6] = 't';      // Trägererschiff
     $Schiffe[7] = 'ko';     // Kommandoschiff
     $Schiffe[8] = 'ka';     // Kaperschiff
     $Schiffe[9] = 'su';     // Schutzschiff
@@ -29,7 +29,7 @@
     $Defensiv[1] = 'lr';    // Leichtes Raumgeschtz
     $Defensiv[2] = 'mr';    // Mittleres Raumgeschtz
     $Defensiv[3] = 'sr';    // Schweres Raumgeschtz
-    $Defensiv[4] = 'a';     // Abfangjï¿½er
+    $Defensiv[4] = 'a';     // Abfangjäger
     $Defensiv[5] = 'r';     // Raumbasis
 
     $DF[0] = 'Leichtes Geschütz - Rubium';

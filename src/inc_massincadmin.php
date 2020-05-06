@@ -24,13 +24,13 @@
 
     $sql = 'SELECT name, value from `gn4vars` WHERE name="admin" or name="assi" ';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    $count = mysql_num_rows($SQL_Result);
+    $count = mysqli_num_rows($SQL_Result);
     for ( $i=0; $i<$count; $i++ ) {
-        $user_value[$i] = mysql_result($SQL_Result, $i, 'value' );
+        $user_value[$i] = tic_mysql_result($SQL_Result, $i, 'value' );
         $user_trennen = explode(":", $user_value[$i]);
         $user_galaxy[$i] = $user_trennen[0];
         $user_planet[$i] = $user_trennen[1];
-        $user_type[$i]   = mysql_result($SQL_Result, $i, 'name' );
+        $user_type[$i]   = tic_mysql_result($SQL_Result, $i, 'name' );
 
         if ( $user_galaxy[$i] == $Benutzer['galaxie'] and $user_planet[$i] == $Benutzer['planet'] ) {
             $allowed = 1;
@@ -112,13 +112,13 @@
     }
     $sql = 'SELECT name, value from `gn4vars` WHERE name="scanner" ';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    $count = mysql_num_rows($SQL_Result) or $count=0;
+    $count = mysqli_num_rows($SQL_Result) or $count=0;
     for ( $i=0; $i<$count; $i++ ) {
-        $user_value[$i] = mysql_result($SQL_Result, $i, 'value' );
+        $user_value[$i] = tic_mysql_result($SQL_Result, $i, 'value' );
         $user_trennen = explode(":", $user_value[$i]);
         $user_galaxy[$i] = $user_trennen[0];
         $user_planet[$i] = $user_trennen[1];
-        $user_type[$i]   = mysql_result($SQL_Result, $i, 'name' );
+        $user_type[$i]   = tic_mysql_result($SQL_Result, $i, 'name' );
     }
 
     ?>
@@ -210,13 +210,13 @@
                     $sql = 'SELECT name, id, value from `gn4vars` where name="galainc" order by id ASC ';
 
                     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-                    $count = mysql_num_rows($SQL_Result);
+                    $count = mysqli_num_rows($SQL_Result);
 
                     for ( $i=0; $i<10; $i++ ) {
                         echo '<tr>';
                         $nr = $i+1;
                         if ( $i<$count ) {
-                            $zielkord[$i]= mysql_result($SQL_Result, $i, 'value' );
+                            $zielkord[$i]= tic_mysql_result($SQL_Result, $i, 'value' );
                             $zieltren= explode("|", $zielkord[$i]);
                             $ziel[$i]= $zieltren[0];
                             $zieldesc[$i]= $zieltren[1];
@@ -269,11 +269,11 @@
             <?php
                 $sql = 'SELECT value from `gn4vars` where name="incfreigabe" ';
                 $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-                $count = mysql_num_rows($SQL_Result) or $count=0;
+                $count = mysqli_num_rows($SQL_Result) or $count=0;
                 $selected='';
                 $sel=0;
                 if ( $count >0 ) {
-                    $sel = mysql_result($SQL_Result, 0, 'value' );
+                    $sel = tic_mysql_result($SQL_Result, 0, 'value' );
                     if ( $sel==1 ){
                         $selected = 'checked';
                     }

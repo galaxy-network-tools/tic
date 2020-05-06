@@ -151,8 +151,8 @@
 
     $SQL_Result = tic_mysql_query('SELECT id, name, passwort FROM `gn4accounts` WHERE galaxie="'.$g.'" and passwort="'.md5($pw).'" AND planet="'.$p.'";', $SQL_DBConn);
     if (mysql_num_rows($SQL_Result) != 1) die("<html>\n<body>\nERROR 0 Spieler nicht gefunden\n</body>\n</html>");
-    $name = mysql_result($SQL_Result, 0, 'name');
-    CountScans(mysql_result($SQL_Result, 0, 'id'));
+    $name = tic_mysql_result($SQL_Result, 0, 'name');
+    CountScans(tic_mysql_result($SQL_Result, 0, 'id'));
 
     addgnuser($rg, $rp, $rn);
 

@@ -25,11 +25,11 @@ function mysql_multi_query($senden, $typ = 0, $array = -1) {
 
 	if (is_array($senden)) {
 		for ($i0 = 0; $i0 < count($senden); $i0++) {
-			$query[$i0] = mysql_query($senden[$i0], $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+			$query[$i0] = mysqli_query($SQL_DBConn, $senden[$i0] ) or die(mysqli_errno()." - ".mysqli_error());
 			if ($typ == 1) {
-				$query[$i0] = mysql_fetch_assoc($query[$i0]);
+				$query[$i0] = mysqli_fetch_assoc($query[$i0]);
 			} elseif ($typ == 2) {
-				$query[$i0] = mysql_num_rows($query[$i0]);
+				$query[$i0] = mysqli_num_rows($query[$i0]);
 			}
 		}
 		if ($array == -1) {

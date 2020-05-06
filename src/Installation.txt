@@ -1,0 +1,94 @@
+#########################################################
+#                                                       #
+#  T.I.C. | Tactical Information Center                 #
+#                                                       #
+#  Allianzorganisationstool für Galaxy-Network          #
+#  Orginal von NataS alias Tobias Sarnowski             #
+#  E-Mail:  natas@hell-coder.net                        #
+#                                                       #
+#########################################################
+#                                                       #
+#  Weiterentwickelt und Angepasst an die laufende       #
+#  Runde von den TIC-Entwicklern                        #
+#  Email: Webmaster@TIC-Entwickler.de                   #
+#  Projekt-Admins: Pretoreaner, AlbertLast und Elkano	#
+#  Coder: Bytehoppers, DocRandom, Laprican,		#
+#         Saurados 					#
+#  Webseite: http://www.tic-entwickler.de               #
+#                                                       #
+#########################################################
+#                                                       #
+#  Installationsanweisungen                             #
+#                                                       #
+#########################################################
+
+
+Inhalt
+1. Copyright
+2. Vorraussetzungen
+3. Installation
+4. Zusatzfunktionen
+5. Weiteres
+
+
+1. Copyright
+
+ Du bist berechtigt die Scripte nach belieben(mit Ausnahme
+ des Urhebernamens) zu ändern und/oder weiter zu verbreiten.
+ Das vollständige Programm unterliegt der GPL(siehe COPYING).
+
+2. Vorraussetzungen
+
+ Damit der tic funktioniert benötigst du einen Webserver(oder
+ Webspace) mit PHP unterstützung und eine MySQL Datenbank.
+ Ein Eggdrop sind nicht notwendig jedoch dringenst zu empfehlen
+ um das TIC vollkommen auszureizen.
+
+3. Installation
+
+ Die Installation des TIC ist ziemlich einfach:
+    i. Zuerst musst du alle Dateien des TICs auf deinen Webspace laden.
+   ii. Danach musst du über den Browser das Unterverzeichniss "installer"
+       des TIC-Verzeichnisses aufrufen.(zB. "www.meineurl.de/tic/installer")
+  iii. Nun solltest du den Anweisungen folgen.
+       Wenn du den letzen Schritt ohne Fehler erreicht hast kannst du dich
+       im TIC einloggen und weitere Benutzer hinzufügen.
+       Falls du mit der Installation Probleme haben solltest kannst du dich
+       im Forum auf www.tic-entwickler.de oder im IRC-Channel
+       #tic-progger@irc.quakenet.org melden. Wir werden dann versuchen dir
+       bei der Lösung des Problems zu helfen.
+
+
+##########################################################
+#  Das TIC ist nun betriebsbereit!                       #
+##########################################################
+
+4. Zusatzfunktionen
+
+ Sehr zu empfehlen ist noch einen Eggdrop laufen zu lassen.
+ Er erleichtert die Organisation im IRC. Der Eggdrop braucht
+ keine speziellen Funktionen und jeder Eggdrop kann dafür
+ genutzt werden. Du musst lediglich im Script "deff.tcl"
+ (zu finden in ./eggdrop/) dem Pfad und das Passwort anpassen.
+ Danach kannst du es laden.
+ Informationen wie man einen eggdrop installiert finden sie
+ hier:
+ http://www.eggdrops.de/hilfe/eggdrop/eggdrop_installieren.htm
+
+ Desweiteren gibt es einen Scan-Parser für das TIC. 
+ Alles zu finden auf unserer HP unter 
+ http://www.tic-entwickler.de
+
+##########################################################
+# Support gibts es im Quakenet im Channel #tic-progger   #
+# sofern wir Lust und Zeit haben! ;)                     #
+##########################################################
+
+5. Weiteres
+ Die Dateien "scan.php" und "taktik.php" sind Schnittstellen für
+ zum Beispiel externe Scripte (u.a. Scanparser). Wenn sie sie mit
+ einem Browser anschauen erhalten sie eine Hilfe der Parameter.
+
+
+hf & mfg
+Die TIC-Entwickler

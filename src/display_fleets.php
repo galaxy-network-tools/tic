@@ -5,8 +5,8 @@
 
 
     // Verbindung zur Datenbank aufbauen
-    $SQL_DBConn = mysql_connect($db_info['host'], $db_info['user'], $db_info['password']) or $error_code = 1;
-    mysql_select_db($db_info['dbname'], $SQL_DBConn) or $error_code = 2;
+    $SQL_DBConn = mysqli_connect($db_info['host'], $db_info['user'], $db_info['password']) or $error_code = 1;
+    mysqli_select_db($db_info['dbname'], $SQL_DBConn) or $error_code = 2;
 
     $fleets = explode( '|', $fleet );
 
@@ -53,7 +53,7 @@
 
                     $sql = 'SELECT sf'.$ef[1].'j ,sf'.$ef[1].'b ,sf'.$ef[1].'f ,sf'.$ef[1].'z ,sf'.$ef[1].'kr ,sf'.$ef[1].'sa ,sf'.$ef[1].'t ,sf'.$ef[1].'ka ,sf'.$ef[1].'su FROM `gn4scans` WHERE rg="'.$eg[0].'" and rp="'.$eg[1].'" and type=2';
                     $SQL_Result2 = tic_mysql_query( $sql, $SQL_DBConn );
-                    if ( mysql_num_rows($SQL_Result2) == 0 ) {
+                    if ( mysqli_num_rows($SQL_Result2) == 0 ) {
                         $ja     = 0;
                         $bo     = 0;
                         $fr     = 0;
@@ -65,15 +65,15 @@
                         $ca     = 0;
                     } else {
 
-                        $ja     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'j' );
-                        $bo     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'b' );
-                        $fr     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'f' );
-                        $ze     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'z' );
-                        $kr     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'kr' );
-                        $sl     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'sa' );
-                        $tr     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'t' );
-                        $ka     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'ka' );
-                        $ca     = mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'su' );
+                        $ja     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'j' );
+                        $bo     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'b' );
+                        $fr     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'f' );
+                        $ze     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'z' );
+                        $kr     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'kr' );
+                        $sl     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'sa' );
+                        $tr     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'t' );
+                        $ka     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'ka' );
+                        $ca     = tic_mysql_result($SQL_Result2, 0, 'sf'.$ef[1].'su' );
                     }
 
                     $sumja += $ja;

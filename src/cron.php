@@ -3,26 +3,26 @@
 
 	// Diverenzberechnung ohne Cron-JOB!!!
 	// Dazu gefgt von Mojah 2004
-	$res = tic_mysql_query('SELECT time, count FROM `gn4cron` ;', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+	$res = tic_mysql_query('SELECT time, count FROM `gn4cron` ;', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 
 	$null_ticks = (int)(time() / ($tsec));
 
 	$alt_ticks = 0;
-	if(mysql_affected_rows()==0)
+	if(mysqli_affected_rows()==0)
 	{
-		tic_mysql_query("INSERT INTO gn4cron (time,count) VALUES (".$null_ticks.",0);", $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+		tic_mysql_query("INSERT INTO gn4cron (time,count) VALUES (".$null_ticks.",0);", $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 		$alt_ticks = $null_ticks;
 	}
 	else
 	{
-		$alt_ticks = mysql_result($res,0);
+		$alt_ticks = tic_mysql_result($res,0);
 	}
 
 	$alt_count = mt_rand();
 
 	if ($alt_ticks< $null_ticks)
 	{
-		tic_mysql_query("UPDATE gn4cron set time=$null_ticks, count=$alt_count ;", $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+		tic_mysql_query("UPDATE gn4cron set time=$null_ticks, count=$alt_count ;", $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 	}
 
 	$div_ticks = $null_ticks - $alt_ticks;
@@ -41,26 +41,26 @@
     // cron Berechnungen
 if($div_ticks > 0)
 {
-    $SQL_Result = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen`  ORDER BY id;', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
-    $SQL_Num = mysql_num_rows($SQL_Result);
+    $SQL_Result = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen`  ORDER BY id;', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+    $SQL_Num = mysqli_num_rows($SQL_Result);
 
 	if ($SQL_Num != 0)
 	{
 
 		for ($n = 0; $n < $SQL_Num; $n++) {
 
-		$eintrag_id = mysql_result($SQL_Result, $n, 'id');
-		$eintrag_modus = mysql_result($SQL_Result, $n, 'modus');
-		$eintrag_angreifer_galaxie = mysql_result($SQL_Result, $n, 'angreifer_galaxie');
-		$eintrag_angreifer_planet = mysql_result($SQL_Result, $n, 'angreifer_planet');
-		$eintrag_verteidiger_galaxie = mysql_result($SQL_Result, $n, 'verteidiger_galaxie');
-		$eintrag_verteidiger_planet = mysql_result($SQL_Result, $n, 'verteidiger_planet');
-		$eintrag_eta = mysql_result($SQL_Result, $n, 'eta');
-		$eintrag_flugzeit = mysql_result($SQL_Result, $n, 'flugzeit');
+		$eintrag_id = tic_mysql_result($SQL_Result, $n, 'id');
+		$eintrag_modus = tic_mysql_result($SQL_Result, $n, 'modus');
+		$eintrag_angreifer_galaxie = tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie');
+		$eintrag_angreifer_planet = tic_mysql_result($SQL_Result, $n, 'angreifer_planet');
+		$eintrag_verteidiger_galaxie = tic_mysql_result($SQL_Result, $n, 'verteidiger_galaxie');
+		$eintrag_verteidiger_planet = tic_mysql_result($SQL_Result, $n, 'verteidiger_planet');
+		$eintrag_eta = tic_mysql_result($SQL_Result, $n, 'eta');
+		$eintrag_flugzeit = tic_mysql_result($SQL_Result, $n, 'flugzeit');
 
-		$ankunft = mysql_result($SQL_Result, $n, 'ankunft');
-		$flugzeit_ende = mysql_result($SQL_Result, $n, 'flugzeit_ende');
-		$ruckflug_ende = mysql_result($SQL_Result, $n, 'ruckflug_ende');
+		$ankunft = tic_mysql_result($SQL_Result, $n, 'ankunft');
+		$flugzeit_ende = tic_mysql_result($SQL_Result, $n, 'flugzeit_ende');
+		$ruckflug_ende = tic_mysql_result($SQL_Result, $n, 'ruckflug_ende');
 
 		if ($ruckflug_ende == 0) {
 			echo "Alte Daten! Cronjob ausgeführt<br />";
@@ -78,21 +78,21 @@ if($div_ticks > 0)
 		if($ankunft > $akt_time)
 		{
 			$eintrag_eta = (int)(($ankunft - $akt_time)/($tsec));
-			$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET eta="'.$eintrag_eta.'" WHERE id="'.$eintrag_id.'" ;', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+			$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET eta="'.$eintrag_eta.'" WHERE id="'.$eintrag_id.'" ;', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 			//echo "Hin: UPDATE `gn4flottenbewegungen` SET eta='$eintrag_eta' WHERE id='$eintrag_id';<br />";
 		}
 		// Angriff oder Verteidigung ??
 		elseif($flugzeit_ende > $akt_time)
 		{
 			$eintrag_flugzeit = (int)(($flugzeit_ende - $akt_time)/($tsec));
-			$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET flugzeit="'.$eintrag_flugzeit.'", eta=0 WHERE id="'.$eintrag_id.'" ;', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+			$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET flugzeit="'.$eintrag_flugzeit.'", eta=0 WHERE id="'.$eintrag_id.'" ;', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 			//echo "Ang/Vert: UPDATE `gn4flottenbewegungen` SET flugzeit='$eintrag_flugzeit', eta=0 WHERE id='.$eintrag_id.';'<br />";
 		}
 		// Schon Zurück??
 		elseif($ruckflug_ende <= $akt_time)
 		{
 
-			$SQL_Result2 = tic_mysql_query('DELETE FROM `gn4flottenbewegungen` WHERE id='.$eintrag_id, $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+			$SQL_Result2 = tic_mysql_query('DELETE FROM `gn4flottenbewegungen` WHERE id='.$eintrag_id, $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 			//echo "ENDE: DELETE FROM `gn4flottenbewegungen` WHERE id=$eintrag_id<br />";
 		}
 		// Auf Rückflug ??
@@ -100,12 +100,12 @@ if($div_ticks > 0)
 		{
 			if($eintrag_modus==1) {
 				$eintrag_eta = (int)(($ruckflug_ende - $akt_time)/($tsec));
-				$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET modus="3", flugzeit="0", eta="'.$eintrag_eta.'" WHERE id="'.$eintrag_id.'";', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+				$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET modus="3", flugzeit="0", eta="'.$eintrag_eta.'" WHERE id="'.$eintrag_id.'";', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 				//echo "Rück: UPDATE `gn4flottenbewegungen` SET modus='0', flugzeit='0', eta='$eintrag_eta' WHERE id='$eintrag_id';'<br />";
 			}
 			if($eintrag_modus==2) {
 				$eintrag_eta = (int)(($ruckflug_ende - $akt_time)/($tsec));
-				$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET modus="4", flugzeit="0", eta="'.$eintrag_eta.'" WHERE id="'.$eintrag_id.'";', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+				$SQL_Result2 = tic_mysql_query('UPDATE `gn4flottenbewegungen` SET modus="4", flugzeit="0", eta="'.$eintrag_eta.'" WHERE id="'.$eintrag_id.'";', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 				//echo "Rück: UPDATE `gn4flottenbewegungen` SET modus='0', flugzeit='0', eta='$eintrag_eta' WHERE id='$eintrag_id';'<br />";
 			}
 		}
@@ -115,7 +115,7 @@ if($div_ticks > 0)
 //	echo 'UPDATE `gn4vars` SET value="'.date('H').':'.date('i').':'.date('s').'" WHERE name="lasttick";';
 //	$SQL_Result = tic_mysql_query('UPDATE `gn4vars` SET value="'.$minute_naechste.'" WHERE name="lasttick_minute";', $SQL_DBConn) or $error_code = 7;
 	$time = $null_ticks * ($tsec);
-	$SQL_Result = tic_mysql_query('UPDATE `gn4vars` SET value="'.date("H:i:s", $time).'" WHERE name="lasttick";', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+	$SQL_Result = tic_mysql_query('UPDATE `gn4vars` SET value="'.date("H:i:s", $time).'" WHERE name="lasttick";', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 
 	include "cleanscans.php";
 }

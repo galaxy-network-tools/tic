@@ -29,15 +29,15 @@
                 $sqlquery2[] = injsafe($data[$i-1]);
                 $sqlquery3[] = "planet".$i." = '".injsafe($data[$i-1])."'";
             }
-            $SQL_Result = tic_mysql_query("SELECT COUNT(time) FROM gn4nachtwache WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysql_error(__FILE__,__LINE__));
-            $count = mysql_fetch_row($SQL_Result);
+            $SQL_Result = tic_mysql_query("SELECT COUNT(time) FROM gn4nachtwache WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysqli_error(__FILE__,__LINE__));
+            $count = mysqli_fetch_row($SQL_Result);
             if($count[0])
             {
-                tic_mysql_query("UPDATE gn4nachtwache SET ".implode(", ", $sqlquery3)." WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysql_error(__FILE__,__LINE__));
+                tic_mysql_query("UPDATE gn4nachtwache SET ".implode(", ", $sqlquery3)." WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysqli_error(__FILE__,__LINE__));
             }
             else
             {
-                tic_mysql_query("INSERT INTO gn4nachtwache (time, ticid, gala, ".implode(", ", $sqlquery1).") VALUES('".injsafe($time)."', '".$Benutzer['ticid']."', '".injsafe($_POST['gala'])."', '".implode("', '", $sqlquery2)."')") or die(tic_mysql_error(__FILE__, __LINE__));
+                tic_mysql_query("INSERT INTO gn4nachtwache (time, ticid, gala, ".implode(", ", $sqlquery1).") VALUES('".injsafe($time)."', '".$Benutzer['ticid']."', '".injsafe($_POST['gala'])."', '".implode("', '", $sqlquery2)."')") or die(tic_mysqli_error(__FILE__, __LINE__));
             }
         }
     }
@@ -54,15 +54,15 @@
                 $sqlquery2[] = injsafe($data[$i]);
                 $sqlquery3[] = "planet".($i+1)." = '".injsafe($data[$i])."'";
             }
-            $SQL_Result = tic_mysql_query("SELECT COUNT(time) FROM gn4nachtwache WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysql_error(__FILE__,__LINE__));
-            $count = mysql_fetch_row($SQL_Result);
+            $SQL_Result = tic_mysql_query("SELECT COUNT(time) FROM gn4nachtwache WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysqli_error(__FILE__,__LINE__));
+            $count = mysqli_fetch_row($SQL_Result);
             if($count[0])
             {
-                tic_mysql_query("UPDATE gn4nachtwache SET ".implode(", ", $sqlquery3)." WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysql_error(__FILE__,__LINE__));
+                tic_mysql_query("UPDATE gn4nachtwache SET ".implode(", ", $sqlquery3)." WHERE gala = '".injsafe($_POST['gala'])."' AND ticid = '".$Benutzer['ticid']."' AND time = '".injsafe($time)."'") or die(tic_mysqli_error(__FILE__,__LINE__));
             }
             else
             {
-                tic_mysql_query("INSERT INTO gn4nachtwache (time, ticid, gala, ".implode(", ", $sqlquery1).") VALUES('".injsafe($time)."', '".$Benutzer['ticid']."', '".injsafe($_POST['gala'])."', '".implode("', '", $sqlquery2)."')") or die(tic_mysql_error(__FILE__, __LINE__));
+                tic_mysql_query("INSERT INTO gn4nachtwache (time, ticid, gala, ".implode(", ", $sqlquery1).") VALUES('".injsafe($time)."', '".$Benutzer['ticid']."', '".injsafe($_POST['gala'])."', '".implode("', '", $sqlquery2)."')") or die(tic_mysqli_error(__FILE__, __LINE__));
             }
         }
     }

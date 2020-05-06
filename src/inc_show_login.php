@@ -33,27 +33,27 @@ function show_login() {
 		'WHERE ticid="'.$Benutzer['ticid'].'" '.
 		'ORDER BY lastlogin '.$sort.', name';
 	$SQL_Result = tic_mysql_query($query, $SQL_DBConn) or $error_code = 4;
-	for ( $i=0; $i<mysql_num_rows($SQL_Result); $i++) {
+	for ( $i=0; $i<mysqli_num_rows($SQL_Result); $i++) {
 		if ( $i%2 == 0 ) {
 			$colour='class="fieldnormallight"';
 		} else {
 			$colour='class="fieldnormaldark"';
 		}
-		$tmp_name = mysql_result($SQL_Result, $i, 'name');
-		$tmp_gala = mysql_result($SQL_Result, $i, 'gala');
-		$tmp_planet = mysql_result($SQL_Result, $i, 'planet');
+		$tmp_name = tic_mysql_result($SQL_Result, $i, 'name');
+		$tmp_gala = tic_mysql_result($SQL_Result, $i, 'gala');
+		$tmp_planet = tic_mysql_result($SQL_Result, $i, 'planet');
 		if (strlen($tmp_planet) == 1) {
 			$tmp_planet = "0".$tmp_planet;
 		}
 		$tmp_koord = $tmp_gala.":".$tmp_planet;
 
 			// determine alli-name
-		$tmp_alli = mysql_result($SQL_Result, $i, 'allianz');
+		$tmp_alli = tic_mysql_result($SQL_Result, $i, 'allianz');
 		$query = 'SELECT tag FROM `gn4allianzen` WHERE id="'.$tmp_alli.'"';
 		$SQL_Result2 = tic_mysql_query($query, $SQL_DBConn) or $error_code = 4;
-		$tmp_tag = mysql_result($SQL_Result2, 0, 'tag');
+		$tmp_tag = tic_mysql_result($SQL_Result2, 0, 'tag');
 
-		$tmp_lastlogin = mysql_result($SQL_Result, $i, 'lastlogin');
+		$tmp_lastlogin = tic_mysql_result($SQL_Result, $i, 'lastlogin');
 		if ( $tmp_lastlogin == '' ) {
 			$tmp_lastlogin = "0";  /* in old format!! - because all new ones are '' - force the update in db */
 		}

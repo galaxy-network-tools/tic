@@ -57,8 +57,8 @@ function icq_auslesen() {
 		"WHERE gn4accounts.ticid = '{$Benutzer['ticid']}' AND messangerID != '' ".
 		"ORDER BY gn4accounts.allianz,galaxie,planet;";
 	$result = tic_mysql_query($qry);
-	$row = mysql_fetch_array($result);
-	for ($i=0; $row != FALSE; $row = mysql_fetch_array($result), $i++) {
+	$row = mysqli_fetch_array($result);
+	for ($i=0; $row != FALSE; $row = mysqli_fetch_array($result), $i++) {
 
 		$row['icq'] = preg_replace("/[^0-9]+/", '', $row['icq']);
 		if (!preg_match('/^[0-9]{6,9}$/', $row['icq'])) {

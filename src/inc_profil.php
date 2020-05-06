@@ -103,8 +103,8 @@
 			<?php
 				$sql = "select authnick, handy, messangerID, infotext from gn4accounts where id=".$Benutzer["id"].";";
 				$SQL_Result = tic_mysql_query($sql, $SQL_DBConn);
-				$pdaten = mysql_fetch_array($SQL_Result);
-				//echo mysql_error()."<br />".$sql;
+				$pdaten = mysqli_fetch_array($SQL_Result);
+				//echo mysqli_error()."<br />".$sql;
 			?>
 			<form action="./main.php?module=profil" method="post">
 			<input type="hidden" name="action" value="personlich" />

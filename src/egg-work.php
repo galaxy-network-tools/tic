@@ -38,8 +38,8 @@
     $tick_abzug = intval(date('i') / $Ticks['lange']);
     $tick_abzug = date('i') - $tick_abzug * $Ticks['lange'];
 
-    $SQL_DBConn = mysql_connect($db_info['host'], $db_info['user'], $db_info['password']);
-    mysql_select_db($db_info['dbname'], $SQL_DBConn);
+    $SQL_DBConn = mysqli_connect($db_info['host'], $db_info['user'], $db_info['password']);
+    mysqli_select_db($db_info['dbname'], $SQL_DBConn);
 
     include('./vars.php');
 
@@ -57,30 +57,30 @@
         $SQL_Result1 = tic_mysql_query('SELECT galaxie, planet, allianz FROM `gn4accounts` ORDER BY galaxie, planet;', $SQL_DBConn);
         $SQL_Result2 = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` WHERE modus="1" && save="1" ORDER BY eta, verteidiger_galaxie, verteidiger_planet;', $SQL_DBConn);
 
-        $SQL_Num1 = mysql_num_rows($SQL_Result1) or $SQL_Num1=0;
-        $SQL_Num2 = mysql_num_rows($SQL_Result2) or $SQL_Num2=0;
+        $SQL_Num1 = mysqli_num_rows($SQL_Result1) or $SQL_Num1=0;
+        $SQL_Num2 = mysqli_num_rows($SQL_Result2) or $SQL_Num2=0;
 
         $text = '';
         $farbe = 0;
 
         for ($n = 0; $n < $SQL_Num1; $n++) {
-            $ziel_galaxie = mysql_result($SQL_Result1, $n, 'galaxie');
-            $ziel_planet = mysql_result($SQL_Result1, $n, 'planet');
+            $ziel_galaxie = tic_mysql_result($SQL_Result1, $n, 'galaxie');
+            $ziel_planet = tic_mysql_result($SQL_Result1, $n, 'planet');
             $ziel_name = gnuser($ziel_galaxie, $ziel_planet);
-            $ziel_allianz = $AllianzTag[mysql_result($SQL_Result1, $n, 'allianz')];
-            //$eta = mysql_result($SQL_Result2, $n, 'eta');
+            $ziel_allianz = $AllianzTag[tic_mysql_result($SQL_Result1, $n, 'allianz')];
+            //$eta = tic_mysql_result($SQL_Result2, $n, 'eta');
             $incomming_counter = 0;
 
             for ($x = 0; $x < $SQL_Num2; $x++) {
-                if ($ziel_galaxie == mysql_result($SQL_Result2, $x, 'verteidiger_galaxie') && $ziel_planet == mysql_result($SQL_Result2, $x, 'verteidiger_planet') && mysql_result($SQL_Result2, $x, 'eta') >= 18) {    // && mysql_result($SQL_Result2, $x, 'eta') >= 18
+                if ($ziel_galaxie == tic_mysql_result($SQL_Result2, $x, 'verteidiger_galaxie') && $ziel_planet == tic_mysql_result($SQL_Result2, $x, 'verteidiger_planet') && tic_mysql_result($SQL_Result2, $x, 'eta') >= 18) {    // && tic_mysql_result($SQL_Result2, $x, 'eta') >= 18
                     $incomming_counter++;
-                    $atter_eta = (mysql_result($SQL_Result2, $x, 'eta') * $Ticks['lange']) - $tick_abzug;
+                    $atter_eta = (tic_mysql_result($SQL_Result2, $x, 'eta') * $Ticks['lange']) - $tick_abzug;
                     $atter_eta_tic = preg_replace('/(\.)(.*)/', '', $atter_eta / $Ticks['lange']);
 
                     if ($incomming_counter == 1) {
-                        $etas = $irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.mysql_result($SQL_Result2, $x, 'angreifer_galaxie').':'.mysql_result($SQL_Result2, $x, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].' ('.GetScans_irc($SQL_DBConn, mysql_result($SQL_Result2, $x, 'angreifer_galaxie'), mysql_result($SQL_Result2, $x, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].')';
+                        $etas = $irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.tic_mysql_result($SQL_Result2, $x, 'angreifer_galaxie').':'.tic_mysql_result($SQL_Result2, $x, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].' ('.GetScans_irc($SQL_DBConn, tic_mysql_result($SQL_Result2, $x, 'angreifer_galaxie'), tic_mysql_result($SQL_Result2, $x, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].')';
                     } else {
-                        $etas = $etas.$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].','.$irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.mysql_result($SQL_Result2, $x, 'angreifer_galaxie').':'.mysql_result($SQL_Result2, $x, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].' ('.GetScans_irc($SQL_DBConn, mysql_result($SQL_Result2, $x, 'angreifer_galaxie'), mysql_result($SQL_Result2, $x, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].')';
+                        $etas = $etas.$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].','.$irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.tic_mysql_result($SQL_Result2, $x, 'angreifer_galaxie').':'.tic_mysql_result($SQL_Result2, $x, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].' ('.GetScans_irc($SQL_DBConn, tic_mysql_result($SQL_Result2, $x, 'angreifer_galaxie'), tic_mysql_result($SQL_Result2, $x, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_listfarbe[$farbe].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_listfarbe[$farbe].')';
                     }
                 }
             }
@@ -118,25 +118,25 @@
                 $deff_counter = 0;
                 $tmp_atter = '';
                 $tmp_deffer = '';
-                for ($n = 0; $n < mysql_num_rows($SQL_Result); $n++) {
-                    if (mysql_result($SQL_Result, $n, 'modus') == 1) {
+                for ($n = 0; $n < mysqli_num_rows($SQL_Result); $n++) {
+                    if (tic_mysql_result($SQL_Result, $n, 'modus') == 1) {
                         $incomming_counter++;
-                        $atter_eta = (mysql_result($SQL_Result, $n, 'eta') * $Ticks['lange']) - $tick_abzug;
+                        $atter_eta = (tic_mysql_result($SQL_Result, $n, 'eta') * $Ticks['lange']) - $tick_abzug;
                         $atter_eta_tic = preg_replace('/(\.)(.*)/', '', $atter_eta / $Ticks['lange']);
 
                         if ($incomming_counter == 1) {
-                            $tmp_atter = $irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, mysql_result($SQL_Result, $n, 'angreifer_galaxie'), mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
+                            $tmp_atter = $irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.tic_mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie'), tic_mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
                         } else {
-                            $tmp_atter = $tmp_atter.$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].', '.$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, mysql_result($SQL_Result, $n, 'angreifer_galaxie'), mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
+                            $tmp_atter = $tmp_atter.$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].', '.$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.tic_mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie'), tic_mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$atter_eta."min|".$atter_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
                         }
-                    } elseif (mysql_result($SQL_Result, $n, 'modus') == 2) {
+                    } elseif (tic_mysql_result($SQL_Result, $n, 'modus') == 2) {
                         $deff_counter++;
-                        $deffer_eta = (mysql_result($SQL_Result, $n, 'eta') * $Ticks['lange']) - $tick_abzug;
+                        $deffer_eta = (tic_mysql_result($SQL_Result, $n, 'eta') * $Ticks['lange']) - $tick_abzug;
                         $deffer_eta_tic = preg_replace('/(\.)(.*)/', '', $deffer_eta / $Ticks['lange']);
                         if ($deff_counter == 1) {
-                            $tmp_deffer = $irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, mysql_result($SQL_Result, $n, 'angreifer_galaxie'), mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$deffer_eta."min|".$deffer_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
+                            $tmp_deffer = $irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.tic_mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie'), tic_mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$deffer_eta."min|".$deffer_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
                         } else {
-                            $tmp_deffer = $tmp_deffer.$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].', '.$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, mysql_result($SQL_Result, $n, 'angreifer_galaxie'), mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$deffer_eta."min|".$deffer_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
+                            $tmp_deffer = $tmp_deffer.$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].', '.$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie').':'.tic_mysql_result($SQL_Result, $n, 'angreifer_planet').$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].' ('.GetScans_irc($SQL_DBConn, tic_mysql_result($SQL_Result, $n, 'angreifer_galaxie'), tic_mysql_result($SQL_Result, $n, 'angreifer_planet')).' ETA'.$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['blau'].','.$irc_farbe['weiss'].' '.$deffer_eta."min|".$deffer_eta_tic."Ticks".$irc_text['farbe'].$irc_text['farbe'].$irc_farbe['schwarz'].','.$irc_farbe['weiss'].')';
                         }
                     }
                 }
@@ -167,7 +167,7 @@ elseif($modus == 2) {
 
         $sql='select * from `gn4scans` where rg='.$tmp_galaxie.' and rp='.$tmp_planet.' ';
             $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-         $count =  mysql_num_rows($SQL_Result);
+         $count =  mysqli_num_rows($SQL_Result);
     if ( $count == 0 ) {
         echo 'Sorry - Keine Scans vorhanden.';
         return;
@@ -191,80 +191,80 @@ elseif($modus == 2) {
 
 
         if ( $i<($count-1) )
-                $rpnext = mysql_result($SQL_Result, $i+1, 'rp' );
+                $rpnext = tic_mysql_result($SQL_Result, $i+1, 'rp' );
             else
                 $rpnext = 999;
 
-            $type = mysql_result($SQL_Result, $i, 'type' );
-            $rp = mysql_result($SQL_Result, $i, 'rp' );
-            $rg = mysql_result($SQL_Result, $i, 'rg' );
+            $type = tic_mysql_result($SQL_Result, $i, 'type' );
+            $rp = tic_mysql_result($SQL_Result, $i, 'rp' );
+            $rg = tic_mysql_result($SQL_Result, $i, 'rg' );
             $rname = gnuser($rg, $rp);
             $rscans .= sprintf( "%d ", $type );
 //echo '<br>type='.$type.' - ';
             switch( $type ) {   // scan-type
                 case 0: // sektor
-                    $szeit  = mysql_result($SQL_Result, $i, 'zeit' );
-                    $sgen   = mysql_result($SQL_Result, $i, 'gen' );
-                    $pts    = mysql_result($SQL_Result, $i, 'pts' );
-                    $me     = mysql_result($SQL_Result, $i, 'me' );
-                    $ke     = mysql_result($SQL_Result, $i, 'ke' );
-                    $s      = mysql_result($SQL_Result, $i, 's' );
-                    $d      = mysql_result($SQL_Result, $i, 'd' );
-                    $a      = mysql_result($SQL_Result, $i, 'a' );
+                    $szeit  = tic_mysql_result($SQL_Result, $i, 'zeit' );
+                    $sgen   = tic_mysql_result($SQL_Result, $i, 'gen' );
+                    $pts    = tic_mysql_result($SQL_Result, $i, 'pts' );
+                    $me     = tic_mysql_result($SQL_Result, $i, 'me' );
+                    $ke     = tic_mysql_result($SQL_Result, $i, 'ke' );
+                    $s      = tic_mysql_result($SQL_Result, $i, 's' );
+                    $d      = tic_mysql_result($SQL_Result, $i, 'd' );
+                    $a      = tic_mysql_result($SQL_Result, $i, 'a' );
                     break;
                 case 1: // unit
-                    $uzeit  = mysql_result($SQL_Result, $i, 'zeit' );
-                    $ugen   = mysql_result($SQL_Result, $i, 'gen' );
-                    $ja     = mysql_result($SQL_Result, $i, 'sfj' );
-                    $bo     = mysql_result($SQL_Result, $i, 'sfb' );
-                    $fr     = mysql_result($SQL_Result, $i, 'sff' );
-                    $ze     = mysql_result($SQL_Result, $i, 'sfz' );
-                    $kr     = mysql_result($SQL_Result, $i, 'sfkr' );
-                    $sl     = mysql_result($SQL_Result, $i, 'sfsa' );
-                    $tr     = mysql_result($SQL_Result, $i, 'sft' );
-                    $ka     = mysql_result($SQL_Result, $i, 'sfka' );
-                    $ca     = mysql_result($SQL_Result, $i, 'sfsu' );
+                    $uzeit  = tic_mysql_result($SQL_Result, $i, 'zeit' );
+                    $ugen   = tic_mysql_result($SQL_Result, $i, 'gen' );
+                    $ja     = tic_mysql_result($SQL_Result, $i, 'sfj' );
+                    $bo     = tic_mysql_result($SQL_Result, $i, 'sfb' );
+                    $fr     = tic_mysql_result($SQL_Result, $i, 'sff' );
+                    $ze     = tic_mysql_result($SQL_Result, $i, 'sfz' );
+                    $kr     = tic_mysql_result($SQL_Result, $i, 'sfkr' );
+                    $sl     = tic_mysql_result($SQL_Result, $i, 'sfsa' );
+                    $tr     = tic_mysql_result($SQL_Result, $i, 'sft' );
+                    $ka     = tic_mysql_result($SQL_Result, $i, 'sfka' );
+                    $ca     = tic_mysql_result($SQL_Result, $i, 'sfsu' );
                     break;
                 case 2: // mili-scan
-                    $mzeit  = mysql_result($SQL_Result, $i, 'zeit' );
-                    $mgen   = mysql_result($SQL_Result, $i, 'gen' );
-                    $ja0    = mysql_result($SQL_Result, $i, 'sf0j' );
-                    $bo0    = mysql_result($SQL_Result, $i, 'sf0b' );
-                    $fr0    = mysql_result($SQL_Result, $i, 'sf0f' );
-                    $ze0    = mysql_result($SQL_Result, $i, 'sf0z' );
-                    $kr0    = mysql_result($SQL_Result, $i, 'sf0kr' );
-                    $sl0    = mysql_result($SQL_Result, $i, 'sf0sa' );
-                    $tr0    = mysql_result($SQL_Result, $i, 'sf0t' );
-                    $ka0    = mysql_result($SQL_Result, $i, 'sf0ka' );
-                    $ca0    = mysql_result($SQL_Result, $i, 'sf0su' );
-                    $ja1    = mysql_result($SQL_Result, $i, 'sf1j' );
-                    $bo1    = mysql_result($SQL_Result, $i, 'sf1b' );
-                    $fr1    = mysql_result($SQL_Result, $i, 'sf1f' );
-                    $ze1    = mysql_result($SQL_Result, $i, 'sf1z' );
-                    $kr1    = mysql_result($SQL_Result, $i, 'sf1kr' );
-                    $sl1    = mysql_result($SQL_Result, $i, 'sf1sa' );
-                    $tr1    = mysql_result($SQL_Result, $i, 'sf1t' );
-                    $ka1    = mysql_result($SQL_Result, $i, 'sf1ka' );
-                    $ca1    = mysql_result($SQL_Result, $i, 'sf1su' );
-                    $ja2    = mysql_result($SQL_Result, $i, 'sf2j' );
-                    $bo2    = mysql_result($SQL_Result, $i, 'sf2b' );
-                    $fr2    = mysql_result($SQL_Result, $i, 'sf2f' );
-                    $ze2    = mysql_result($SQL_Result, $i, 'sf2z' );
-                    $kr2    = mysql_result($SQL_Result, $i, 'sf2kr' );
-                    $sl2    = mysql_result($SQL_Result, $i, 'sf2sa' );
-                    $tr2    = mysql_result($SQL_Result, $i, 'sf2t' );
-                    $ka2    = mysql_result($SQL_Result, $i, 'sf2ka' );
-                    $ca2    = mysql_result($SQL_Result, $i, 'sf2su' );
+                    $mzeit  = tic_mysql_result($SQL_Result, $i, 'zeit' );
+                    $mgen   = tic_mysql_result($SQL_Result, $i, 'gen' );
+                    $ja0    = tic_mysql_result($SQL_Result, $i, 'sf0j' );
+                    $bo0    = tic_mysql_result($SQL_Result, $i, 'sf0b' );
+                    $fr0    = tic_mysql_result($SQL_Result, $i, 'sf0f' );
+                    $ze0    = tic_mysql_result($SQL_Result, $i, 'sf0z' );
+                    $kr0    = tic_mysql_result($SQL_Result, $i, 'sf0kr' );
+                    $sl0    = tic_mysql_result($SQL_Result, $i, 'sf0sa' );
+                    $tr0    = tic_mysql_result($SQL_Result, $i, 'sf0t' );
+                    $ka0    = tic_mysql_result($SQL_Result, $i, 'sf0ka' );
+                    $ca0    = tic_mysql_result($SQL_Result, $i, 'sf0su' );
+                    $ja1    = tic_mysql_result($SQL_Result, $i, 'sf1j' );
+                    $bo1    = tic_mysql_result($SQL_Result, $i, 'sf1b' );
+                    $fr1    = tic_mysql_result($SQL_Result, $i, 'sf1f' );
+                    $ze1    = tic_mysql_result($SQL_Result, $i, 'sf1z' );
+                    $kr1    = tic_mysql_result($SQL_Result, $i, 'sf1kr' );
+                    $sl1    = tic_mysql_result($SQL_Result, $i, 'sf1sa' );
+                    $tr1    = tic_mysql_result($SQL_Result, $i, 'sf1t' );
+                    $ka1    = tic_mysql_result($SQL_Result, $i, 'sf1ka' );
+                    $ca1    = tic_mysql_result($SQL_Result, $i, 'sf1su' );
+                    $ja2    = tic_mysql_result($SQL_Result, $i, 'sf2j' );
+                    $bo2    = tic_mysql_result($SQL_Result, $i, 'sf2b' );
+                    $fr2    = tic_mysql_result($SQL_Result, $i, 'sf2f' );
+                    $ze2    = tic_mysql_result($SQL_Result, $i, 'sf2z' );
+                    $kr2    = tic_mysql_result($SQL_Result, $i, 'sf2kr' );
+                    $sl2    = tic_mysql_result($SQL_Result, $i, 'sf2sa' );
+                    $tr2    = tic_mysql_result($SQL_Result, $i, 'sf2t' );
+                    $ka2    = tic_mysql_result($SQL_Result, $i, 'sf2ka' );
+                    $ca2    = tic_mysql_result($SQL_Result, $i, 'sf2su' );
 
                     break;
                 case 3: // geschütz
-                    $gzeit  = mysql_result($SQL_Result, $i, 'zeit' );
-                    $ggen   = mysql_result($SQL_Result, $i, 'gen' );
-                    $lo     = mysql_result($SQL_Result, $i, 'glo' );
-                    $lr     = mysql_result($SQL_Result, $i, 'glr' );
-                    $mr     = mysql_result($SQL_Result, $i, 'gmr' );
-                    $sr     = mysql_result($SQL_Result, $i, 'gsr' );
-                    $aj     = mysql_result($SQL_Result, $i, 'ga' );
+                    $gzeit  = tic_mysql_result($SQL_Result, $i, 'zeit' );
+                    $ggen   = tic_mysql_result($SQL_Result, $i, 'gen' );
+                    $lo     = tic_mysql_result($SQL_Result, $i, 'glo' );
+                    $lr     = tic_mysql_result($SQL_Result, $i, 'glr' );
+                    $mr     = tic_mysql_result($SQL_Result, $i, 'gmr' );
+                    $sr     = tic_mysql_result($SQL_Result, $i, 'gsr' );
+                    $aj     = tic_mysql_result($SQL_Result, $i, 'ga' );
                     break;
                 default:
                     echo '????huh?!??? - Ohooooh';
@@ -383,15 +383,15 @@ function GetScans_irc($SQL_DBConn, $galaxie, $planet) {
 
     $datumx = date('d.m.Y');
 
-    $SQL_Result = tic_mysql_query('SELECT * FROM `gn4scans` WHERE rg="'.$galaxie.'" AND rp="'.$planet.'" ORDER BY type;') or die(tic_mysql_error(__FILE__,__LINE__));
+    $SQL_Result = tic_mysql_query('SELECT * FROM `gn4scans` WHERE rg="'.$galaxie.'" AND rp="'.$planet.'" ORDER BY type;') or die(tic_mysqli_error(__FILE__,__LINE__));
     //echo "Scan: ".'SELECT * FROM `gn4scans` WHERE rg="'.$galaxie.'" AND rp="'.$planet.'" ORDER BY type;<br />';
-    $SQL_Num = mysql_num_rows($SQL_Result);
+    $SQL_Num = mysqli_num_rows($SQL_Result);
     if ($SQL_Num == 0) {
         return '[-]';
     } else {
         $tmp_result = '[';
         for ($n = 0; $n < $SQL_Num; $n++) {
-            if ($datumx == substr(mysql_result($SQL_Result, $n, 'zeit'),-10)) {
+            if ($datumx == substr(tic_mysql_result($SQL_Result, $n, 'zeit'),-10)) {
                 $fc1 = "";
                 $fc2 = "";
             } else {
@@ -399,7 +399,7 @@ function GetScans_irc($SQL_DBConn, $galaxie, $planet) {
                 $fc2 = $irc_text['farbe'].$irc_farbe['schwarz'].$irc_listfarbe[$farbe];
             }
 
-            $tmp_result = $tmp_result.$fc1.$scan_type[mysql_result($SQL_Result, $n, 'type')].$fc2;
+            $tmp_result = $tmp_result.$fc1.$scan_type[tic_mysql_result($SQL_Result, $n, 'type')].$fc2;
         }
         $tmp_result = $tmp_result.']';
         //    echo "Scan=>$tmp_result<br />";

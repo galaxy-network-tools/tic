@@ -10,21 +10,21 @@
 
     $sql = "select * from gn4accounts where id='".$_GET['uid']."';";
     $SQL_result = tic_mysql_query( $sql, $SQL_DBConn);
-    $SQL_Num = mysql_num_rows( $SQL_result );
+    $SQL_Num = mysqli_num_rows( $SQL_result );
     if ( $SQL_Num == 0 ) {
         echo '<font color="#800000" size="-1"><b>internal error - db access failed</b></font>';
         return;
     }
-    $selgala = mysql_result( $SQL_result, 0, 'galaxie');
-    $planet  = mysql_result( $SQL_result, 0, 'planet');
-    $rang    = mysql_result( $SQL_result, 0, 'rang');
-    $name    = mysql_result( $SQL_result, 0, 'name');
-    $alli    = mysql_result( $SQL_result, 0, 'allianz');
-    $umode   = mysql_result( $SQL_result, 0, 'umod');
-    $lastlog = mysql_result( $SQL_result, 0, 'lastlogin');
-    $spy     = mysql_result( $SQL_result, 0, 'spy');
+    $selgala = tic_mysql_result( $SQL_result, 0, 'galaxie');
+    $planet  = tic_mysql_result( $SQL_result, 0, 'planet');
+    $rang    = tic_mysql_result( $SQL_result, 0, 'rang');
+    $name    = tic_mysql_result( $SQL_result, 0, 'name');
+    $alli    = tic_mysql_result( $SQL_result, 0, 'allianz');
+    $umode   = tic_mysql_result( $SQL_result, 0, 'umod');
+    $lastlog = tic_mysql_result( $SQL_result, 0, 'lastlogin');
+    $spy     = tic_mysql_result( $SQL_result, 0, 'spy');
     $SQL_Result1 = tic_mysql_query("select tag from gn4allianzen where id='".$alli."';",$SQL_DBConn);
-    $allitag = mysql_result( $SQL_Result1, 0, 'tag');
+    $allitag = tic_mysql_result( $SQL_Result1, 0, 'tag');
     if( $Benutzer['rang'] == '1') {
     if($selgala != $Benutzer['galaxie']) die('Du hast nur recht in deiner Gala');
     }
@@ -176,8 +176,8 @@
                 {
                 $status = '<font color="#ff0000">Gesperrt</font>';
                 } else {
-					if(mysql_result( $SQL_result, 0, 'versuche') >= 3 && mysql_result( $SQL_result, 0, 'ip') != "")
-					    $status = '<font color="#cc0000">IP '.mysql_result( $SQL_result, 0, 'ip').' gesperrt</font>';
+					if(tic_mysql_result( $SQL_result, 0, 'versuche') >= 3 && tic_mysql_result( $SQL_result, 0, 'ip') != "")
+					    $status = '<font color="#cc0000">IP '.tic_mysql_result( $SQL_result, 0, 'ip').' gesperrt</font>';
 					else
                         $status = '<font color="#00cc00">Entsperrt</font>';
                 }

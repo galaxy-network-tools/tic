@@ -79,16 +79,16 @@
 			$style = array("dark", "light");
 			
 			$start = (isset($_GET['start']) ? $_GET['start'] : 0);
-			$SQL_Result = tic_mysql_query("SELECT COUNT(id) FROM gn4log WHERE".$SQL_where." AND type='".$_GET['type']."'") or die(tic_mysql_error(__FILE__,__LINE__));
-			$count = mysql_fetch_row($SQL_Result);
+			$SQL_Result = tic_mysql_query("SELECT COUNT(id) FROM gn4log WHERE".$SQL_where." AND type='".$_GET['type']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
+			$count = mysqli_fetch_row($SQL_Result);
 			if($count[0] < $start)
 				$start = 0;
 			
-			$SQL_Result = tic_mysql_query("SELECT name, accid, rang, allianz, zeit, aktion, ip FROM gn4log WHERE".$SQL_where." AND type='".$_GET['type']."' ORDER BY id DESC LIMIT ".$start.",".LOG_PER_PAGE) or die(tic_mysql_error(__FILE__,__LINE__));
+			$SQL_Result = tic_mysql_query("SELECT name, accid, rang, allianz, zeit, aktion, ip FROM gn4log WHERE".$SQL_where." AND type='".$_GET['type']."' ORDER BY id DESC LIMIT ".$start.",".LOG_PER_PAGE) or die(tic_mysqli_error(__FILE__,__LINE__));
 			
 			echo "<div style=\"font-size:9pt;font-weight:bold;\">T.I.C Log - ".$typetostring[$_GET['type']]."</div><table class=\"datatable\" align=\"center\"><tr class=\"datatablehead\"><th>Zeit</th><th>Meta</th><th>Benutzer</th><th>Meldung</th><th>IP</th></tr>";
 			$i = 0;
-			while($row = mysql_fetch_assoc($SQL_Result))
+			while($row = mysqli_fetch_assoc($SQL_Result))
 			{
 				echo "<tr class=\"fieldnormal".$style[$i%2]."\">
 						<td>".$row['zeit']."</td>
@@ -97,15 +97,15 @@
 			}
 			if($i == 0)
 			{
-				echo "<tr class=\"fieldnormallight\"><td colspan=\"4\">Es sind keine Logeinträge fr diesen Typ vorhanden.</td></tr>";
+				echo "<tr class=\"fieldnormallight\"><td colspan=\"4\">Es sind keine Logeintr&auml;ge f&uuml;r diesen Typ vorhanden.</td></tr>";
 			}
 					echo "<tr><td colspan=\"4\">Seite: ".constructPageIndex("?modul=log&amp;type=".$_GET['type'], $start, $count[0], LOG_PER_PAGE)."</td></tr>\n";
-			echo "</table>[<a href=\"?modul=log\">Zurück</a>]";
+			echo "</table>[<a href=\"?modul=log\">Zur&uuml;ck</a>]";
 		}
 		else
 		{
-			$SQL_Result = tic_mysql_query("SELECT type, COUNT(type) FROM gn4log WHERE".$SQL_where." GROUP BY type") or die(tic_mysql_error(__FILE__,__LINE__));
-			while($row = mysql_fetch_row($SQL_Result))
+			$SQL_Result = tic_mysql_query("SELECT type, COUNT(type) FROM gn4log WHERE".$SQL_where." GROUP BY type") or die(tic_mysqli_error(__FILE__,__LINE__));
+			while($row = mysqli_fetch_row($SQL_Result))
 			{
 				$count[$row[0]] = $row[1];
 			}

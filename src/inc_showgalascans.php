@@ -149,7 +149,7 @@
 <?php
 //	echo "sql=".$sql;
 	$SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-	$count =  mysql_num_rows($SQL_Result);
+	$count =  mysqli_num_rows($SQL_Result);
 	if ( $count == 0 ) {
 		echo '<font color="#800000" size="-1"><b>Sorry - Keine Scans vorhanden.</b></font>';
 		return;
@@ -169,80 +169,80 @@
 
 		for ( $i=0; $i<$count; $i++ ) {
 			if ( $i<($count-1) )
-				$rpnext = mysql_result($SQL_Result, $i+1, 'rp' );
+				$rpnext = tic_mysql_result($SQL_Result, $i+1, 'rp' );
 			else
 				$rpnext = 999;
 
-			$type = mysql_result($SQL_Result, $i, 'type' );
-			$rp = mysql_result($SQL_Result, $i, 'rp' );
-			$rg = mysql_result($SQL_Result, $i, 'rg' );
+			$type = tic_mysql_result($SQL_Result, $i, 'type' );
+			$rp = tic_mysql_result($SQL_Result, $i, 'rp' );
+			$rg = tic_mysql_result($SQL_Result, $i, 'rg' );
 			$rname = gnuser($rg, $rp);
 			$rscans .= sprintf( "%d ", $type );
 //echo '<br />type='.$type.' - ';
 			switch( $type ) {   // scan-type
 				case 0: // sektor
-					$szeit	= mysql_result($SQL_Result, $i, 'zeit' );
-					$sgen	= mysql_result($SQL_Result, $i, 'gen' );
-					$pts	= mysql_result($SQL_Result, $i, 'pts' );
-					$me	= mysql_result($SQL_Result, $i, 'me' );
-					$ke	= mysql_result($SQL_Result, $i, 'ke' );
-					$s	= mysql_result($SQL_Result, $i, 's' );
-					$d	= mysql_result($SQL_Result, $i, 'd' );
-					$a	= mysql_result($SQL_Result, $i, 'a' );
+					$szeit	= tic_mysql_result($SQL_Result, $i, 'zeit' );
+					$sgen	= tic_mysql_result($SQL_Result, $i, 'gen' );
+					$pts	= tic_mysql_result($SQL_Result, $i, 'pts' );
+					$me	= tic_mysql_result($SQL_Result, $i, 'me' );
+					$ke	= tic_mysql_result($SQL_Result, $i, 'ke' );
+					$s	= tic_mysql_result($SQL_Result, $i, 's' );
+					$d	= tic_mysql_result($SQL_Result, $i, 'd' );
+					$a	= tic_mysql_result($SQL_Result, $i, 'a' );
 					break;
 				case 1: // unit
-					$uzeit	= mysql_result($SQL_Result, $i, 'zeit' );
-					$ugen	= mysql_result($SQL_Result, $i, 'gen' );
-					$ja	= mysql_result($SQL_Result, $i, 'sfj' );
-					$bo	= mysql_result($SQL_Result, $i, 'sfb' );
-					$fr	= mysql_result($SQL_Result, $i, 'sff' );
-					$ze	= mysql_result($SQL_Result, $i, 'sfz' );
-					$kr	= mysql_result($SQL_Result, $i, 'sfkr' );
-					$sl	= mysql_result($SQL_Result, $i, 'sfsa' );
-					$tr	= mysql_result($SQL_Result, $i, 'sft' );
-					$ka	= mysql_result($SQL_Result, $i, 'sfka' );
-					$ca	= mysql_result($SQL_Result, $i, 'sfsu' );
+					$uzeit	= tic_mysql_result($SQL_Result, $i, 'zeit' );
+					$ugen	= tic_mysql_result($SQL_Result, $i, 'gen' );
+					$ja	= tic_mysql_result($SQL_Result, $i, 'sfj' );
+					$bo	= tic_mysql_result($SQL_Result, $i, 'sfb' );
+					$fr	= tic_mysql_result($SQL_Result, $i, 'sff' );
+					$ze	= tic_mysql_result($SQL_Result, $i, 'sfz' );
+					$kr	= tic_mysql_result($SQL_Result, $i, 'sfkr' );
+					$sl	= tic_mysql_result($SQL_Result, $i, 'sfsa' );
+					$tr	= tic_mysql_result($SQL_Result, $i, 'sft' );
+					$ka	= tic_mysql_result($SQL_Result, $i, 'sfka' );
+					$ca	= tic_mysql_result($SQL_Result, $i, 'sfsu' );
 					break;
 				case 2: // mili-scan
-					$mzeit	= mysql_result($SQL_Result, $i, 'zeit' );
-					$mgen	= mysql_result($SQL_Result, $i, 'gen' );
-					$ja0	= mysql_result($SQL_Result, $i, 'sf0j' );
-					$bo0	= mysql_result($SQL_Result, $i, 'sf0b' );
-					$fr0	= mysql_result($SQL_Result, $i, 'sf0f' );
-					$ze0	= mysql_result($SQL_Result, $i, 'sf0z' );
-					$kr0	= mysql_result($SQL_Result, $i, 'sf0kr' );
-					$sl0	= mysql_result($SQL_Result, $i, 'sf0sa' );
-					$tr0	= mysql_result($SQL_Result, $i, 'sf0t' );
-					$ka0	= mysql_result($SQL_Result, $i, 'sf0ka' );
-					$ca0	= mysql_result($SQL_Result, $i, 'sf0su' );
-					$ja1	= mysql_result($SQL_Result, $i, 'sf1j' );
-					$bo1	= mysql_result($SQL_Result, $i, 'sf1b' );
-					$fr1	= mysql_result($SQL_Result, $i, 'sf1f' );
-					$ze1	= mysql_result($SQL_Result, $i, 'sf1z' );
-					$kr1	= mysql_result($SQL_Result, $i, 'sf1kr' );
-					$sl1	= mysql_result($SQL_Result, $i, 'sf1sa' );
-					$tr1	= mysql_result($SQL_Result, $i, 'sf1t' );
-					$ka1	= mysql_result($SQL_Result, $i, 'sf1ka' );
-					$ca1	= mysql_result($SQL_Result, $i, 'sf1su' );
-					$ja2	= mysql_result($SQL_Result, $i, 'sf2j' );
-					$bo2	= mysql_result($SQL_Result, $i, 'sf2b' );
-					$fr2	= mysql_result($SQL_Result, $i, 'sf2f' );
-					$ze2	= mysql_result($SQL_Result, $i, 'sf2z' );
-					$kr2	= mysql_result($SQL_Result, $i, 'sf2kr' );
-					$sl2	= mysql_result($SQL_Result, $i, 'sf2sa' );
-					$tr2	= mysql_result($SQL_Result, $i, 'sf2t' );
-					$ka2	= mysql_result($SQL_Result, $i, 'sf2ka' );
-					$ca2	= mysql_result($SQL_Result, $i, 'sf2su' );
+					$mzeit	= tic_mysql_result($SQL_Result, $i, 'zeit' );
+					$mgen	= tic_mysql_result($SQL_Result, $i, 'gen' );
+					$ja0	= tic_mysql_result($SQL_Result, $i, 'sf0j' );
+					$bo0	= tic_mysql_result($SQL_Result, $i, 'sf0b' );
+					$fr0	= tic_mysql_result($SQL_Result, $i, 'sf0f' );
+					$ze0	= tic_mysql_result($SQL_Result, $i, 'sf0z' );
+					$kr0	= tic_mysql_result($SQL_Result, $i, 'sf0kr' );
+					$sl0	= tic_mysql_result($SQL_Result, $i, 'sf0sa' );
+					$tr0	= tic_mysql_result($SQL_Result, $i, 'sf0t' );
+					$ka0	= tic_mysql_result($SQL_Result, $i, 'sf0ka' );
+					$ca0	= tic_mysql_result($SQL_Result, $i, 'sf0su' );
+					$ja1	= tic_mysql_result($SQL_Result, $i, 'sf1j' );
+					$bo1	= tic_mysql_result($SQL_Result, $i, 'sf1b' );
+					$fr1	= tic_mysql_result($SQL_Result, $i, 'sf1f' );
+					$ze1	= tic_mysql_result($SQL_Result, $i, 'sf1z' );
+					$kr1	= tic_mysql_result($SQL_Result, $i, 'sf1kr' );
+					$sl1	= tic_mysql_result($SQL_Result, $i, 'sf1sa' );
+					$tr1	= tic_mysql_result($SQL_Result, $i, 'sf1t' );
+					$ka1	= tic_mysql_result($SQL_Result, $i, 'sf1ka' );
+					$ca1	= tic_mysql_result($SQL_Result, $i, 'sf1su' );
+					$ja2	= tic_mysql_result($SQL_Result, $i, 'sf2j' );
+					$bo2	= tic_mysql_result($SQL_Result, $i, 'sf2b' );
+					$fr2	= tic_mysql_result($SQL_Result, $i, 'sf2f' );
+					$ze2	= tic_mysql_result($SQL_Result, $i, 'sf2z' );
+					$kr2	= tic_mysql_result($SQL_Result, $i, 'sf2kr' );
+					$sl2	= tic_mysql_result($SQL_Result, $i, 'sf2sa' );
+					$tr2	= tic_mysql_result($SQL_Result, $i, 'sf2t' );
+					$ka2	= tic_mysql_result($SQL_Result, $i, 'sf2ka' );
+					$ca2	= tic_mysql_result($SQL_Result, $i, 'sf2su' );
 
 					break;
 				case 3: // geschtz
-					$gzeit	= mysql_result($SQL_Result, $i, 'zeit' );
-					$ggen	= mysql_result($SQL_Result, $i, 'gen' );
-					$lo	= mysql_result($SQL_Result, $i, 'glo' );
-					$lr	= mysql_result($SQL_Result, $i, 'glr' );
-					$mr	= mysql_result($SQL_Result, $i, 'gmr' );
-					$sr	= mysql_result($SQL_Result, $i, 'gsr' );
-					$aj	= mysql_result($SQL_Result, $i, 'ga' );
+					$gzeit	= tic_mysql_result($SQL_Result, $i, 'zeit' );
+					$ggen	= tic_mysql_result($SQL_Result, $i, 'gen' );
+					$lo	= tic_mysql_result($SQL_Result, $i, 'glo' );
+					$lr	= tic_mysql_result($SQL_Result, $i, 'glr' );
+					$mr	= tic_mysql_result($SQL_Result, $i, 'gmr' );
+					$sr	= tic_mysql_result($SQL_Result, $i, 'gsr' );
+					$aj	= tic_mysql_result($SQL_Result, $i, 'ga' );
 					break;
 				default:
 					echo '????huh?!??? - Ohooooh';
@@ -279,7 +279,7 @@
 	$sektor =		'Ab hier Kopieren:&lt;br /&gt;';
 	$sektor = $sektor.	'00,10Sektorscan (01,10 '.$sgen.'%00,10 ) '.$rname.' (01,10'.$rg.':'.$rp.'00,10)&lt;br /&gt;';
 	$sektor = $sektor.	'00,01Punkte: 07,01'.number_format($pts, 0, ',', '.').' 00,01Astros: 07,01'.$a.'&lt;br /&gt;';
-	$sektor = $sektor.	'00,01Schiffe: 07,01'.$s.' 00,01Geschütze: 07,01'.$d.'&lt;br /&gt;';
+	$sektor = $sektor.	'00,01Schiffe: 07,01'.$s.' 00,01Gesch&uuml;tze: 07,01'.$d.'&lt;br /&gt;';
 	$sektor = $sektor.	'00,01Metall-Exen: 07,01'.$me.' 00,01Kristall-Exen: 07,01'.$ke.'&lt;br /&gt;';
 	$sektor = $sektor.	'00,01Datum: 07,01'.$szeit.'';
 ?>
@@ -298,12 +298,12 @@
 			<td colspan="2">&nbsp;</td>
 <?php
 	$gscan = 		'Ab hier Kopieren:&lt;br /&gt;';
-	$gscan = $gscan.	'00,10Geschützscan (01,10 '.$ggen.'%00,10 ) '.$rname.' (01,10'.$rg.':'.$rp.'00,10)&lt;br /&gt;';
+	$gscan = $gscan.	'00,10Gesch&uuml;tzscan (01,10 '.$ggen.'%00,10 ) '.$rname.' (01,10'.$rg.':'.$rp.'00,10)&lt;br /&gt;';
 	$gscan = $gscan.	'00,01Rubium: 07,01'.$lo.' 00,01Pulsar: 07,01'.$lr.' 00,01Coon: 07,01'.$mr.'&lt;br /&gt;';
 	$gscan = $gscan.	'00,01Centurion: 07,01'.$sr.' 00,01Horus: 07,01'.$aj.'&lt;br /&gt;';
 	$gscan = $gscan.	'00,01Datum: 07,01'.$gzeit.'';
 ?>
-			<td bgcolor="#fdfddd" colspan="2"><?php echo '<a href="javascript:void(0);" onclick="return overlib(\''.$gscan.'\', STICKY, CAPTION,\'Geschützscan\', CENTER);" onmouseout="nd();">Geschützscan</a>';?></td>
+			<td bgcolor="#fdfddd" colspan="2"><?php echo '<a href="javascript:void(0);" onclick="return overlib(\''.$gscan.'\', STICKY, CAPTION,\'Geschützscan\', CENTER);" onmouseout="nd();">Gesch&uuml;tzscan</a>';?></td>
 			<td>&nbsp;</td>
 			<td class="fieldnormaldark"><b>Genauigkeit</b></td>
 			<td class="fieldnormaldark"><b>Datum</b></td>
@@ -317,13 +317,13 @@
 			<td colspan="2">&nbsp;</td>
 <?php
 	$MiliH = 		'Ab hier Kopieren:&lt;br /&gt;';
-	$MiliH = $MiliH.	'00,10Militärscan (01,10 '.$mgen.'%00,10 ) '.$rname.' (01,10'.$rg.':'.$rp.'00,10)&lt;br /&gt;';
+	$MiliH = $MiliH.	'00,10Milit&auml;rscan (01,10 '.$mgen.'%00,10 ) '.$rname.' (01,10'.$rg.':'.$rp.'00,10)&lt;br /&gt;';
 	$Orbit = 		'00,1Orbit: 07,01'.$ja0.' 00,1Leo 07,01'.$bo0.' 00,1Aquilae 07,01'.$fr0.' 00,1Fornax 07,01'.$ze0.' 00,1Draco 07,01'.$kr0.' 00,1Goron 07,01'.$sl0.' 00,1Pentalin 07,01'.$tr0.' 00,1Zenit 07,01'.$ka0.' 00,1Cleptor 07,01'.$ca0.' 00,1Cancri &lt;br /&gt;';
 	$Flotte1 = 		'00,01Flotte1: 07,01'.$ja1.' 00,01Leo 07,01'.$bo1.' 00,01Aquilae 07,01'.$fr1.' 00,01Fornax 07,01'.$ze1.' 00,01Draco 07,01'.$kr1.' 00,01Goron 07,01'.$sl1.' 00,01Pentalin 07,01'.$tr1.' 00,01Zenit 07,01'.$ka1.' 00,01Cleptor 07,01'.$ca1.' 00,01Cancri &lt;br /&gt;';
 	$Flotte2 = 		'00,01Flotte2: 07,01'.$ja2.' 00,01Leo 07,01'.$bo2.' 00,01Aquilae 07,01'.$fr2.' 00,01Fornax 07,01'.$ze2.' 00,01Draco 07,01'.$kr2.' 00,01Goron 07,01'.$sl2.' 00,01Pentalin 07,01'.$tr2.' 00,01Zenit 07,01'.$ka2.' 00,01Cleptor 07,01'.$ca2.' 00,01Cancri &lt;br /&gt;';
 	$MiliF = 		'00,01Datum: 07,01'.$mzeit.'';
 ?>
-			<td colspan="2" bgcolor="#fdfddd"><?php echo '<a href="javascript:void(0);" onclick="return overlib(\''.$MiliH.$Orbit.$Flotte1.$Flotte2.$MiliF.'\', STICKY, CAPTION,\'Militärscan\', CENTER);" onmouseout="nd();">Kompleter Militärscan</a>';?></td>
+			<td colspan="2" bgcolor="#fdfddd"><?php echo '<a href="javascript:void(0);" onclick="return overlib(\''.$MiliH.$Orbit.$Flotte1.$Flotte2.$MiliF.'\', STICKY, CAPTION,\'Militärscan\', CENTER);" onmouseout="nd();">Kompleter Milit&auml;rscan</a>';?></td>
 			<td>&nbsp;</td>
 			<td class="fieldnormallight"><?php echo $ggen; ?></td>
 			<td class="fieldnormallight"><?php echo $gzeit; ?></td>

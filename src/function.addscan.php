@@ -21,11 +21,11 @@ function addGalaxieSekScans($galaxiemitglieder) {
 		addgnuser($galaxiemitglieder[$i]["galaxie"], $galaxiemitglieder[$i]["planet"], $galaxiemitglieder[$i]["name"]);
 
 		$delcommand = "DELETE FROM `gn4scans` WHERE rg='".$galaxiemitglieder[$i]["galaxie"]."' AND rp='".$galaxiemitglieder[$i]["planet"]."' AND type='0';";
-		$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+		$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 
 		$addcommand = "INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, pts, s, d, me, ke, a)
 		VALUES ('0', '".date("H:i d.m.Y")."', '".$Benutzer['galaxie']."', '".$Benutzer['planet']."', '".$galaxiemitglieder[$i]["galaxie"]."', '".$galaxiemitglieder[$i]["planet"]."', '99', '".$galaxiemitglieder[$i]["punkte"]."', '".$galaxiemitglieder[$i]["flotte"]."', '".$galaxiemitglieder[$i]["geschuetze"]."', '".$galaxiemitglieder[$i]["mextraktoren"]."', '".$galaxiemitglieder[$i]["kextraktoren"]."', '".$galaxiemitglieder[$i]["asteroiden"]."');";
-		$SQL_Result = tic_mysql_query( $addcommand, $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+		$SQL_Result = tic_mysql_query( $addcommand, $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 	}
 }
 
@@ -132,7 +132,7 @@ function grabShipData($data) {
 			$daten = explode(' ', trim($zeilen[0]));		// Sektorscan Ergebnis (Genauigkeit:100%)
 			$scan_typ = trim($daten[0]);
 
-			if (ereg("(Flottenbewegungen[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) or preg_match('/DC.Publisher/', urldecode($txtScanOrg))) { // 3
+			if (preg_match("(Flottenbewegungen[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) or preg_match('/DC.Publisher/', urldecode($txtScanOrg))) { // 3
 
 
 				$html = urldecode($txtScanOrg);
@@ -216,14 +216,19 @@ function grabShipData($data) {
 					$text_in = $ereg_tmp[1];
 
 					$from_opera = false;
-					if (ereg(chr(9).chr(9).chr(13).chr(10)."Sektor".chr(9), $text_in)) { // 5
+					$from_ie = false;
+					if (preg_match(chr(9).chr(9).chr(13).chr(10)."Sektor".chr(9), $text_in)) { // 5
 						$from_opera = true;
 						echo "Browser: Opera<BR>\n";
 					} // 5
+					if (preg_match(chr(9).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10)."Sektor".chr(9), $text_in)) { // 5
+						$from_ie = true;
+						echo "Browser: IE<BR>\n";
+					} // 5
 
 	// Umwandeln der Eingabe auf ein einheitliches Format
-					$text_in = ereg_replace( "Flottenbewegungen(.*)Sektor", "Flottenbewegungen".chr(13).chr(10)."Sektor", $text_in );
-					$text_in = ereg_replace( "Sektor(.*)Kommandant", "Sektor-Kommandant",$text_in );
+					$text_in = preg_replace( "Flottenbewegungen(.*)Sektor", "Flottenbewegungen".chr(13).chr(10)."Sektor", $text_in );
+					$text_in = preg_replace( "Sektor(.*)Kommandant", "Sektor-Kommandant",$text_in );
 					$text_in = str_replace( "Greift an", "Greift_an", $text_in );
 					$text_in = str_replace( "Wird angegriffen von", "Wird_angegriffen_von", $text_in );
 					$text_in = str_replace( "Wird verteidigt von", "Wird_verteidigt_von", $text_in );
@@ -243,6 +248,8 @@ function grabShipData($data) {
 					$text_in = str_replace("-".chr(9), chr(9), $text_in );
 					if ($from_opera)
 						$text_in = str_replace(chr(9).chr(13).chr(10), chr(13).chr(10), $text_in );
+					if ($from_ie)
+						$text_in = str_replace(chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10), chr(13).chr(10), $text_in );
 
 
 	// Zerlegen der Eingabe in die Tabellen-Zellen
@@ -251,13 +258,13 @@ function grabShipData($data) {
 					$break_it = 0;
 					do { // 5
 						$break = true;
-						if ( ereg ( "([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10), $text_reg, $line_reg) ) { // 6
-							if ( ereg ( "([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)", $line_reg[1], $cells) and sizeof($cells) == 10) { // 7
+						if ( preg_match ( "([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10), $text_reg, $line_reg) ) { // 6
+							if ( preg_match ( "([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)", $line_reg[1], $cells) and sizeof($cells) == 10) { // 7
 								$temparray = $cells;
 								array_shift($temparray);
 								array_push($taktik, $temparray);
 							} // 7
-							$text_reg = ereg_replace( quotemeta($line_reg[1]).chr(13).chr(10), "", $text_reg);
+							$text_reg = preg_replace( quotemeta($line_reg[1]).chr(13).chr(10), "", $text_reg);
 							$break = false;
 						} // 6
 						$break_it++;
@@ -267,7 +274,7 @@ function grabShipData($data) {
 					$this_galaxy = 0;
 					for ($i = 0; $i < sizeof($taktik); $i++) { // 5
 						if ($taktik[$i][0] == "Sektor-Kommandant") continue;
-						if ( ereg ( "([^:]*):([^-]*)-(.*)", $taktik[$i][0], $temp) ) { // 6
+						if ( preg_match ( "([^:]*):([^-]*)-(.*)", $taktik[$i][0], $temp) ) { // 6
 							$local_galaxy = $temp[1];
 							$local_planet = $temp[2];
 							$local_name = $temp[3];
@@ -277,7 +284,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][2]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (ereg("00:00", $etas[$ii])) { // 10
+										if (preg_match("00:00", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -290,11 +297,11 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 1;
-									if ( ereg ( "Rückflug-", $flotten[$ii]) ) { // 9
+									if ( preg_match ( "Rückflug-", $flotten[$ii]) ) { // 9
 										$flotten[$ii] = str_replace("Rückflug-", "", $flotten[$ii]);
 										$modus += 2;
 									} // 9
-									if ( ereg ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -307,7 +314,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][4]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (ereg("00:00", $etas[$ii])) { // 10
+										if (preg_match("00:00", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -320,11 +327,11 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 2;
-									if ( ereg ( "Rückflug-", $flotten[$ii]) ) { // 9
+									if ( preg_match ( "Rückflug-", $flotten[$ii]) ) { // 9
 										$flotten[$ii] = str_replace("Rückflug-", "", $flotten[$ii]);
 										$modus += 2;
 									} // 9
-									if ( ereg ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -337,7 +344,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][6]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (ereg("00:00", $etas[$ii])) { // 10
+										if (preg_match("00:00", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -350,7 +357,7 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 1;
-									if ( ereg ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -363,7 +370,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][8]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (ereg("00:00", $etas[$ii])) { // 10
+										if (preg_match("00:00", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -376,7 +383,7 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 2;
-									if ( ereg ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -391,24 +398,24 @@ function grabShipData($data) {
 				$SQL_Query = 'SELECT * FROM `gn4flottenbewegungen` WHERE (angreifer_galaxie='.$this_galaxy.' OR verteidiger_galaxie='.$this_galaxy.') ORDER BY eta;';
     				$SQL_Result = tic_mysql_query( $SQL_Query, $SQL_DBConn) or die('<br>mist - n db-error!!!');
 
-				for ($i=0; $i < mysql_num_rows($SQL_Result); $i++){ // 4
-					$start_galaxie = mysql_result($SQL_Result, $i, 'angreifer_galaxie');
-					$start_planet = mysql_result($SQL_Result, $i, 'angreifer_planet');
-					$ziel_galaxie = mysql_result($SQL_Result, $i, 'verteidiger_galaxie');
-					$ziel_planet = mysql_result($SQL_Result, $i, 'verteidiger_planet');
+				for ($i=0; $i < mysqli_num_rows($SQL_Result); $i++){ // 4
+					$start_galaxie = tic_mysql_result($SQL_Result, $i, 'angreifer_galaxie');
+					$start_planet = tic_mysql_result($SQL_Result, $i, 'angreifer_planet');
+					$ziel_galaxie = tic_mysql_result($SQL_Result, $i, 'verteidiger_galaxie');
+					$ziel_planet = tic_mysql_result($SQL_Result, $i, 'verteidiger_planet');
 					for ($ii = 0; $ii < sizeof($flottenbewegungen); $ii++) { // 5
 						if ($flottenbewegungen[$ii]["mod"] == 0 && $flottenbewegungen[$ii]["start_galaxie"] == $start_galaxie && $flottenbewegungen[$ii]["start_planet"] == $start_planet && $flottenbewegungen[$ii]["ziel_galaxie"] == $ziel_galaxie && $flottenbewegungen[$ii]["ziel_planet"] == $ziel_planet) { // 6
 //							echo "DB-&Uuml;bernahme: ".$start_galaxie.":".$start_planet." -> ".$ziel_galaxie.":".$ziel_planet."<br>\n";
 							$flottenbewegungen[$ii]["mod"] = 1;
-							$flottenbewegungen[$ii]["fleet"] = mysql_result($SQL_Result, $i, 'flottennr');
-							$flottenbewegungen[$ii]["safe"] = 1 - mysql_result($SQL_Result, $i, 'save');
+							$flottenbewegungen[$ii]["fleet"] = tic_mysql_result($SQL_Result, $i, 'flottennr');
+							$flottenbewegungen[$ii]["safe"] = 1 - tic_mysql_result($SQL_Result, $i, 'save');
 							break;
 						} // 6
 					} // 5
 				} // 4
 
 				$delcommand = 'DELETE FROM `gn4flottenbewegungen` WHERE (angreifer_galaxie='.$this_galaxy.' or verteidiger_galaxie='.$this_galaxy.');';
-				$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
+				$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 				$action = "flottenbewegung";
 				for ($i = 0; $i < sizeof($flottenbewegungen); $i++) { // 4
 					switch ($flottenbewegungen[$i]["modus"]) { // 5
@@ -445,8 +452,8 @@ function grabShipData($data) {
 
 			} // 3
 
-			if (ereg("(Galaxiemitglieder[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) ||
-					ereg("Galaxiemitglieder.*Nachricht an die gesamte Galaxie senden", urldecode($txtScanOrg), $throwaway)) { // 3
+			if (preg_match("(Galaxiemitglieder[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) ||
+					preg_match("(Galaxiemitglieder.*Nachricht an die gesamte Galaxie senden)", urldecode($txtScanOrg), $throwaway)) { // 3
 				$text_in = $ereg_tmp[1];
 				$html = urldecode($txtScanOrg);
 				if (preg_match('/DC.Publisher/', $html)) { // 4: Wir haben HTML-Code bekommen!
@@ -503,8 +510,8 @@ function grabShipData($data) {
 				} else { // 3
 
 					// Umwandeln der Eingabe auf ein einheitliches Format
-					$text_in = ereg_replace( "Galaxiemitglieder(.*)Sektor", "Galaxiemitglieder".chr(13).chr(10)."Sektor", $text_in );
-					$text_in = ereg_replace( "Sektor(.*)Kommandant", "Sektor-Kommandant",$text_in );
+					$text_in = preg_replace( "Galaxiemitglieder(.*)Sektor", "Galaxiemitglieder".chr(13).chr(10)."Sektor", $text_in );
+					$text_in = preg_replace( "Sektor(.*)Kommandant", "Sektor-Kommandant",$text_in );
 					$text_in = str_replace( "Extraktoren [Metall/Kristall]", "Extraktoren", $text_in );
 					$text_in = str_replace( " / ", "/", $text_in );
 					$text_in = str_replace( " *", "", $text_in );
@@ -525,13 +532,13 @@ function grabShipData($data) {
 					$break_it = 0;
 					do { // 5
 						$break = true;
-						if ( ereg ( "([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10), $text_reg, $line_reg) ) { // 6
-							if ( ereg ( "([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)", $line_reg[1], $cells) and sizeof($cells) == 7) { // 7
+						if ( preg_match ( "([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10), $text_reg, $line_reg) ) { // 6
+							if ( preg_match ( "([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)", $line_reg[1], $cells) and sizeof($cells) == 7) { // 7
 								$temparray = $cells;
 								array_shift($temparray);
 								array_push($galaxie, $temparray);
 							} // 7
-							$text_reg = ereg_replace( quotemeta($line_reg[1]).chr(13).chr(10), "", $text_reg);
+							$text_reg = preg_replace( quotemeta($line_reg[1]).chr(13).chr(10), "", $text_reg);
 							$break = false;
 						} // 6
 						$break_it++;
@@ -543,11 +550,11 @@ function grabShipData($data) {
 						if ($galaxie[$i][0] == "Sektor-Kommandant") continue;
 						if ($galaxie[$i][0] == "Gesamt:") continue;
 						if ($galaxie[$i][0] == "Durchschnitt:") continue;
-						if ( ereg ( "([^:]*):([^-]*)-(.*)", $galaxie[$i][0], $temp) ) { // 6
+						if ( preg_match ( "([^:]*):([^-]*)-(.*)", $galaxie[$i][0], $temp) ) { // 6
 							$local_galaxy = $temp[1];
 							$local_planet = $temp[2];
 							$local_name = $temp[3];
-							ereg ( "([^/]*)/(.*)", $galaxie[$i][4], $temp);
+							preg_match ( "([^/]*)/(.*)", $galaxie[$i][4], $temp);
 							$mex = $temp[1];
 							$kex = $temp[2];
 							array_push($galaxiemitglieder, array("galaxie" => $local_galaxy, "planet" => $local_planet, "name" => $local_name, "punkte" => str_replace(".", "", $galaxie[$i][1]), "flotte" => $galaxie[$i][2], "geschuetze" => $galaxie[$i][3], "mextraktoren" => $mex, "kextraktoren" => $kex, "asteroiden" => $galaxie[$i][5]));
@@ -928,27 +935,27 @@ function grabShipData($data) {
 					addgnuser($scan_rg, $scan_rp, $scan_rn);
 					if ($scan_ziel1!='Orbit') { // 4
 						if ($scan_status1==1 || $scan_status1==2) { // 5
-							$SQL_Result = tic_mysql_query('SELECT gala,planet FROM `gn4gnuser` WHERE name="'.$scan_ziel1.'";') or die(mysql_errno()." - ".mysql_error());
-							if (mysql_num_rows($SQL_Result)==1) { // 6
-								$ziel1_gala = mysql_result($SQL_Result,0,'gala');
-								$ziel1_planet=mysql_result($SQL_Result,0,'planet');
-								$SQL_Result = tic_mysql_query('SELECT eta FROM `gn4flottenbewegungen` WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel1_gala.'" and verteidiger_planet="'.$ziel1_planet.'";') or die(mysql_errno()." - ".mysql_error());
-								if (mysql_num_rows($SQL_Result) == 1) { // 7
-									tic_mysql_query('UPDATE `gn4flottenbewegungen` SET flottennr="1" WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel1_gala.'" and verteidiger_planet="'.$ziel1_planet.'";')or die(mysql_errno()." - ".mysql_error());
+							$SQL_Result = tic_mysql_query('SELECT gala,planet FROM `gn4gnuser` WHERE name="'.$scan_ziel1.'";') or die(mysqli_errno()." - ".mysqli_error());
+							if (mysqli_num_rows($SQL_Result)==1) { // 6
+								$ziel1_gala = tic_mysql_result($SQL_Result,0,'gala');
+								$ziel1_planet=tic_mysql_result($SQL_Result,0,'planet');
+								$SQL_Result = tic_mysql_query('SELECT eta FROM `gn4flottenbewegungen` WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel1_gala.'" and verteidiger_planet="'.$ziel1_planet.'";') or die(mysqli_errno()." - ".mysqli_error());
+								if (mysqli_num_rows($SQL_Result) == 1) { // 7
+									tic_mysql_query('UPDATE `gn4flottenbewegungen` SET flottennr="1" WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel1_gala.'" and verteidiger_planet="'.$ziel1_planet.'";')or die(mysqli_errno()." - ".mysqli_error());
 								} // 7
 							} // 6
 						} // 5
 					} // 4
 					if ($scan_ziel2!='Orbit') { // 4
 						if ($scan_status2==1 || $scan_status2==2) { // 5
-							$SQL_Result = tic_mysql_query('SELECT gala,planet FROM `gn4gnuser` WHERE name="'.$scan_ziel2.'";') or die(mysql_errno()." - ".mysql_error());
-							$SQL_Num=mysql_num_rows($SQL_Result);
+							$SQL_Result = tic_mysql_query('SELECT gala,planet FROM `gn4gnuser` WHERE name="'.$scan_ziel2.'";') or die(mysqli_errno()." - ".mysqli_error());
+							$SQL_Num=mysqli_num_rows($SQL_Result);
 							if ($SQL_Num==1) { // 5
-								$ziel2_gala = mysql_result($SQL_Result,0,'gala');
-								$ziel2_planet=mysql_result($SQL_Result,0,'planet');
-								$SQL_Result = tic_mysql_query('SELECT eta FROM `gn4flottenbewegungen` WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel2_gala.'" and verteidiger_planet="'.$ziel2_planet.'";') or die(mysql_errno()." - ".mysql_error());
-								if (mysql_num_rows($SQL_Result) == 1) { // 6
-									tic_mysql_query('UPDATE `gn4flottenbewegungen` SET flottennr="2" WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel2_gala.'" and verteidiger_planet="'.$ziel2_planet.'";')or die(mysql_errno()." - ".mysql_error());
+								$ziel2_gala = tic_mysql_result($SQL_Result,0,'gala');
+								$ziel2_planet=tic_mysql_result($SQL_Result,0,'planet');
+								$SQL_Result = tic_mysql_query('SELECT eta FROM `gn4flottenbewegungen` WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel2_gala.'" and verteidiger_planet="'.$ziel2_planet.'";') or die(mysqli_errno()." - ".mysqli_error());
+								if (mysqli_num_rows($SQL_Result) == 1) { // 6
+									tic_mysql_query('UPDATE `gn4flottenbewegungen` SET flottennr="2" WHERE angreifer_galaxie="'.$scan_rg.'" and angreifer_planet="'.$scan_rp.'" and verteidiger_galaxie="'.$ziel2_gala.'" and verteidiger_planet="'.$ziel2_planet.'";')or die(mysqli_errno()." - ".mysqli_error());
 								} // 6
 							} // 5
 						} // 4

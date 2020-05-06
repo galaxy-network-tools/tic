@@ -20,9 +20,9 @@
 
     if (!isset($coords_gala) || !isset($coords_planet)) {
         $SQL_Result = tic_mysql_query('SELECT * FROM `gn4scans` WHERE rg<>"0" AND rp<>"0" and ticid="'.$Benutzer['ticid'].'" ORDER BY rg, rp LIMIT 1;', $SQL_DBConn);
-        if (mysql_num_rows($SQL_Result) != 0) {
-            $coords_gala = mysql_result($SQL_Result, 0, 'rg');
-            $coords_planet = mysql_result($SQL_Result, 0, 'rp');
+        if (mysqli_num_rows($SQL_Result) != 0) {
+            $coords_gala = tic_mysql_result($SQL_Result, 0, 'rg');
+            $coords_planet = tic_mysql_result($SQL_Result, 0, 'rp');
         } else {
             $coords_gala = $Benutzer['galaxie'];
             $coords_planet = $Benutzer['planet'];

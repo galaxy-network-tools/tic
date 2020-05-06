@@ -1,7 +1,7 @@
 <CENTER>
 	<TABLE>
 		<TR>
-			<TD BGCOLOR=#333333><FONT COLOR=#FFFFFF><B>Scan hinzufügen</B></FONT></TD>
+			<TD BGCOLOR=#333333><FONT COLOR=#FFFFFF><B>Scan hinzuf&uuml;gen</B></FONT></TD>
 		</TR>
 		<TR>
 			<TD>

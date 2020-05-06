@@ -10,8 +10,8 @@
         if ($Benutzer['rang'] != $Rang_Techniker) $_GET['lstChAllianz'] = $Benutzer['allianz'];
         if ($_GET['id'] != '' && $_GET['lstChRang'] != '' && $_GET['txtChGalaxie'] != '' && $_GET['txtChPlanet'] != '' && $_GET['lstChAllianz'] != '') {
             $SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE id="'.$_GET['id'].'";', $SQL_DBConn) or $error_code = 4;
-            if (mysql_num_rows($SQL_Result) == 1) {
-                $tmp_rang = mysql_result($SQL_Result, 0, 'rang');
+            if (mysqli_num_rows($SQL_Result) == 1) {
+                $tmp_rang = tic_mysql_result($SQL_Result, 0, 'rang');
                 if ($tmp_rang >= $Benutzer['rang'] || $_GET['lstChRang'] >= $Benutzer['rang'])
                     $error_code = 5;
                 else {

@@ -19,24 +19,24 @@
     echo '<TD bgcolor="#6490BB"><b>Funktion</TD></TR>';
 
     $SQL= "select * from gn4accounts where attplaner > 0;";
-    $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
-		$SQL_Num = mysql_num_rows($SQL_Result);
+    $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
+		$SQL_Num = mysqli_num_rows($SQL_Result);
     for ( $i=0; $i<$SQL_Num; $i++ )
     {
         echo '<TR>';
         echo '<TD>';
-        echo mysql_result($SQL_Result, $i, 'galaxie').':'.mysql_result($SQL_Result, $i, 'planet').' '.mysql_result($SQL_Result, $i, 'name');
+        echo tic_mysql_result($SQL_Result, $i, 'galaxie').':'.tic_mysql_result($SQL_Result, $i, 'planet').' '.tic_mysql_result($SQL_Result, $i, 'name');
         echo '</TD>';
-        echo '<TD>'.$RangName[mysql_result($SQL_Result, $i, 'rang')].'</TD>';
+        echo '<TD>'.$RangName[tic_mysql_result($SQL_Result, $i, 'rang')].'</TD>';
 
-        $PlanerRights = mysql_result($SQL_Result, $i, 'attplaner');
+        $PlanerRights = tic_mysql_result($SQL_Result, $i, 'attplaner');
 
         echo '<TD>'.$PlanerTyps[$PlanerRights].'</TD>';
 
         if ($Benutzer['rang'] >= $Rang_Techniker) {
            $flagdel =1;
         }
-        if (mysql_result($SQL_Result, $i, 'allianz') == $Ally && $Benutzer['rang'] >= $Rang_VizeAdmiral)
+        if (tic_mysql_result($SQL_Result, $i, 'allianz') == $Ally && $Benutzer['rang'] >= $Rang_VizeAdmiral)
         {
            $flagdel =1;
         }
@@ -44,7 +44,7 @@
         echo '</TD><TD>';
         if ($flagdel == 1) {
           echo '<form name="attplanerremove" method="post" action="./main.php">';
-          echo '<INPUT TYPE="hidden" NAME="id" VALUE="'.mysql_result($SQL_Result, $i, 'id').'">';
+          echo '<INPUT TYPE="hidden" NAME="id" VALUE="'.tic_mysql_result($SQL_Result, $i, 'id').'">';
           echo '<INPUT TYPE="hidden" NAME="fkt" VALUE="remove">';
           echo '<INPUT TYPE="hidden" NAME="action" VALUE="attplaneradmin">';
           echo '<INPUT TYPE="hidden" NAME="modul"  VALUE="attplaneradmin">';
@@ -70,12 +70,12 @@
           $SQL2= "select * from gn4accounts order by galaxie, planet;";
        }
 //
-		   $SQL2_Result = tic_mysql_query($SQL2) or die(tic_mysql_error(__FILE__,__LINE__));
-		   $SQL2_Num = mysql_num_rows($SQL2_Result);
+		   $SQL2_Result = tic_mysql_query($SQL2) or die(tic_mysqli_error(__FILE__,__LINE__));
+		   $SQL2_Num = mysqli_num_rows($SQL2_Result);
        echo '<b>Neuer ATT-Planer bestimmen: <select name="id">';
        for ($i2=0; $i2 < $SQL2_Num; $i2++ ) {
-             echo '<option value="'.mysql_result($SQL2_Result, $i2, 'id').'">';
-             echo mysql_result($SQL2_Result, $i2, 'galaxie').':'.mysql_result($SQL2_Result, $i2, 'planet').' '.mysql_result($SQL2_Result, $i2, 'name').' - '.$RangName[mysql_result($SQL2_Result, $i2, 'rang')];
+             echo '<option value="'.tic_mysql_result($SQL2_Result, $i2, 'id').'">';
+             echo tic_mysql_result($SQL2_Result, $i2, 'galaxie').':'.tic_mysql_result($SQL2_Result, $i2, 'planet').' '.tic_mysql_result($SQL2_Result, $i2, 'name').' - '.$RangName[tic_mysql_result($SQL2_Result, $i2, 'rang')];
              echo '</option>';
        }
        echo '</select>';

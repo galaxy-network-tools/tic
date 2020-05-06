@@ -8,11 +8,11 @@ if($Benutzer['rang']>=RANG_TECHNIKER){
 if(isset($_POST['metaspeichern'])) {
   if($Benutzer['rang']== RANG_TECHNIKER) $_POST['metaid']==$Benutzer['ticid'];
 	tic_mysql_query('Update `gn4meta` set name="'.$_POST['meta'].'", duell="'.$_POST['duell'].'", naps="'.$_POST['naps'].'", bnds="'.$_POST['bnds'].'", wars="'.$_POST['wars'].'", sysmsg="'.$_POST['sysmsg'].'" where id="'.$_POST['metaid'].'" ;',__FILE__,__LINE__);
-//	echo 'ï¿½derung gespeichert';
+//	echo 'Änderung gespeichert';
 }
 if(isset($_POST['metadelet'])&& $Benutzer['rang']== RANG_STECHNIKER){
 	$SQL_Result=tic_mysql_query('Select id FROM `gn4allianzen` where ticid="'.$_POST['metaid'].'";',__FILE__,__LINE__);
-	if(mysql_num_rows($SQL_Result)!='0'){
+	if(mysqli_num_rows($SQL_Result)!='0'){
 		LogAction($Benutzer['name'].' hat Versucht den Meta mit der id '.$_POST['metaid'].' zul&ouml;schen ohne die Allianzen vorher zu l&ouml;schen !');
 		$metaerror="Es m&uuml;ssen erst die Allianzen gel&ouml;scht werden bevor das Meta gel&ouml;scht werdne kann!";
 	}else {

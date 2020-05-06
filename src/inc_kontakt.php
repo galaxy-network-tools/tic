@@ -7,7 +7,7 @@
 				<tr class="fieldnormallight" style="font-weight:bold;" align="center"><td>
 <?php
 	$SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE rang="'.$Rang_STechniker.'" ORDER BY galaxie, planet;', $SQL_DBConn) or $error_code = 4;
-	while ($userdata = mysql_fetch_assoc($SQL_Result)) {
+	while ($userdata = mysqli_fetch_assoc($SQL_Result)) {
 		echo $userdata['galaxie'].':'.$userdata['planet'].' ['.$AllianzTag[$userdata['allianz']].'] '.$userdata['name']."<br />\n";
 	}
 ?>
@@ -20,7 +20,7 @@
 				<tr class="fieldnormallight" style="font-weight:bold;" align="center"><td>
 <?php
 	$SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE rang="'.$Rang_Techniker.'" ORDER BY galaxie, planet;', $SQL_DBConn) or $error_code = 4;
-	while ($userdata = mysql_fetch_assoc($SQL_Result)) {
+	while ($userdata = mysqli_fetch_assoc($SQL_Result)) {
 		echo $userdata['galaxie'].':'.$userdata['planet'].' ['.$AllianzTag[$userdata['allianz']].'] '.$userdata['name']."<br />\n";
 	}
 ?>
@@ -38,7 +38,7 @@
 		$color = false;
 	
 		$SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE allianz="'.$AllianzNummer.'" AND (rang >= "'.$Rang_GC.'" AND rang <= "'.$Rang_Admiral.'") ORDER BY rang DESC, galaxie, planet;', $SQL_DBConn) or $error_code = 4;
-		while ($userdata = mysql_fetch_assoc($SQL_Result)) {
+		while ($userdata = mysqli_fetch_assoc($SQL_Result)) {
 			$color = !$color;
 			echo '	<tr class="fieldnormal'.($color ? 'light' : 'dark').'"><td>'.$RangName[$userdata['rang']].'</td><td>'.$userdata['galaxie'].':'.$userdata['planet'].' '.$userdata['name'].'</td></tr>';
 		}

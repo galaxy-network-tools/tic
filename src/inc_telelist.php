@@ -18,16 +18,16 @@
             $sql .= 'where ticid="'.$Benutzer['ticid'].'" ORDER BY galaxie, planet';
             $color = 0;
             $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-            for ( $i=0; $i<mysql_num_rows($SQL_Result); $i++ ) {
+            for ( $i=0; $i<mysqli_num_rows($SQL_Result); $i++ ) {
                 $color = !$color;
-                $name = mysql_result($SQL_Result, $i, 'name' );
-                $gala =  mysql_result($SQL_Result, $i, 'galaxie' );
-                $gala = $gala .':'. mysql_result($SQL_Result, $i, 'planet' );
+                $name = tic_mysql_result($SQL_Result, $i, 'name' );
+                $gala =  tic_mysql_result($SQL_Result, $i, 'galaxie' );
+                $gala = $gala .':'. tic_mysql_result($SQL_Result, $i, 'planet' );
 
-                $telno = mysql_result($SQL_Result, $i,   'handy' );
-                $icq = mysql_result($SQL_Result, $i,     'messangerID' );
-                $infotext = mysql_result($SQL_Result, $i, 'infotext' );
-                $teleid = mysql_result($SQL_Result, $i,  'id' ); // used later, to delete the record
+                $telno = tic_mysql_result($SQL_Result, $i,   'handy' );
+                $icq = tic_mysql_result($SQL_Result, $i,     'messangerID' );
+                $infotext = tic_mysql_result($SQL_Result, $i, 'infotext' );
+                $teleid = tic_mysql_result($SQL_Result, $i,  'id' ); // used later, to delete the record
 
                 echo '<tr align="left" class="fieldnormal'.($color ? 'light' : 'dark').'">';
                 echo '<td align="center">'.$gala.'</td>';

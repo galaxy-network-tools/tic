@@ -52,8 +52,8 @@ if( strcmp( $_POST['subaction'], "incadd" ) == 0 ) {
     $sql  = 'select vorgemerkt from `gn4incplanets` wHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
     $abort = 0;
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    if ( mysql_num_rows($SQL_Result) == 1 ) {
-        $sins  = mysql_result( $SQL_Result, 0, 'vorgemerkt' );
+    if ( mysqli_num_rows($SQL_Result) == 1 ) {
+        $sins  = tic_mysql_result( $SQL_Result, 0, 'vorgemerkt' );
         if ( strstr( $sins, $s ) <> "" )
             $abort = 1;
     } else {
@@ -75,8 +75,8 @@ if( strcmp( $_POST['subaction'], "incadd" ) == 0 ) {
     $sql  = 'select vorgemerkt from `gn4incplanets` wHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
 
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    if ( mysql_num_rows($SQL_Result) > 0 ) {
-        $sins  = mysql_result( $SQL_Result, 0, 'vorgemerkt' );
+    if ( mysqli_num_rows($SQL_Result) > 0 ) {
+        $sins  = tic_mysql_result( $SQL_Result, 0, 'vorgemerkt' );
         if ( strcmp( $sins,  "" ) <> 0 ) {
             $sins = GetAllKoordsExceptFirst( $sins );
             $sql2 = 'UPDATE `gn4incplanets` SET vorgemerkt="'.$sins.'" WHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
@@ -91,15 +91,15 @@ if( strcmp( $_POST['subaction'], "incadd" ) == 0 ) {
     $sql  = 'SELECT vorgemerkt, bestaetigt FROM `gn4incplanets` WHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
     $addgala = '';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    if ( mysql_num_rows($SQL_Result) == 1 ) {
-        $sins  = mysql_result( $SQL_Result, 0, 'vorgemerkt' );
+    if ( mysqli_num_rows($SQL_Result) == 1 ) {
+        $sins  = tic_mysql_result( $SQL_Result, 0, 'vorgemerkt' );
         $addgala = GetFirstKoords( $sins );
         $sins = GetAllKoordsExceptFirst( $sins );
         $sql2 = 'UPDATE `gn4incplanets` SET vorgemerkt="'.$sins.'" WHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
         $SQL_Result2 = tic_mysql_query( $sql2, $SQL_DBConn );
     }
     if ( $addgala <> '' ) {
-        $bestaetigt = mysql_result( $SQL_Result, 0, 'bestaetigt' );
+        $bestaetigt = tic_mysql_result( $SQL_Result, 0, 'bestaetigt' );
         if ( strpos( $bestaetigt, $addgala ) === false  ) {
             if ( $bestaetigt == "" ) {
                 $bestaetigt = $addgala;
@@ -115,8 +115,8 @@ if( strcmp( $_POST['subaction'], "incadd" ) == 0 ) {
     // lösche von bestätigt
     $sql  = 'SELECT bestaetigt, vorgemerkt FROM `gn4incplanets` WHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    if ( mysql_num_rows($SQL_Result) > 0 ) {
-        $sins  = mysql_result( $SQL_Result, 0, 'bestaetigt' );
+    if ( mysqli_num_rows($SQL_Result) > 0 ) {
+        $sins  = tic_mysql_result( $SQL_Result, 0, 'bestaetigt' );
         if ( strcmp( $sins, "" ) <> 0 ) {
             $_POST['fleet'] = GetFirstKoords( $sins );
             $sins = GetAllKoordsExceptFirst( $sins );
@@ -126,7 +126,7 @@ if( strcmp( $_POST['subaction'], "incadd" ) == 0 ) {
     }
 
     $abort = 0;
-    $sins  = mysql_result( $SQL_Result, 0, 'vorgemerkt' );
+    $sins  = tic_mysql_result( $SQL_Result, 0, 'vorgemerkt' );
     if ( strstr( $sins, $_POST['fleet'] ) <> "" )
         $abort = 1;
 
@@ -146,8 +146,8 @@ if( strcmp( $_POST['subaction'], "incadd" ) == 0 ) {
     // remove a specila gala/planet from vorgemerkt
     $sql  = 'SELECT bestaetigt, vorgemerkt FROM `gn4incplanets` WHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    if ( mysql_num_rows($SQL_Result) == 1 ) {
-        $sins  = mysql_result( $SQL_Result, 0, 'vorgemerkt' );
+    if ( mysqli_num_rows($SQL_Result) == 1 ) {
+        $sins  = tic_mysql_result( $SQL_Result, 0, 'vorgemerkt' );
         $s = $_POST['playergala'] .':'. $_POST['playerplanet'].'@'.$_POST['fleet'];
         $sins = RemoveKoordsFrom( $s, $sins );
 
@@ -158,8 +158,8 @@ if( strcmp( $_POST['subaction'], "incadd" ) == 0 ) {
     // remove a specila planet from list
     $sql  = 'SELECT bestaetigt, vorgemerkt FROM `gn4incplanets` WHERE gala="'.$_POST['gala'].'" and planet="'.$_POST['plant'].'"';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    if ( mysql_num_rows($SQL_Result) == 1 ) {
-        $sins  = mysql_result( $SQL_Result, 0, 'vorgemerkt' );
+    if ( mysqli_num_rows($SQL_Result) == 1 ) {
+        $sins  = tic_mysql_result( $SQL_Result, 0, 'vorgemerkt' );
         $s = $_POST['playergala'] .':'. $_POST['playerplanet'].'@'.$_POST['fleet'];
         $sins = RemoveKoordsFrom( $s, $sins );
 

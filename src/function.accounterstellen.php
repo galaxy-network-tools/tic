@@ -2,7 +2,7 @@
 // Account erstellen
     if ($_POST['action'] == 'accounterstellen') {
         $SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE UPPER(name)=UPPER("'.$_POST['txtAccName'].'") OR (galaxie="'.$_POST['txtAccGalaxie'].'" AND planet="'.$_POST['txtAccPlanet'].'");', $SQL_DBConn) or $error_code = 4;
-        if (mysql_num_rows($SQL_Result) != 0)
+        if (mysqli_num_rows($SQL_Result) != 0)
             $error_code = 9;
         else {
             if ($Benutzer['rang'] == $Rang_GC) $_POST['txtAccGalaxie'] = $Benutzer['galaxie'];

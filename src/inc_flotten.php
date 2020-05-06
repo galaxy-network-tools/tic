@@ -2,19 +2,19 @@
     if (!isset($_POST['id'])) $_POST['id'] = 0;
     if ($_POST['id'] == 0) $error_code = 8;
     $SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE id="'.$_POST['id'].'";', $SQL_DBConn) or $error_code = 4;
-    if (mysql_num_rows($SQL_Result) != 1) $error_code = 8;
+    if (mysqli_num_rows($SQL_Result) != 1) $error_code = 8;
     if ($error_code != 0)
         include('./inc_errors.php');
     else {
-        $zeig_name = mysql_result($SQL_Result, 0, 'name');
-        $zeig_galaxie = mysql_result($SQL_Result, 0, 'galaxie');
-        $zeig_planet = mysql_result($SQL_Result, 0, 'planet');
+        $zeig_name = tic_mysql_result($SQL_Result, 0, 'name');
+        $zeig_galaxie = tic_mysql_result($SQL_Result, 0, 'galaxie');
+        $zeig_planet = tic_mysql_result($SQL_Result, 0, 'planet');
 ?>
 <CENTER>
 
 <TABLE>
   <TR>
-    <TD BGCOLOR=#333333><font color="#FFFFFF" size="-1"><B>Flottenbewegung hinzufügen</B></font></TD>
+    <TD BGCOLOR=#333333><font color="#FFFFFF" size="-1"><B>Flottenbewegung hinzuf&uuml;gen</B></font></TD>
   </TR>
   <TR>
     <TD>
@@ -39,7 +39,7 @@
                 echo '  <OPTION VALUE="1">1. Flotte</OPTION>';
                 echo '  <OPTION VALUE="2">2. Flotte</OPTION>';
                 echo '</SELECT> ';
-                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzufügen</A>';
+                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzuf&uuml;gen</A>';
             } elseif ($_POST['selected'] == 'wirdangegriffen') {
                 echo '<INPUT TYPE="hidden" NAME="modus" VALUE="angreifen">';
                 echo '<INPUT TYPE="hidden" NAME="txt_Verteidiger_Galaxie" VALUE="'.$zeig_galaxie.'">';
@@ -53,7 +53,7 @@
                 echo '  <OPTION VALUE="1">1. Flotte</OPTION>';
                 echo '  <OPTION VALUE="2">2. Flotte</OPTION>';
                 echo '</SELECT> ';
-                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzufügen</A>';
+                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzuf&uuml;gen</A>';
             } elseif ($_POST['selected'] == 'verteidigt') {
                 echo '<INPUT TYPE="hidden" NAME="modus" VALUE="verteidigen">';
                 echo '<INPUT TYPE="hidden" NAME="txt_Angreifer_Galaxie" VALUE="'.$zeig_galaxie.'">';
@@ -67,7 +67,7 @@
                 echo '  <OPTION VALUE="1">1. Flotte</OPTION>';
                 echo '  <OPTION VALUE="2">2. Flotte</OPTION>';
                 echo '</SELECT> ';
-                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzufügen</A>';
+                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzuf&uuml;gen</A>';
             } elseif ($_POST['selected'] == 'wirdverteidigt') {
                 echo '<INPUT TYPE="hidden" NAME="modus" VALUE="verteidigen">';
                 echo '<INPUT TYPE="hidden" NAME="txt_Verteidiger_Galaxie" VALUE="'.$zeig_galaxie.'">';
@@ -81,7 +81,7 @@
                 echo '  <OPTION VALUE="1">1. Flotte</OPTION>';
                 echo '  <OPTION VALUE="2">2. Flotte</OPTION>';
                 echo '</SELECT> ';
-                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzufügen</A>';
+                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzuf&uuml;gen</A>';
             } elseif ($_POST['selected'] == 'rueckflug') {
                 echo '<INPUT TYPE="hidden" NAME="modus" VALUE="rueckflug">';
                 echo '<INPUT TYPE="hidden" NAME="txt_Angreifer_Galaxie" VALUE="'.$zeig_galaxie.'">';
@@ -96,7 +96,7 @@
                 echo '  <OPTION VALUE="1">1. Flotte</OPTION>';
                 echo '  <OPTION VALUE="2">2. Flotte</OPTION>';
                 echo '</SELECT> ';
-                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzufügen</A>';
+                echo '<A HREF="javascript:document.frmFlottenbewegung.submit()">Hinzuf&uuml;gen</A>';
             }
         ?>
         </font>

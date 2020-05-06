@@ -5,7 +5,7 @@
 echo '<CENTER>
 	<B>Manuelle Scan-Datenbank Auflistung!</B><BR>
 	<BR>
-	<A HREF="./main.php?modul=scans">Scan in die Datenbank hinzufügen</A><BR>
+	<A HREF="./main.php?modul=scans">Scan in die Datenbank hinzuf&uuml;gen</A><BR>
 	<BR>
 
 	<TABLE>

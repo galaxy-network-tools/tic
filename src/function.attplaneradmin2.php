@@ -20,7 +20,7 @@
 
     if ($_GET['fkt'] == 'attfreigabe') {
         $SQL = 'UPDATE gn4attplanung SET freigabe = 1 WHERE lfd ='.$_GET['lfd'].';';
-        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
         echo 'Att-Ziel freigegeben!'.$_GET['lfd'];
     }
 
