@@ -84,8 +84,8 @@ function mili_write_to_db() {
     $insert_names = $insert_names.', sf1j, sf1b, sf1f, sf1z, sf1kr, sf1sa, sf1t, sf1ka, sf1su, status1';
     $insert_names = $insert_names.', sf2j, sf2b, sf2f, sf2z, sf2kr, sf2sa, sf2t, sf2ka, sf2su, status2';
     $insert_values = '"'.$_POST['tsf0j'].'", "'.$_POST['tsf0b'].'", "'.$_POST['tsf0f'].'", "'.$_POST['tsf0z'].'", "'.$_POST['tsf0kr'].'", "'.$_POST['tsf0sa'].'", "'.$_POST['tsf0t'].'", "'.$_POST['tsf0ka'].'", "'.$_POST['tsf0su'].'"';
-    $insert_values = $insert_values.', "'.$_POST['tsf1j'].'", "'.$_POST['tsf1b'].'", "'.$_POST['tsf1f'].'", "'.$_POST['tsf1z'].'", "'.$_POST['tsf1kr'].'", "'.$_POST['tsf1sa'].'", "'.$_POST['tsf1t'].'", "'.$_POST['tsf1ka'].'", "'.$_POST['tsf1su'].'", "'.$_POST['tstatus1'].'"';
-    $insert_values = $insert_values.', "'.$_POST['tsf2j'].'", "'.$_POST['tsf2b'].'", "'.$_POST['tsf2f'].'", "'.$_POST['tsf2z'].'", "'.$_POST['tsf2kr'].'", "'.$_POST['tsf2sa'].'", "'.$_POST['tsf2t'].'", "'.$_POST['tsf2ka'].'", "'.$_POST['tsf2su'].'", "'.$_POST['tstatus2'].'"';
+    $insert_values = $insert_values.', "'.$_POST['tsf1j'].'", "'.$_POST['tsf1b'].'", "'.$_POST['tsf1f'].'", "'.$_POST['tsf1z'].'", "'.$_POST['tsf1kr'].'", "'.$_POST['tsf1sa'].'", "'.$_POST['tsf1t'].'", "'.$_POST['tsf1ka'].'", "'.$_POST['tsf1su'].'", "'.$tstatus1.'"';
+    $insert_values = $insert_values.', "'.$_POST['tsf2j'].'", "'.$_POST['tsf2b'].'", "'.$_POST['tsf2f'].'", "'.$_POST['tsf2z'].'", "'.$_POST['tsf2kr'].'", "'.$_POST['tsf2sa'].'", "'.$_POST['tsf2t'].'", "'.$_POST['tsf2ka'].'", "'.$_POST['tsf2su'].'", "'.$tstatus2.'"';
     addgnuser($trg, $trp, $_POST['trn']);
     $SQL_Result = tic_mysql_query('INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, '.$insert_names.') VALUES ("'.$ttype.'", "'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'", "'.$Benutzer['galaxie'].'", "'.$Benutzer['planet'].'", "'.$trg.'", "'.$trp.'", "'.$tgen.'", '.$insert_values.');', $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben');
 
