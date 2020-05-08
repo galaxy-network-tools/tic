@@ -708,7 +708,6 @@ function grabShipData($data) {
                 $insert_values = '"'.$scan_sfj.'", "'.$scan_sfb.'", "'.$scan_sff.'", "'.$scan_sfz.'", "'.$scan_sfkr.'", "'.$scan_sfsa.'", "'.$scan_sft.'", "'.$scan_sfko.'", "'.$scan_sfka.'", "'.$scan_sfsu.'"';
                 $SQL_Result = tic_mysql_query('INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, '.$insert_names.') VALUES ("'.$scan_type.'", "'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'", "'.$Benutzer['galaxie'].'", "'.$Benutzer['planet'].'", "'.$scan_rg.'", "'.$scan_rp.'", "'.$scan_gen.'", '.$insert_values.');', $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben');
                 addgnuser($scan_rg, $scan_rp, $scan_rn);
-//print( $insert_values."<br>" );
 
                 // insert gscan ............................................
                 $daten = parseLine( $zeilen[1] );
