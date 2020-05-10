@@ -56,27 +56,27 @@ unset($asum);
 unset($dsum);
 $not_scanned = 0;
 $SQL_angreifer = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` where verteidiger_galaxie=' . $_GET['xgala'] . ' and verteidiger_planet=' . $_GET['xplanet'] . ' and modus=1 ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
-	$SQL_Num = mysqli_num_rows( $SQL_angreifer );
+$SQL_Num = mysqli_num_rows($SQL_angreifer);
 $atter_galas = '';
 for ($n = 0; $n < $SQL_Num; $n++) {
-		$a_gala   = tic_mysql_result( $SQL_angreifer, $n, 'angreifer_galaxie');
-		$a_planet = tic_mysql_result( $SQL_angreifer, $n, 'angreifer_planet');
-		$a_fnr    = tic_mysql_result( $SQL_angreifer, $n, 'flottennr');
+    $a_gala   = tic_mysql_result($SQL_angreifer, $n, 'angreifer_galaxie');
+    $a_planet = tic_mysql_result($SQL_angreifer, $n, 'angreifer_planet');
+    $a_fnr    = tic_mysql_result($SQL_angreifer, $n, 'flottennr');
     $atter_galas .= '<a href="./main.php?modul=showgalascans&displaymode=1&xgala=' . $a_gala . '&xplanet=' . $a_planet . '">' . $a_gala . ':' . $a_planet . '</a> ';
     $sql = 'select * from `gn4scans` where rg=' . $a_gala . ' and rp=' . $a_planet . ' and type=2'; // mili scan
     $SQL_result = tic_mysql_query($sql, $SQL_DBConn) or $error_code = 4;
-		$SQL_Num2 = mysqli_num_rows( $SQL_result );
+    $SQL_Num2 = mysqli_num_rows($SQL_result);
     if ($SQL_Num2 > 0) {
         $mode = "angreifer";
         $flotte = $a_fnr;
-	$eta = tic_mysql_result( $SQL_angreifer, $n, 'eta');
+        $eta = tic_mysql_result($SQL_angreifer, $n, 'eta');
         if ($eta < $ka_eta) $ka_eta = $eta;
         $flug[$mode][$a_gala . ':' . $a_planet . '.' . $flotte]['eta'] = $eta;
-	$fzeit = tic_mysql_result( $SQL_angreifer, $n, 'flugzeit');
+        $fzeit = tic_mysql_result($SQL_angreifer, $n, 'flugzeit');
         if (($eta + $fzeit) > $ka) $ka = ($eta + $fzeit);
         $flug[$mode][$a_gala . ':' . $a_planet . '.' . $flotte]['fzeit'] = $fzeit;
 
-	while ($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
+        while ($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
             for ($cnt = 0; $cnt <= 8; $cnt++) {
                 $flug[$mode][$a_gala . ':' . $a_planet . '.' . $flotte][$ftyp1[$cnt]] = $line['sf' . $a_fnr . $ftyp2[$cnt]];
                 $asum[$cnt] += $flug[$mode][$a_gala . ':' . $a_planet . '.' . $flotte][$ftyp1[$cnt]];
@@ -97,26 +97,26 @@ for ($n = 0; $n < $SQL_Num; $n++) {
 }
 
 $SQL_verteidiger = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` where verteidiger_galaxie=' . $_GET['xgala'] . ' and verteidiger_planet=' . $_GET['xplanet'] . ' and modus=2 ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
-	$SQL_Num = mysqli_num_rows( $SQL_verteidiger );
+$SQL_Num = mysqli_num_rows($SQL_verteidiger);
 $deffer_galas = '<a href="./main.php?modul=showgalascans&displaymode=1&xgala=' . $_GET['xgala'] . '&xplanet=' . $_GET['xplanet'] . '">' . $_GET['xgala'] . ':' . $_GET['xplanet'] . '</a> ';
 for ($n = 0; $n < $SQL_Num; $n++) {
-		$d_gala   = tic_mysql_result( $SQL_verteidiger, $n, 'angreifer_galaxie');
-		$d_planet = tic_mysql_result( $SQL_verteidiger, $n, 'angreifer_planet');
-		$d_fnr    = tic_mysql_result( $SQL_verteidiger, $n, 'flottennr');
+    $d_gala   = tic_mysql_result($SQL_verteidiger, $n, 'angreifer_galaxie');
+    $d_planet = tic_mysql_result($SQL_verteidiger, $n, 'angreifer_planet');
+    $d_fnr    = tic_mysql_result($SQL_verteidiger, $n, 'flottennr');
     $deffer_galas .= '<a href="./main.php?modul=showgalascans&displaymode=1&xgala=' . $d_gala . '&xplanet=' . $d_planet . '">' . $d_gala . ':' . $d_planet . '</a> ';
     $sql = 'select * from `gn4scans` where rg=' . $d_gala . ' and rp=' . $d_planet . ' and type=2'; // mili scan
     $SQL_result = tic_mysql_query($sql, $SQL_DBConn) or $error_code = 4;
-    $SQL_Num2 = mysqli_num_rows( $SQL_result );
+    $SQL_Num2 = mysqli_num_rows($SQL_result);
     if ($SQL_Num2 > 0 and $d_fnr > 0) {
         $mode = "verteidiger";
         $flotte = $d_fnr;
-	$eta = tic_mysql_result( $SQL_verteidiger, $n, 'eta');
+        $eta = tic_mysql_result($SQL_verteidiger, $n, 'eta');
         $flug[$mode][$d_gala . ':' . $d_planet . '.' . $flotte]['eta'] = $eta;
-	$fzeit = tic_mysql_result( $SQL_verteidiger, $n, 'flugzeit');
+        $fzeit = tic_mysql_result($SQL_verteidiger, $n, 'flugzeit');
         if (($eta + $fzeit) > $kv) $kv = ($eta + $fzeit);
         $flug[$mode][$d_gala . ':' . $d_planet . '.' . $flotte]['fzeit'] = $fzeit;
 
-	while($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
+        while ($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
             for ($cnt = 0; $cnt <= 8; $cnt++) {
                 $flug[$mode][$d_gala . ':' . $d_planet . '.' . $flotte][$ftyp1[$cnt]] = $line['sf' . $d_fnr . $ftyp2[$cnt]];
                 $dsum[$cnt] += $flug[$mode][$d_gala . ':' . $d_planet . '.' . $flotte][$ftyp1[$cnt]];
@@ -139,13 +139,13 @@ for ($n = 0; $n < $SQL_Num; $n++) {
 // füge orbit des deffers hinzu
 $sql = 'select * from `gn4scans` where rg=' . $_GET['xgala'] . ' and rp=' . $_GET['xplanet'] . ' and type=2'; // mili scan
 $SQL_result = tic_mysql_query($sql, $SQL_DBConn) or $error_code = 4;
-	$SQL_Num2 = mysqli_num_rows( $SQL_result );
+$SQL_Num2 = mysqli_num_rows($SQL_result);
 if ($SQL_Num2 > 0) {
     $mode = "eigene";
     $flotte = 0;
-		while($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
+    while ($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
         for ($cnt = 0; $cnt <= 8; $cnt++) {
-//				$flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result( $SQL_result, 0, 'sf0'.$ftyp2[$cnt]);
+            //				$flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result( $SQL_result, 0, 'sf0'.$ftyp2[$cnt]);
             $flug[$mode][$flotte][$ftyp1[$cnt]] = $line['sf0' . $ftyp2[$cnt]];
             $dsum[$cnt] += $flug[$mode][$flotte][$ftyp1[$cnt]];
         }
@@ -157,10 +157,10 @@ if ($SQL_Num2 > 0) {
 
 // füge NICHT-fliegenden flotte(n) des deffers hinzu
 $SQL_rumflieg = tic_mysql_query('SELECT * FROM `gn4flottenbewegungen` where angreifer_galaxie=' . $_GET['xgala'] . ' and angreifer_planet=' . $_GET['xplanet'] . ' ORDER BY eta;', $SQL_DBConn) or $error_code = 4;
-	$SQL_Num = mysqli_num_rows( $SQL_rumflieg );
+$SQL_Num = mysqli_num_rows($SQL_rumflieg);
 for ($n = 0; $n < 2 - $SQL_Num; $n++) {
     if ($n < $SQL_Num)
-			$fnr = tic_mysql_result( $SQL_rumflieg, $n, 'flottennr');
+        $fnr = tic_mysql_result($SQL_rumflieg, $n, 'flottennr');
     else
         $fnr = $n + 1;
 
@@ -169,20 +169,20 @@ for ($n = 0; $n < 2 - $SQL_Num; $n++) {
 
     $sql = 'select * from `gn4scans` where rg=' . $_GET['xgala'] . ' and rp=' . $_GET['xplanet'] . ' and type=2'; // mili scan
     $SQL_result = tic_mysql_query($sql, $SQL_DBConn) or $error_code = 4;
-		$SQL_Num2 = mysqli_num_rows( $SQL_result );
+    $SQL_Num2 = mysqli_num_rows($SQL_result);
     if ($SQL_Num2 > 0) {
         if ($fnr == 2) {
             $mode = "eigene";
             $flotte = 1;
             for ($cnt = 0; $cnt <= 8; $cnt++) {
-					$flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result( $SQL_result, 0, 'sf1'.$ftyp2[$cnt]);
+                $flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result($SQL_result, 0, 'sf1' . $ftyp2[$cnt]);
                 $dsum[$cnt] += $flug[$mode][$flotte][$ftyp1[$cnt]];
             }
         } else {
             $mode = "eigene";
             $flotte = 2;
             for ($cnt = 0; $cnt <= 8; $cnt++) {
-					$flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result( $SQL_result, 0, 'sf2'.$ftyp2[$cnt]);
+                $flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result($SQL_result, 0, 'sf2' . $ftyp2[$cnt]);
                 $dsum[$cnt] += $flug[$mode][$flotte][$ftyp1[$cnt]];
             }
         }
@@ -192,12 +192,12 @@ for ($n = 0; $n < 2 - $SQL_Num; $n++) {
 // geschütze
 $sql = 'select * from `gn4scans` where rg=' . $_GET['xgala'] . ' and rp=' . $_GET['xplanet'] . ' and type=3'; // geschütz scan
 $SQL_result = tic_mysql_query($sql, $SQL_DBConn) or $error_code = 4;
-	$SQL_Num2 = mysqli_num_rows( $SQL_result );
+$SQL_Num2 = mysqli_num_rows($SQL_result);
 if ($SQL_Num2 > 0) {
     $mode = "eigene";
     $flotte = 0;
     for ($cnt = 9; $cnt <= 13; $cnt++) {
-			$flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result( $SQL_result, 0, $ftyp2[$cnt]);
+        $flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result($SQL_result, 0, $ftyp2[$cnt]);
         $dsum[$cnt] += $flug[$mode][$flotte][$ftyp1[$cnt]];
     }
 } else {
@@ -316,10 +316,10 @@ if ($atter_galas == '') $atter_galas = 'keine';
     <?php    // füge orbit des deffers hinzu
     $sql = 'select * from `gn4scans` where rg=' . $_GET['xgala'] . ' and rp=' . $_GET['xplanet'] . ' and type=0'; // sektor scan
     $SQL_result = tic_mysql_query($sql, $SQL_DBConn) or $error_code = 4;
-    $SQL_Num2 = mysqli_num_rows( $SQL_result );
+    $SQL_Num2 = mysqli_num_rows($SQL_result);
     if ($SQL_Num2 > 0) {
-	$me = tic_mysql_result( $SQL_result, 0, 'me');
-	$ke = tic_mysql_result( $SQL_result, 0, 'ke');
+        $me = tic_mysql_result($SQL_result, 0, 'me');
+        $ke = tic_mysql_result($SQL_result, 0, 'ke');
     }
     if ($flug['angreifer'] != '') {
         while (list($key, $val) = each($flug['angreifer'])) {
