@@ -18,20 +18,20 @@ RUN yum -y install epel-release \
 # Add any additional repositories we might like
 RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm \
     && yum -y install yum-utils \
-    && yum-config-manager --enable remi-php56 \
+    && yum-config-manager --enable remi-php72 \
     && yum -y install \
         php \
         php-fpm \
         php-cli \
         php-mysql \
-    && yum clean all
+        php-xdebug \
+    && yum clean all \
+    # Create xdebug log
+    && mkdir /var/log/xdebug \
+    && touch /var/log/xdebug/xdebug.log
 
 RUN yum install -y \
     vim
-
-RUN yum-config-manager --enable remi-php56 \
-    && yum install -y \
-    php-xdebug
 
 RUN mkdir -p /run/php-fpm
 
