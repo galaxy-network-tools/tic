@@ -116,7 +116,7 @@ function grabShipData($data) {
 
 // Uebergebene Werte setzen
 	$action = isset($_POST['action'])?$_POST['action']:(isset($_GET['action'])?$_GET['action']:"");
-	$txtScan = isset($_POST['txtScan'])?$_POST['txtScan']:"";
+    $txtScan = isset($_POST['txtScan'])?$_POST['txtScan']:"";
 
 // Scan hinzufuegen
 	if ($action == 'addscan') { // 1
@@ -136,6 +136,7 @@ function grabShipData($data) {
 
 
 				$html = urldecode($txtScanOrg);
+
 				$flottenbewegungen = array();
 				if (preg_match('/DC.Publisher/', $html)) { // 4: Wir haben HTML-Code bekommen!
 					$html = preg_replace('/[\n\r]+/mi', "\r", $html);
@@ -161,8 +162,8 @@ function grabShipData($data) {
 						array_push($members, $member);
 					}; // 5
 
-					preg_match('/<td class=."welcometext.">Willkommen.*?([0-9]+):[0-9]+\)\!<\/td>/i', $html, $mm);
-					$this_galaxy = $mm[1];
+					preg_match('/<td class=."welcometext.">.*?\((.*):.*\).*<\/td>/i', $html, $mm);
+                    $this_galaxy = $mm[1];
 
 
 					foreach ($members as $member) { // 5
@@ -210,7 +211,7 @@ function grabShipData($data) {
 						}; // 6
 					} // 5
 				} else { // 4
-
+                    // We did NOT get HTML
 
 					$text_in = $ereg_tmp[1];
 
@@ -388,7 +389,7 @@ function grabShipData($data) {
 					} // 5
 				}; // 4
 				$SQL_Query = 'SELECT * FROM `gn4flottenbewegungen` WHERE (angreifer_galaxie='.$this_galaxy.' OR verteidiger_galaxie='.$this_galaxy.') ORDER BY eta;';
-				$SQL_Result = tic_mysql_query( $SQL_Query, $SQL_DBConn) or die('<br>mist - n db-error!!!');
+    				$SQL_Result = tic_mysql_query( $SQL_Query, $SQL_DBConn) or die('<br>mist - n db-error!!!');
 
 				for ($i=0; $i < mysql_num_rows($SQL_Result); $i++){ // 4
 					$start_galaxie = mysql_result($SQL_Result, $i, 'angreifer_galaxie');
