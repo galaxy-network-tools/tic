@@ -322,4 +322,31 @@ class scan_speichern {
 	}
 }
 
+class PostData {
+    private $postArray;
+
+    public function __construct($postArray = []) {
+        $this->postArray = $postArray;
+    }
+
+    public function getData() {
+        return $this->postArray;
+    }
+
+    public function getInt($fieldName) {
+        if (isset($this->postArray[$fieldName])) {
+            if ($this->postArray[$fieldName] == "") {
+                return 0;
+            }
+            return $this->postArray[$fieldName];
+        } else {
+            throw new Error('This field name does not exist');
+        }
+    }
+
+    public function setField($name, $value = null) {
+        $this->postArray[$name] = $value;
+    }
+}
+
 ?>

@@ -30,9 +30,11 @@ function unit_write_to_db() {
     $ttype = 1;
     $tgen = 99;
 
+    $postData = new PostData($_POST);
+
     $SQL_Result = tic_mysql_query('DELETE FROM `gn4scans` WHERE rg="'.$trg.'" AND rp="'.$trp.'" AND type="'.$ttype.'";', $SQL_DBConn);
     $insert_names = 'sfj, sfb, sff, sfz, sfkr, sfsa, sft, sfka, sfsu';
-    $insert_values = '"'.$_POST['tsfj'].'", "'.$_POST['tsfb'].'", "'.$_POST['tsff'].'", "'.$_POST['tsfz'].'", "'.$_POST['tsfkr'].'", "'.$_POST['tsfsa'].'", "'.$_POST['tsft'].'", "'.$_POST['tsfka'].'", "'.$_POST['tsfsu'].'"';
+    $insert_values = '"'.$postData->getInt('tsfj').'", "'.$postData->getInt('tsfb').'", "'.$postData->getInt('tsff').'", "'.$postData->getInt('tsfz').'", "'.$postData->getInt('tsfkr').'", "'.$postData->getInt('tsfsa').'", "'.$postData->getInt('tsft').'", "'.$postData->getInt('tsfka').'", "'.$postData->getInt('tsfsu').'"';
     $SQL_Result = tic_mysql_query('INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, '.$insert_names.') VALUES ("'.$ttype.'", "'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'", "'.$Benutzer['galaxie'].'", "'.$Benutzer['planet'].'", "'.$trg.'", "'.$trp.'", "'.$tgen.'", '.$insert_values.');', $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben');
     addgnuser($trg, $trp, $_POST['trn']);
 
@@ -51,10 +53,11 @@ function g_write_to_db() {
 
     $tgr=0;
 
+    $postData = new PostData($_POST);
 
     $SQL_Result = tic_mysql_query('DELETE FROM `gn4scans` WHERE rg="'.$trg.'" AND rp="'.$trp.'" AND type="'.$ttype.'";', $SQL_DBConn);
     $insert_names = 'glo, glr, gmr, gsr, ga';
-    $insert_values = '"'.$_POST['tglo'].'", "'.$_POST['tglr'].'", "'.$_POST['tgmr'].'", "'.$_POST['tgsr'].'", "'.$_POST['tga'].'"';
+    $insert_values = '"'.$postData->getInt('tglo').'", "'.$postData->getInt('tglr').'", "'.$postData->getInt('tgmr').'", "'.$postData->getInt('tgsr').'", "'.$postData->getInt('tga').'"';
     $SQL_Result = tic_mysql_query('INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, '.$insert_names.') VALUES ("'.$ttype.'","'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'", "'.$Benutzer['galaxie'].'", "'.$Benutzer['planet'].'", "'.$trg.'", "'.$trp.'", "'.$tgen.'", '.$insert_values.');', $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben');
     addgnuser($trg, $trp, $_POST['trn']);
     // ???
@@ -79,51 +82,53 @@ function mili_write_to_db() {
     $tstatus1 = 4;
     $tstatus2 = 4;
 
+    $postData = new PostData($_POST);
+
     $SQL_Result = tic_mysql_query('DELETE FROM `gn4scans` WHERE rg="'.$trg.'" AND rp="'.$trp.'" AND type="'.$ttype.'";', $SQL_DBConn);
     $insert_names = 'sf0j, sf0b, sf0f, sf0z, sf0kr, sf0sa, sf0t, sf0ka, sf0su';
     $insert_names = $insert_names.', sf1j, sf1b, sf1f, sf1z, sf1kr, sf1sa, sf1t, sf1ka, sf1su, status1';
     $insert_names = $insert_names.', sf2j, sf2b, sf2f, sf2z, sf2kr, sf2sa, sf2t, sf2ka, sf2su, status2';
-    $insert_values = '"'.$_POST['tsf0j'].'", "'.$_POST['tsf0b'].'", "'.$_POST['tsf0f'].'", "'.$_POST['tsf0z'].'", "'.$_POST['tsf0kr'].'", "'.$_POST['tsf0sa'].'", "'.$_POST['tsf0t'].'", "'.$_POST['tsf0ka'].'", "'.$_POST['tsf0su'].'"';
-    $insert_values = $insert_values.', "'.$_POST['tsf1j'].'", "'.$_POST['tsf1b'].'", "'.$_POST['tsf1f'].'", "'.$_POST['tsf1z'].'", "'.$_POST['tsf1kr'].'", "'.$_POST['tsf1sa'].'", "'.$_POST['tsf1t'].'", "'.$_POST['tsf1ka'].'", "'.$_POST['tsf1su'].'", "'.$tstatus1.'"';
-    $insert_values = $insert_values.', "'.$_POST['tsf2j'].'", "'.$_POST['tsf2b'].'", "'.$_POST['tsf2f'].'", "'.$_POST['tsf2z'].'", "'.$_POST['tsf2kr'].'", "'.$_POST['tsf2sa'].'", "'.$_POST['tsf2t'].'", "'.$_POST['tsf2ka'].'", "'.$_POST['tsf2su'].'", "'.$tstatus2.'"';
+    $insert_values = '"'.$postData->getInt('tsf0j').'", "'.$postData->getInt('tsf0b').'", "'.$postData->getInt('tsf0f').'", "'.$postData->getInt('tsf0z').'", "'.$postData->getInt('tsf0kr').'", "'.$postData->getInt('tsf0sa').'", "'.$postData->getInt('tsf0t').'", "'.$postData->getInt('tsf0ka').'", "'.$postData->getInt('tsf0su').'"';
+    $insert_values = $insert_values.', "'.$postData->getInt('tsf1j').'", "'.$postData->getInt('tsf1b').'", "'.$postData->getInt('tsf1f').'", "'.$postData->getInt('tsf1z').'", "'.$postData->getInt('tsf1kr').'", "'.$postData->getInt('tsf1sa').'", "'.$postData->getInt('tsf1t').'", "'.$postData->getInt('tsf1ka').'", "'.$postData->getInt('tsf1su').'", "'.$tstatus1.'"';
+    $insert_values = $insert_values.', "'.$postData->getInt('tsf2j').'", "'.$postData->getInt('tsf2b').'", "'.$postData->getInt('tsf2f').'", "'.$postData->getInt('tsf2z').'", "'.$postData->getInt('tsf2kr').'", "'.$postData->getInt('tsf2sa').'", "'.$postData->getInt('tsf2t').'", "'.$postData->getInt('tsf2ka').'", "'.$postData->getInt('tsf2su').'", "'.$tstatus2.'"';
     addgnuser($trg, $trp, $_POST['trn']);
     $SQL_Result = tic_mysql_query('INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, '.$insert_names.') VALUES ("'.$ttype.'", "'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'", "'.$Benutzer['galaxie'].'", "'.$Benutzer['planet'].'", "'.$trg.'", "'.$trp.'", "'.$tgen.'", '.$insert_values.');', $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben');
 
 
     $ttype = 1;
-    // jï¿½er
-    $_POST['tsfj'] = $_POST['tsf0j'] + $_POST['tsf1j'] +$_POST['tsf2j'];
+    // jäger
+    $postData->setField('tsfj', $postData->getInt('tsf0j') + $postData->getInt('tsf1j') +$postData->getInt('tsf2j'));
 
     // bomber
-    $_POST['tsfb'] = $_POST['tsf0b'] + $_POST['tsf1b'] + $_POST['tsf2b'];
+    $postData->setField('tsfb', $postData->getInt('tsf0b') + $postData->getInt('tsf1b') + $postData->getInt('tsf2b'));
 
     // fregs
-    $_POST['tsff'] = $_POST['tsf0f'] + $_POST['tsf1f'] + $_POST['tsf2f'];
+    $postData->setField('tsff', $postData->getInt('tsf0f') + $postData->getInt('tsf1f') + $postData->getInt('tsf2f'));
 
     // zerries
-    $_POST['tsfz'] = $_POST['tsf0z'] + $_POST['tsf1z'] + $_POST['tsf2z'];
+    $postData->setField('tsfz', $postData->getInt('tsf0z') + $postData->getInt('tsf1z') + $postData->getInt('tsf2z'));
 
     // kreuzer
-    $_POST['tsfkr'] = $_POST['tsf0kr'] + $_POST['tsf1kr'] + $_POST['tsf2kr'];
+    $postData->setField('tsfkr', $postData->getInt('tsf0kr') + $postData->getInt('tsf1kr') + $postData->getInt('tsf2kr'));
 
     // schlachter
-    $_POST['tsfsa'] = $_POST['tsf0sa'] + $_POST['tsf1sa'] + $_POST['tsf2sa'];
+    $postData->setField('tsfsa', $postData->getInt('tsf0sa') + $postData->getInt('tsf1sa') + $postData->getInt('tsf2sa'));
 
-    // trï¿½er
-    $_POST['tsft']  = $_POST['tsf0t']  + $_POST['tsf1t'] + $_POST['tsf2t'];
+    // träger
+    $postData->setField('tsft', $postData->getInt('tsf0t')  + $postData->getInt('tsf1t') + $postData->getInt('tsf2t'));
 
     // komisches ding
     $sfko = 0;
 
     // Kaper
-    $_POST['tsfka'] = $_POST['tsf0ka'] + $_POST['tsf1ka'] + $_POST['tsf2ka'];
+    $postData->setField('tsfka', $postData->getInt('tsf0ka') + $postData->getInt('tsf1ka') + $postData->getInt('tsf2ka'));
 
     // schutzies
-    $_POST['tsfsu'] = $_POST['tsf0su'] + $_POST['tsf1su'] +$_POST['tsf2su'];
+    $postData->setField('tsfsu', $postData->getInt('tsf0su') + $postData->getInt('tsf1su') +$postData->getInt('tsf2su'));
 
     $SQL_Result = tic_mysql_query('DELETE FROM `gn4scans` WHERE rg="'.$trg.'" AND rp="'.$trp.'" AND type="'.$ttype.'";', $SQL_DBConn);
     $insert_names = 'sfj, sfb, sff, sfz, sfkr, sfsa, sft, sfka, sfsu';
-    $insert_values = '"'.$_POST['tsfj'].'", "'.$_POST['tsfb'].'", "'.$_POST['tsff'].'", "'.$_POST['tsfz'].'", "'.$_POST['tsfkr'].'", "'.$_POST['tsfsa'].'", "'.$_POST['tsft'].'", "'.$_POST['tsfka'].'", "'.$_POST['tsfsu'].'"';
+    $insert_values = '"'.$postData->getInt('tsfj').'", "'.$postData->getInt('tsfb').'", "'.$postData->getInt('tsff').'", "'.$postData->getInt('tsfz').'", "'.$postData->getInt('tsfkr').'", "'.$postData->getInt('tsfsa').'", "'.$postData->getInt('tsft').'", "'.$postData->getInt('tsfka').'", "'.$postData->getInt('tsfsu').'"';
     $SQL_Result = tic_mysql_query('INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, '.$insert_names.') VALUES ("'.$ttype.'", "'.date("H").':'.date("i").' '.date("d").'.'.date("m").'.'.date("Y").'", "'.$Benutzer['galaxie'].'", "'.$Benutzer['planet'].'", "'.$trg.'", "'.$trp.'", "'.$tgen.'", '.$insert_values.');', $SQL_DBConn) or die('ERROR 2 Konnte Datensatz nicht schreiben');
     addgnuser($trg, $trp, $_POST['trn']);
 
