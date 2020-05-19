@@ -29,7 +29,9 @@
 			$_SESSION['userid'] = $userid;
 		} else {
 			$_SESSION['is_auth'] = 0;
-			$_SESSION['userid'] = -1;
+            $_SESSION['userid'] = -1;
+            header('HTTP/1.1 401 Unauthorized');
+            header('Location: ' . '/index.php');
 			die("Ihre Anmeldedaten waren nicht korrekt!");
 		}
 	}
