@@ -162,7 +162,7 @@ function grabShipData($data) {
 						array_push($members, $member);
 					}; // 5
 
-					preg_match('/<td class=."welcometext.">.*?\((.*):.*\).*<\/td>/i', $html, $mm);
+                    preg_match('/<td class=."welcometext.">.*?\((.*?):.*?\).*?<\/td>/i', $html, $mm);
                     $this_galaxy = $mm[1];
 
 
