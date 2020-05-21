@@ -67,9 +67,9 @@
                 $rfdauer = 18;
             } else {
                 $SQL_Result1 = tic_mysql_query("SELECT allianz, ticid FROM `gn4accounts` WHERE galaxie='".$txt_Angreifer_Galaxie."' limit 1;", $SQL_DBConn);
-                $ismeta1 = mysql_affected_rows();
+                $ismeta1 = mysqli_affected_rows();
                 $SQL_Result2 = tic_mysql_query("SELECT allianz, ticid FROM `gn4accounts` WHERE galaxie='".$txt_Verteidiger_Galaxie."' limit 1;", $SQL_DBConn);
-                $ismeta2 = mysql_affected_rows();
+                $ismeta2 = mysqli_affected_rows();
 				if ($ismeta1 && $ismeta2 && tic_mysql_result($SQL_Result1, 0, 'ticid') == tic_mysql_result($SQL_Result2, 0, 'ticid')) { // meta-intern
 					if (tic_mysql_result($SQL_Result1, 0, 'allianz') == tic_mysql_result($SQL_Result2, 0, 'allianz')) { // alli-intern
                         $lst_Flugzeit = 20;
@@ -121,5 +121,5 @@
                 $SQL_Result = tic_mysql_query('INSERT INTO `gn4flottenbewegungen` ('.$SQL_names.')            VALUES ("0", '.$SQL_values.');', $SQL_DBConn) or $error_code = 7;
             }
         } else $error_code = 6;
-	echo mysqli_error();
+	echo mysqli_error($SQL_DBConn);
 ?>

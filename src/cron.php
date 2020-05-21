@@ -8,7 +8,7 @@
 	$null_ticks = (int)(time() / ($tsec));
 
 	$alt_ticks = 0;
-	if(mysqli_affected_rows()==0)
+	if(mysqli_affected_rows($SQL_DBConn)==0)
 	{
 		tic_mysql_query("INSERT INTO gn4cron (time,count) VALUES (".$null_ticks.",0);", $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
 		$alt_ticks = $null_ticks;
