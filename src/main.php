@@ -11,9 +11,13 @@
 	#  vom tic-entwickler.de Team                            #
 	#  und mit bytehoppers                                   #
 	#                                                        #
+	#  2020 upgegraded und upgedated von                     #
+	#    ast126                                              #
+	#    worp1900                                            #
+	#                                                        #
 	##########################################################
 */
-//	error_reporting(E_ALL); // zu testzwecken einschalten
+	// error_reporting(E_ALL); // zu testzwecken einschalten
 	ob_start("ob_gzhandler");
 
 	include("sessionhelpers.inc.php");
@@ -43,11 +47,12 @@
 	$mtime = $mtime[1] + $mtime[0];
 	$start_time = $mtime;
 
-	$version = "1.36.3";
+	$version = "1.60";
 
 	include("./accdata.php");
-	include("./globalvars.php");
 	include("./functions.php");
+	include("./globalvars.php");
+	//include("./functions.php");
 
 	// Kein Fehler zu Beginn ^^
 	$error_code = 0;
