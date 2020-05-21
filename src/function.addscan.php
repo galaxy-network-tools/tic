@@ -132,7 +132,7 @@ function grabShipData($data) {
 			$daten = explode(' ', trim($zeilen[0]));		// Sektorscan Ergebnis (Genauigkeit:100%)
 			$scan_typ = trim($daten[0]);
 
-			if (preg_match("(Flottenbewegungen[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) or preg_match('/DC.Publisher/', urldecode($txtScanOrg))) { // 3
+			if (preg_match("/(Flottenbewegungen[^·]*·  Nachricht an die gesamte Galaxie senden ··»)/", $txtScanOrg, $ereg_tmp) or preg_match('/DC.Publisher/', urldecode($txtScanOrg))) { // 3
 
 
 				$html = urldecode($txtScanOrg);
@@ -213,68 +213,68 @@ function grabShipData($data) {
 				} else { // 4
                     // We did NOT get HTML
 
-					$text_in = $ereg_tmp[1];
+					$text_in = $ereg_tmp[0];
 
 					$from_opera = false;
 					$from_ie = false;
-					if (preg_match(chr(9).chr(9).chr(13).chr(10)."Sektor".chr(9), $text_in)) { // 5
+					if (preg_match("/".chr(9).chr(9).chr(13).chr(10)."Sektor".chr(9)."/", $text_in)) { // 5
 						$from_opera = true;
 						echo "Browser: Opera<BR>\n";
 					} // 5
-					if (preg_match(chr(9).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10)."Sektor".chr(9), $text_in)) { // 5
+					if (preg_match("/".chr(9).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10)."Sektor".chr(9)."/", $text_in)) { // 5
 						$from_ie = true;
 						echo "Browser: IE<BR>\n";
-					} // 5
+                    } // 5
 
-	// Umwandeln der Eingabe auf ein einheitliches Format
-					$text_in = preg_replace( "Flottenbewegungen(.*)Sektor", "Flottenbewegungen".chr(13).chr(10)."Sektor", $text_in );
-					$text_in = preg_replace( "Sektor(.*)Kommandant", "Sektor-Kommandant",$text_in );
-					$text_in = str_replace( "Greift an", "Greift_an", $text_in );
-					$text_in = str_replace( "Wird angegriffen von", "Wird_angegriffen_von", $text_in );
-					$text_in = str_replace( "Wird verteidigt von", "Wird_verteidigt_von", $text_in );
-					$text_in = str_replace( "·  Nachricht an die gesamte Galaxie senden ··»", "·__Nachricht_an_die_gesamte_Galaxie_senden_··»", $text_in );
-					$text_in = str_replace( " *", "", $text_in );
-					$text_in = str_replace( " Min", "m", $text_in );
-					$text_in = str_replace( " Std", "s", $text_in );
-					$text_in = preg_replace( "/ (\|[SEMGN])+\|/", "", $text_in );
-					$text_in = preg_replace( "/\|/", "", $text_in );
-					$text_in = str_replace(chr(32).chr(9), chr(9), $text_in );
-					$text_in = str_replace(chr(32).chr(13).chr(10).chr(32).chr(13).chr(10), chr(32).chr(13).chr(10), $text_in );
-					$text_in = str_replace(chr(32).chr(13).chr(10), chr(13).chr(10), $text_in );
-					$text_in = preg_replace( "/(\d+\:\d+)[ ".chr(9)."]([^".chr(10).chr(13)."])/", "$1-$2", $text_in );
-					$text_in = preg_replace( "/Rückflug".chr(13).chr(10)."\((\d+\:\d+)-([^".chr(10).chr(13)."]*)\)/", "Rückflug-$1-$2", $text_in );
-					$text_in = str_replace(chr(32), chr(9), $text_in );
-					$text_in = str_replace(chr(13).chr(10).chr(9), chr(9), $text_in );
-					$text_in = str_replace("-".chr(9), chr(9), $text_in );
-					if ($from_opera)
-						$text_in = str_replace(chr(9).chr(13).chr(10), chr(13).chr(10), $text_in );
-					if ($from_ie)
-						$text_in = str_replace(chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10), chr(13).chr(10), $text_in );
+    // Umwandeln der Eingabe auf ein einheitliches Format
+                    $text_in = preg_replace( "/Flottenbewegungen(.*)Sektor/s", "Flottenbewegungen".chr(13).chr(10)."Sektor", $text_in );
+                    $text_in = preg_replace( "/Sektor(.*)Kommandant/", "Sektor-Kommandant",$text_in );
+                    $text_in = str_replace( "Greift an", "Greift_an", $text_in );
+                    $text_in = str_replace( "Wird angegriffen von", "Wird_angegriffen_von", $text_in );
+                    $text_in = str_replace( "Wird verteidigt von", "Wird_verteidigt_von", $text_in );
+                    $text_in = str_replace( "·  Nachricht an die gesamte Galaxie senden ··»", "·__Nachricht_an_die_gesamte_Galaxie_senden_··»", $text_in );
+                    $text_in = str_replace( " *", "", $text_in );
+                    $text_in = str_replace( " Min", "m", $text_in );
+                    $text_in = str_replace( " Std", "s", $text_in );
+                    $text_in = preg_replace( "/ (\|[SEMGN])+\|/", "", $text_in );
+                    $text_in = preg_replace( "/\|/", "", $text_in );
+                    $text_in = str_replace(chr(32).chr(9), chr(9), $text_in );
+                    $text_in = str_replace(chr(32).chr(13).chr(10).chr(32).chr(13).chr(10), chr(32).chr(13).chr(10), $text_in );
+                    $text_in = str_replace(chr(32).chr(13).chr(10), chr(13).chr(10), $text_in );
+                    $text_in = preg_replace( "/(\d+\:\d+)[ ".chr(9)."]([^".chr(10).chr(13)."])/", "$1-$2", $text_in );
+                    $text_in = preg_replace( "/Rückflug".chr(13).chr(10)."\((\d+\:\d+)-([^".chr(10).chr(13)."]*)\)/", "Rückflug-$1-$2", $text_in );
+                    $text_in = str_replace(chr(32), chr(9), $text_in );
+                    $text_in = str_replace(chr(13).chr(10).chr(9), chr(9), $text_in );
+                    $text_in = str_replace("-".chr(9), chr(9), $text_in );
+                    if ($from_opera)
+                        $text_in = str_replace(chr(9).chr(13).chr(10), chr(13).chr(10), $text_in );
+                    if ($from_ie)
+                        $text_in = str_replace(chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10).chr(9).chr(13).chr(10), chr(13).chr(10), $text_in );
 
 
-	// Zerlegen der Eingabe in die Tabellen-Zellen
-					$text_reg = $text_in;
-					$taktik = array();
-					$break_it = 0;
-					do { // 5
-						$break = true;
-						if ( preg_match ( "([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10), $text_reg, $line_reg) ) { // 6
-							if ( preg_match ( "([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)", $line_reg[1], $cells) and sizeof($cells) == 10) { // 7
-								$temparray = $cells;
-								array_shift($temparray);
-								array_push($taktik, $temparray);
-							} // 7
-							$text_reg = preg_replace( quotemeta($line_reg[1]).chr(13).chr(10), "", $text_reg);
-							$break = false;
-						} // 6
-						$break_it++;
-					} while (($break == false) && ($break_it < 25)); // 5
+    // Zerlegen der Eingabe in die Tabellen-Zellen
+                    $text_reg = $text_in;
+                    $taktik = array();
+                    $break_it = 0;
+                    do { // 5
+                        $break = true;
+                        if ( preg_match ( "/([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10)."/", $text_reg, $line_reg) ) { // 6
+                            if ( preg_match ( "/([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)/", $line_reg[1], $cells) and sizeof($cells) == 10) { // 7
+                                $temparray = $cells;
+                                array_shift($temparray);
+                                array_push($taktik, $temparray);
+                            } // 7
+                            $text_reg = preg_replace( "/".quotemeta($line_reg[1]).chr(13).chr(10)."/", "", $text_reg);
+                            $break = false;
+                        } // 6
+                        $break_it++;
+                    } while (($break == false) && ($break_it < 25)); // 5
 
 	// Erstellen der einzelnen Flottenbewegungen
 					$this_galaxy = 0;
 					for ($i = 0; $i < sizeof($taktik); $i++) { // 5
 						if ($taktik[$i][0] == "Sektor-Kommandant") continue;
-						if ( preg_match ( "([^:]*):([^-]*)-(.*)", $taktik[$i][0], $temp) ) { // 6
+						if ( preg_match ( "/([^:]*):([^-]*)-(.*)/", $taktik[$i][0], $temp) ) { // 6
 							$local_galaxy = $temp[1];
 							$local_planet = $temp[2];
 							$local_name = $temp[3];
@@ -284,7 +284,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][2]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (preg_match("00:00", $etas[$ii])) { // 10
+										if (preg_match("/00:00/", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -297,11 +297,11 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 1;
-									if ( preg_match ( "Rückflug-", $flotten[$ii]) ) { // 9
+									if ( preg_match ( "/Rückflug-/", $flotten[$ii]) ) { // 9
 										$flotten[$ii] = str_replace("Rückflug-", "", $flotten[$ii]);
 										$modus += 2;
 									} // 9
-									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "/([^:]*):([^-]*)-(.*)/", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -314,7 +314,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][4]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (preg_match("00:00", $etas[$ii])) { // 10
+										if (preg_match("/00:00/", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -327,11 +327,11 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 2;
-									if ( preg_match ( "Rückflug-", $flotten[$ii]) ) { // 9
+									if ( preg_match ( "/Rückflug-/", $flotten[$ii]) ) { // 9
 										$flotten[$ii] = str_replace("Rückflug-", "", $flotten[$ii]);
 										$modus += 2;
 									} // 9
-									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "/([^:]*):([^-]*)-(.*)/", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -344,7 +344,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][6]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (preg_match("00:00", $etas[$ii])) { // 10
+										if (preg_match("/00:00/", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -357,7 +357,7 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 1;
-									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "/([^:]*):([^-]*)-(.*)/", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -370,7 +370,7 @@ function grabShipData($data) {
 								$etas = explode(chr(13).chr(10), $taktik[$i][8]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
-										if (preg_match("00:00", $etas[$ii])) { // 10
+										if (preg_match("/00:00/", $etas[$ii])) { // 10
 											$etas[$ii] = 0;
 										} else { // 10
 											$etas[$ii] = (int)((substr($etas[$ii],0,2)*60 + substr($etas[$ii],3,2))/$Ticks['lange'])+1;
@@ -383,7 +383,7 @@ function grabShipData($data) {
 								} // 8
 								for ($ii = 0; $ii < sizeof($flotten); $ii++) { // 8
 									$modus = 2;
-									if ( preg_match ( "([^:]*):([^-]*)-(.*)", $flotten[$ii], $ftemp) ) { // 9
+									if ( preg_match ( "/([^:]*):([^-]*)-(.*)/", $flotten[$ii], $ftemp) ) { // 9
 										$flotte_galaxy = $ftemp[1];
 										$flotte_planet = $ftemp[2];
 										$flotte_name = $ftemp[3];
@@ -404,9 +404,9 @@ function grabShipData($data) {
 					$ziel_galaxie = tic_mysql_result($SQL_Result, $i, 'verteidiger_galaxie');
 					$ziel_planet = tic_mysql_result($SQL_Result, $i, 'verteidiger_planet');
 					for ($ii = 0; $ii < sizeof($flottenbewegungen); $ii++) { // 5
-						if ($flottenbewegungen[$ii]["mod"] == 0 && $flottenbewegungen[$ii]["start_galaxie"] == $start_galaxie && $flottenbewegungen[$ii]["start_planet"] == $start_planet && $flottenbewegungen[$ii]["ziel_galaxie"] == $ziel_galaxie && $flottenbewegungen[$ii]["ziel_planet"] == $ziel_planet) { // 6
+						if ($flottenbewegungen[$ii]["modus"] == 0 && $flottenbewegungen[$ii]["start_galaxie"] == $start_galaxie && $flottenbewegungen[$ii]["start_planet"] == $start_planet && $flottenbewegungen[$ii]["ziel_galaxie"] == $ziel_galaxie && $flottenbewegungen[$ii]["ziel_planet"] == $ziel_planet) { // 6
 //							echo "DB-&Uuml;bernahme: ".$start_galaxie.":".$start_planet." -> ".$ziel_galaxie.":".$ziel_planet."<br>\n";
-							$flottenbewegungen[$ii]["mod"] = 1;
+							$flottenbewegungen[$ii]["modus"] = 1;
 							$flottenbewegungen[$ii]["fleet"] = tic_mysql_result($SQL_Result, $i, 'flottennr');
 							$flottenbewegungen[$ii]["safe"] = 1 - tic_mysql_result($SQL_Result, $i, 'save');
 							break;
@@ -415,7 +415,7 @@ function grabShipData($data) {
 				} // 4
 
 				$delcommand = 'DELETE FROM `gn4flottenbewegungen` WHERE (angreifer_galaxie='.$this_galaxy.' or verteidiger_galaxie='.$this_galaxy.');';
-				$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+				$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysqli_errno($SQL_DBConn)." - ".mysqli_error($SQL_DBConn));
 				$action = "flottenbewegung";
 				for ($i = 0; $i < sizeof($flottenbewegungen); $i++) { // 4
 					switch ($flottenbewegungen[$i]["modus"]) { // 5
@@ -452,9 +452,9 @@ function grabShipData($data) {
 
 			} // 3
 
-			if (preg_match("(Galaxiemitglieder[^·]*·  Nachricht an die gesamte Galaxie senden ··»)", $txtScanOrg, $ereg_tmp) ||
-					preg_match("(Galaxiemitglieder.*Nachricht an die gesamte Galaxie senden)", urldecode($txtScanOrg), $throwaway)) { // 3
-				$text_in = $ereg_tmp[1];
+			if (preg_match("/(Galaxiemitglieder[^·]*·  Nachricht an die gesamte Galaxie senden ··»)/", $txtScanOrg, $ereg_tmp) ||
+					preg_match("/(Galaxiemitglieder.*Nachricht an die gesamte Galaxie senden)/", urldecode($txtScanOrg), $throwaway)) { // 3
+				$text_in = $ereg_tmp[0];
 				$html = urldecode($txtScanOrg);
 				if (preg_match('/DC.Publisher/', $html)) { // 4: Wir haben HTML-Code bekommen!
 					preg_match('/<td class="welcometext">Willkommen.*?([0-9]+):[0-9]+\)\!<\/td>/i', $html, $mm);
@@ -510,8 +510,8 @@ function grabShipData($data) {
 				} else { // 3
 
 					// Umwandeln der Eingabe auf ein einheitliches Format
-					$text_in = preg_replace( "Galaxiemitglieder(.*)Sektor", "Galaxiemitglieder".chr(13).chr(10)."Sektor", $text_in );
-					$text_in = preg_replace( "Sektor(.*)Kommandant", "Sektor-Kommandant",$text_in );
+					$text_in = preg_replace( "/Galaxiemitglieder(.*)Sektor/", "Galaxiemitglieder".chr(13).chr(10)."Sektor", $text_in );
+					$text_in = preg_replace( "/Sektor(.*)Kommandant/", "Sektor-Kommandant",$text_in );
 					$text_in = str_replace( "Extraktoren [Metall/Kristall]", "Extraktoren", $text_in );
 					$text_in = str_replace( " / ", "/", $text_in );
 					$text_in = str_replace( " *", "", $text_in );
@@ -532,13 +532,13 @@ function grabShipData($data) {
 					$break_it = 0;
 					do { // 5
 						$break = true;
-						if ( preg_match ( "([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10), $text_reg, $line_reg) ) { // 6
-							if ( preg_match ( "([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)", $line_reg[1], $cells) and sizeof($cells) == 7) { // 7
+						if ( preg_match ( "/([^".chr(9).chr(13).chr(10)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*".chr(9)."[^".chr(9)."]*)".chr(13).chr(10)."/", $text_reg, $line_reg) ) { // 6
+							if ( preg_match ( "/([^".chr(9).chr(10).chr(13)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)".chr(9)."([^".chr(9)."]*)/", $line_reg[1], $cells) and sizeof($cells) == 7) { // 7
 								$temparray = $cells;
 								array_shift($temparray);
 								array_push($galaxie, $temparray);
 							} // 7
-							$text_reg = preg_replace( quotemeta($line_reg[1]).chr(13).chr(10), "", $text_reg);
+							$text_reg = preg_replace( "/".quotemeta($line_reg[1]).chr(13).chr(10)."/", "", $text_reg);
 							$break = false;
 						} // 6
 						$break_it++;
@@ -550,11 +550,11 @@ function grabShipData($data) {
 						if ($galaxie[$i][0] == "Sektor-Kommandant") continue;
 						if ($galaxie[$i][0] == "Gesamt:") continue;
 						if ($galaxie[$i][0] == "Durchschnitt:") continue;
-						if ( preg_match ( "([^:]*):([^-]*)-(.*)", $galaxie[$i][0], $temp) ) { // 6
+						if ( preg_match ( "/([^:]*):([^-]*)-(.*)/", $galaxie[$i][0], $temp) ) { // 6
 							$local_galaxy = $temp[1];
 							$local_planet = $temp[2];
 							$local_name = $temp[3];
-							preg_match ( "([^/]*)/(.*)", $galaxie[$i][4], $temp);
+							preg_match ( "/([^/]*)/(.*)/", $galaxie[$i][4], $temp);
 							$mex = $temp[1];
 							$kex = $temp[2];
 							array_push($galaxiemitglieder, array("galaxie" => $local_galaxy, "planet" => $local_planet, "name" => $local_name, "punkte" => str_replace(".", "", $galaxie[$i][1]), "flotte" => $galaxie[$i][2], "geschuetze" => $galaxie[$i][3], "mextraktoren" => $mex, "kextraktoren" => $kex, "asteroiden" => $galaxie[$i][5]));
@@ -1006,7 +1006,7 @@ function grabShipData($data) {
 	}; // 1
 
     // Abrafax:
-    if (strlen($tmpGala)>0)
+    if (isset($tmpGala) && strlen($tmpGala)>0)
     { // 1
         // Flottenbewegungen wurden gescannt,
         // Anzeige auf Taktikbildschirm umleiten
