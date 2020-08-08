@@ -304,6 +304,7 @@ function grabShipData($data) {
 							} // 7
 							if ( $taktik[$i][3] != "" ) { // --> Verteidigung // 7
 								$flotten = explode(chr(13).chr(10), $taktik[$i][3]);
+								// $taktik[$i][4] is false, etas are partially in [3]
 								$etas = explode(chr(13).chr(10), $taktik[$i][4]);
 								for ($ii = 0; $ii < sizeof($etas); $ii++) { // 8
 									if (strpos($etas[$ii], ":")>0) { // 9
@@ -436,6 +437,7 @@ function grabShipData($data) {
 					$txt_Verteidiger_Planet		= $flottenbewegungen[$i]["ziel_planet"];
 					$txt_Verteidiger_Name		= $flottenbewegungen[$i]["ziel_name"];
 					$txt_not_safe			= 1 - $flottenbewegungen[$i]["safe"];
+					// $flottenbewegungen[$i]["eta"] is "" or false
 					$lst_ETA			= $flottenbewegungen[$i]["eta"];
 					$lst_Flotte			= $flottenbewegungen[$i]["fleet"];
 					$modus				= $flottenbewegungen[$i]["modus"];
