@@ -60,7 +60,7 @@
             $this->connected = 1;
             return true;
         }
-        
+
         function select_db($dbname)
         {
             $this->querys++;
@@ -69,7 +69,7 @@
                  $this->errortext = "Datenbank $dbname konnte nicht ausgeählt werden: ".mysql_error();
                  return false;
             }
-            return true;        
+            return true;
         }
 
         function disconnect()
@@ -189,7 +189,7 @@
             }
             return true;
         }
-        
+
         function fromfile($filename)
         {
             $file = fopen($filename, "r");
