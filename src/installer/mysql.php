@@ -26,7 +26,7 @@
         var $result;
         var $use;
 
-        function _construct($args)
+        public function __construct($args)
         {
             $this->querys = 0;
             $this->link = null;
@@ -172,7 +172,7 @@
 
         function insert_id()
         {
-            return mysql_insert_id();
+            return mysqli_insert_id($this->link);
         }
 
         function multiquery($string)
