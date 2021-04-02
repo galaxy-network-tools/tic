@@ -840,9 +840,7 @@ VALUES(
 	NEW.gmr,
 	NEW.gsr,
 	NEW.ga,
-	NEW.gr,
-	NEW.erfasser_svs,
-	NEW.erfasser
+	NEW.gr
 	);
 
 -- Dump completed on 2021-04-02 21:19:27
