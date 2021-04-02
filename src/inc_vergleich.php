@@ -76,7 +76,7 @@ for ($n = 0; $n < $SQL_Num; $n++) {
         if (($eta + $fzeit) > $ka) $ka = ($eta + $fzeit);
         $flug[$mode][$a_gala . ':' . $a_planet . '.' . $flotte]['fzeit'] = $fzeit;
 
-        while ($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
+        while ($line = mysqli_fetch_array($SQL_result, MYSQLI_ASSOC)) {
             for ($cnt = 0; $cnt <= 8; $cnt++) {
                 $flug[$mode][$a_gala . ':' . $a_planet . '.' . $flotte][$ftyp1[$cnt]] = $line['sf' . $a_fnr . $ftyp2[$cnt]];
                 $asum[$cnt] += $flug[$mode][$a_gala . ':' . $a_planet . '.' . $flotte][$ftyp1[$cnt]];
@@ -116,7 +116,7 @@ for ($n = 0; $n < $SQL_Num; $n++) {
         if (($eta + $fzeit) > $kv) $kv = ($eta + $fzeit);
         $flug[$mode][$d_gala . ':' . $d_planet . '.' . $flotte]['fzeit'] = $fzeit;
 
-        while ($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
+        while ($line = mysqli_fetch_array($SQL_result, MYSQLI_ASSOC)) {
             for ($cnt = 0; $cnt <= 8; $cnt++) {
                 $flug[$mode][$d_gala . ':' . $d_planet . '.' . $flotte][$ftyp1[$cnt]] = $line['sf' . $d_fnr . $ftyp2[$cnt]];
                 $dsum[$cnt] += $flug[$mode][$d_gala . ':' . $d_planet . '.' . $flotte][$ftyp1[$cnt]];
@@ -143,7 +143,7 @@ $SQL_Num2 = mysqli_num_rows($SQL_result);
 if ($SQL_Num2 > 0) {
     $mode = "eigene";
     $flotte = 0;
-    while ($line = mysqli_fetch_array($SQL_result, MYSQL_ASSOC)) {
+    while ($line = mysqli_fetch_array($SQL_result, MYSQLI_ASSOC)) {
         for ($cnt = 0; $cnt <= 8; $cnt++) {
             //				$flug[$mode][$flotte][$ftyp1[$cnt]] = tic_mysql_result( $SQL_result, 0, 'sf0'.$ftyp2[$cnt]);
             $flug[$mode][$flotte][$ftyp1[$cnt]] = $line['sf0' . $ftyp2[$cnt]];
