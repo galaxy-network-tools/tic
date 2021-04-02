@@ -30,11 +30,11 @@ function check_user($name, $pass) {
 	$iplock = mysqli_fetch_assoc($SQL_Result_iplock);
 	if (!$iplock)
 		return false;
-	
+
 	if($iplock['ip'] == $_SERVER['REMOTE_ADDR'] && $iplock['versuche'] >= 3)
 		die ('Dieser Account ist gesperrt, wenden sie sich an Ihren Adminstrator');
 	mysqli_free_result($SQL_Result_iplock);
-	
+
 	$SQL_Query = "SELECT id FROM gn4accounts WHERE name='".$name."' AND passwort=MD5('".$pass."') LIMIT 1;";
 	$SQL_Result_login = mysqli_query($SQL_DBConn, $SQL_Query) or die(mysqli_errno()." - ".mysqli_error());
 	if ($user = mysqli_fetch_assoc($SQL_Result_login)) {
@@ -43,7 +43,7 @@ function check_user($name, $pass) {
 		mysqli_query($SQL_DBConn, $SQL_Query) or die(mysqli_errno()." - ".mysqli_error());
 		return $user['id'];
 	}
-	
+
 	$SQL_Query = "UPDATE gn4accounts SET versuche=versuche + 1, ip='".$_SERVER['REMOTE_ADDR']."' WHERE name='".$name."';";
 	mysqli_query($SQL_DBConn, $SQL_Query) or die(mysqli_errno()." - ".mysqli_error());
 	return false;
@@ -65,7 +65,7 @@ function logged_in()
     WHERE session='".session_id()."'
     LIMIT 1";
     $result= mysql_query($sql);
-      return ( mysql_num_rows($result)==1);
+      return ( mysqli_num_rows($result)==1);
 }
 
 function logout()
