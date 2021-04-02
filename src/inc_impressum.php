@@ -46,7 +46,7 @@
         </td>
     </tr>
     <tr>
-      <td> 
+      <td>
         <ul>
           <li><b>Weiterentwicklung:</b><br />
             Seit Mitte Runde 9 wurde das T.I.C. mit m&auml;ssigem Erfolg bei S-B Schokobons eingesetzt und
@@ -62,7 +62,7 @@
       </td>
     </tr>
     <tr>
-      <td> 
+      <td>
         <ul>
           <li><b>Weiterentwicklung (>1.11.1):</b><br />
             In Runde 11 wurde das T.I.C. dann von der Meta NoFear eingesetzt, wo sich zuerst <i>Pretoreaner</i>,
@@ -77,9 +77,9 @@
       </td>
     </tr>
     <tr>
-      <td> 
+      <td>
         <ul>
-          <li><b>TIC-Entwickler.de(>1.12.1:</b><br />
+          <li><b>TIC-Entwickler.de (>1.12.1):</b><br />
             Gleichzeitig hat auch die Ally GAS (German Alpha Squad) weiterentwicklet. Auf einen Forum Post
             von Pretoreaner hin hat sich AlbertLast bei ihm gemeldet und beide haben entschieden das es
             doch im Prinziep nichts bring wenn jeder aleine an seinem eigenen TIC bastelt.<br />
@@ -88,6 +88,20 @@
             <br />
             Gruss<br />
             das Team der TIC-Entwickler</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <ul>
+          <li><b>Migration auf PHP 7.2 und Weiterentwicklung als galaxy-network-tools (1.62):</b><br />
+            Nachdem das TIC eine sehr lange Zeit entwicklungslos rumlag wurde es sehr erfolgreich im Deff-Block
+            der Runde 60 eingesetzt. In diesem Zuge wurde es von Ast126 (GAHQ) und worp1900 (OBG) aufgenommen
+            und weiterentwickelt. Das Ergebnis waren eine Migration auf PHP 7.2, ein TIC-Addon
+            und einige Bugfixes.
+            <br />
+            <br />
+            <a href="https://github.com/galaxy-network-tools">Galaxy-Network-Tools auf github</a></li>
         </ul>
       </td>
     </tr>
