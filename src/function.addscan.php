@@ -21,11 +21,11 @@ function addGalaxieSekScans($galaxiemitglieder) {
 		addgnuser($galaxiemitglieder[$i]["galaxie"], $galaxiemitglieder[$i]["planet"], $galaxiemitglieder[$i]["name"]);
 
 		$delcommand = "DELETE FROM `gn4scans` WHERE rg='".$galaxiemitglieder[$i]["galaxie"]."' AND rp='".$galaxiemitglieder[$i]["planet"]."' AND type='0';";
-		$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+		$SQL_Result = tic_mysql_query( $delcommand, $SQL_DBConn) or die(mysqli_errno($SQL_DBConn)." - ".mysqli_error($SQL_DBConn));
 
 		$addcommand = "INSERT INTO `gn4scans` (type, zeit, g, p, rg, rp, gen, pts, s, d, me, ke, a)
 		VALUES ('0', '".date("H:i d.m.Y")."', '".$Benutzer['galaxie']."', '".$Benutzer['planet']."', '".$galaxiemitglieder[$i]["galaxie"]."', '".$galaxiemitglieder[$i]["planet"]."', '99', '".$galaxiemitglieder[$i]["punkte"]."', '".$galaxiemitglieder[$i]["flotte"]."', '".$galaxiemitglieder[$i]["geschuetze"]."', '".$galaxiemitglieder[$i]["mextraktoren"]."', '".$galaxiemitglieder[$i]["kextraktoren"]."', '".$galaxiemitglieder[$i]["asteroiden"]."');";
-		$SQL_Result = tic_mysql_query( $addcommand, $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+		$SQL_Result = tic_mysql_query( $addcommand, $SQL_DBConn) or die(mysqli_errno($SQL_DBConn)." - ".mysqli_error($SQL_DBConn));
 	}
 }
 
