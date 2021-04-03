@@ -396,7 +396,7 @@ function grabShipData($data) {
 					} // 5
 				}; // 4
 				$SQL_Query = 'SELECT * FROM `gn4flottenbewegungen` WHERE (angreifer_galaxie='.$this_galaxy.' OR verteidiger_galaxie='.$this_galaxy.') ORDER BY eta;';
-    				$SQL_Result = tic_mysql_query( $SQL_Query, $SQL_DBConn) or die('<br>mist - n db-error!!!');
+                $SQL_Result = tic_mysql_query( $SQL_Query, $SQL_DBConn) or die('<br>mist - n db-error!!!');
 
 				for ($i=0; $i < mysqli_num_rows($SQL_Result); $i++){ // 4
 					$start_galaxie = tic_mysql_result($SQL_Result, $i, 'angreifer_galaxie');
@@ -770,7 +770,7 @@ function grabShipData($data) {
                 } // 4
             } else {    // sec, mili, unit, news, gscan // 3
                 $scan_gen = trim($daten[count($daten) - 1]);
-		$scan_gen = preg_replace('/[^0-9]/', '', $scan_gen);
+		        $scan_gen = preg_replace('/[^0-9]/', '', $scan_gen);
                 $daten = parseLine( $zeilen[1]);            // Name: FedEx
                 $scan_rn = trim($daten[1]);
                 $daten = parseLine( $zeilen[2]);            // Koordinaten: 233:20
@@ -784,7 +784,7 @@ function grabShipData($data) {
                 $scan_type = 0;
                 $daten = parseLine( $zeilen[3]);            // Punktzahl: 3.998.150
                 $scan_pts = trim($daten[1]);
-				        $daten = parseLine( $zeilen[4]);            // Schiffe: 200
+                $daten = parseLine( $zeilen[4]);            // Schiffe: 200
                 $scan_s = trim($daten[1]);
                 $daten = parseLine( $zeilen[5]);            // Defensiveinheiten: 1150
                 $scan_d = trim($daten[1]);
