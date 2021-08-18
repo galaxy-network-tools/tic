@@ -62,6 +62,16 @@ CREATE TABLE `gn4accounts` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `gn4accounts`
+--
+
+LOCK TABLES `gn4accounts` WRITE;
+/*!40000 ALTER TABLE `gn4accounts` DISABLE KEYS */;
+INSERT INTO `gn4accounts` VALUES (1,'1','worp1900','098f6bcd4621d373cade4e832627b4f6',NULL,0,777,2,5,1,'',0,0,0,0,1,'1617390956',0,'',0,0,'','','','','','hh:mm','0 asc',1,'1',0,0);
+/*!40000 ALTER TABLE `gn4accounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `gn4allianzen`
 --
 
@@ -82,6 +92,16 @@ CREATE TABLE `gn4allianzen` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gn4allianzen`
+--
+
+LOCK TABLES `gn4allianzen` WRITE;
+/*!40000 ALTER TABLE `gn4allianzen` DISABLE KEYS */;
+INSERT INTO `gn4allianzen` VALUES (1,'1','NewAlli','NA','','','','',0,0);
+/*!40000 ALTER TABLE `gn4allianzen` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `gn4attflotten`
@@ -392,7 +412,7 @@ DROP TABLE IF EXISTS `gn4meta`;
 CREATE TABLE `gn4meta` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL DEFAULT '',
-  `sysmsg` varchar(255) NOT NULL DEFAULT '',
+  `sysmsg` varchar(510) NOT NULL DEFAULT '',
   `bnds` varchar(255) NOT NULL DEFAULT '',
   `naps` varchar(255) NOT NULL DEFAULT '',
   `wars` varchar(255) NOT NULL DEFAULT '',
@@ -400,6 +420,16 @@ CREATE TABLE `gn4meta` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gn4meta`
+--
+
+LOCK TABLES `gn4meta` WRITE;
+/*!40000 ALTER TABLE `gn4meta` DISABLE KEYS */;
+INSERT INTO `gn4meta` VALUES (1,'NewMeta','Wenn dieser Text zu lesen ist dann ist leuft der TIC diese Nachricht kann unter Managment geÃ¤ndert werden.','','','',NULL);
+/*!40000 ALTER TABLE `gn4meta` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `gn4nachrichten`
