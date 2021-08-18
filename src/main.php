@@ -255,7 +255,7 @@
 			<table width="100%"><tr>
 				<td align="left" valign="top">
 					<font size="-1">T.I.C. v<?=$version?></font><br />
-					<a href="http://www.galaxy-network.de/game/login.php" target="_blank"><img style="border:0px" src="http://www.galaxy-network.de/banner_images/gn-button.gif" alt="Galax-Network" /></a>
+					<a href="https://www.galaxy-network.de/game/login.php" target="_blank"><img style="border:0px" src="https://www.galaxy-network.de/banner_images/gn-button.gif" alt="Galax-Network" /></a>
 				</td>
 				<!--
 				<td align="center" style="white-space:nowrap;">
