@@ -257,7 +257,6 @@
 					<font size="-1">T.I.C. v<?=$version?></font><br />
 					<a href="https://www.galaxy-network.de/game/login.php" target="_blank"><img style="border:0px" src="https://www.galaxy-network.de/banner_images/gn-button.gif" alt="Galax-Network" /></a>
 				</td>
-				<!--
 				<td align="center" style="white-space:nowrap;">
 					erstellt in
 <?php
@@ -274,8 +273,14 @@
 ?>
 				</td>
 				<td align="right" valign="top">
-					<a href="irc://irc.quakenet.org/tic-progger" target="_blank"><img style="border:0px" src="./bilder/TICELogo.jpg" alt="Tic-Entwickler" /></a>
-				</td>//-->
+                    <div>
+                        Galaxy-Network-Tools auf github:
+                        <a href="https://github.com/galaxy-network-tools" target="_blank"><img style="border:0px" width="32" height="32" src="https://image.flaticon.com/icons/png/512/2942/2942795.png" alt="Tic-Entwickler" /></a>
+                    </div>
+                    <div>
+                        Icon made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                    </div>
+				</td>
 			</tr></table>
 		</div></div></div></div>
 <?php
