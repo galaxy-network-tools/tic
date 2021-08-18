@@ -24,7 +24,6 @@ RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm \
         php-fpm \
         php-cli \
         php-mysql \
-        php-xdebug \
     && yum clean all \
     # Create xdebug log
     && mkdir /var/log/xdebug \
