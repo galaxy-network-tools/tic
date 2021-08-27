@@ -538,7 +538,7 @@ function grabShipData($data) {
 								array_shift($temparray);
 								array_push($galaxie, $temparray);
 							} // 7
-							$text_reg = preg_replace( "/".quotemeta($line_reg[1]).chr(13).chr(10)."/", "", $text_reg);
+                            $text_reg = str_replace($line_reg[1], "", $text_reg);
 							$break = false;
 						} // 6
 						$break_it++;
@@ -554,9 +554,9 @@ function grabShipData($data) {
 							$local_galaxy = $temp[1];
 							$local_planet = $temp[2];
 							$local_name = $temp[3];
-							preg_match ( "/([^/]*)/(.*)/", $galaxie[$i][4], $temp);
-							$mex = $temp[1];
-							$kex = $temp[2];
+                            $teile = explode ("/", $galaxie[$i][4]);
+							$mex = $teile[0];
+							$kex = $teile[1];
 							array_push($galaxiemitglieder, array("galaxie" => $local_galaxy, "planet" => $local_planet, "name" => $local_name, "punkte" => str_replace(".", "", $galaxie[$i][1]), "flotte" => $galaxie[$i][2], "geschuetze" => $galaxie[$i][3], "mextraktoren" => $mex, "kextraktoren" => $kex, "asteroiden" => $galaxie[$i][5]));
 						} // 6
 					} // 5
