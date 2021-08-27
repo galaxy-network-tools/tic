@@ -15,8 +15,8 @@
     include('./accdata.php');
 
     // Verbindung zur Datenbank aufbauen
-    $SQL_DBConn = mysql_connect($db_info['host'], $db_info['user'], $db_info['password']) or die('mysql con failed!');
-    mysql_select_db($db_info['dbname'], $SQL_DBConn) or die('db selection failed!');
+    $SQL_DBConn = mysqli_connect($db_info['host'], $db_info['user'], $db_info['password']) or die('mysql con failed!');
+    mysqli_select_db($db_info['dbname'], $SQL_DBConn) or die('db selection failed!');
 
     $SQL_Result0 = tic_mysql_query('SELECT name, value FROM `gn4vars` WHERE name="botpw";', $SQL_DBConn);
 
@@ -25,9 +25,9 @@
     if (!isset($_GET['passwort'])) $_GET['passwort'] = '';
     $SQL_Result0 = tic_mysql_query('SELECT name, value FROM `gn4vars` WHERE name="botpw" AND value="'.$_GET['passwort'].'";', $SQL_DBConn);
 
-    if (mysql_num_rows($SQL_Result0) != 1) die('Incorrect password');
+    if (mysqli_num_rows($SQL_Result0) != 1) die('Incorrect password');
 
-    $ticid=mysql_result($SQL_Result0,0,'ticid');
+    $ticid=tic_mysql_result($SQL_Result0,0,'ticid');
 
 
 
@@ -96,9 +96,9 @@
 
     if ( $d_typ==1 and $reverse == 1 ){
         $SQL_Resultx = tic_mysql_query( 'select deff from `gn4accounts` where galaxie="'.$_GET['zielgala'].'" and planet="'.$_GET['zielsek'].'" and ticid="'.$ticid.'"', $SQL_DBConn) or die('<br>mist - n db-error!!!');
-        if (  mysql_num_rows($SQL_Resultx) > 0 ) {
+        if (  mysqli_num_rows($SQL_Resultx) > 0 ) {
             $SQL_Resultx = tic_mysql_query( 'select id from `gn4flottenbewegungen` where verteidiger_galaxie="'.$_GET['zielgala'].'" and verteidiger_planet="'.$_GET['zielsek'].'" and flottennr="'.$_GET['flotte'].'" and ticid="'.$ticid.'"', $SQL_DBConn) or die('<br>mist - n db-error!!!');
-            if (  mysql_num_rows($SQL_Resultx) == 0 ) {
+            if (  mysqli_num_rows($SQL_Resultx) == 0 ) {
                 /* noch kein eintrag drin */
                 tic_mysql_query('UPDATE `gn4accounts` SET deff=1 WHERE where galaxie="'.$_GET['zielgala'].'" and planet="'.$_GET['zielsek'].'" and ticid="'.$ticid.'"', $SQL_DBConn) or die('<br>mist - n db-error!!!');
             }

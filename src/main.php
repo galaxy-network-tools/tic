@@ -11,9 +11,13 @@
 	#  vom tic-entwickler.de Team                            #
 	#  und mit bytehoppers                                   #
 	#                                                        #
+	#  2020 upgegraded und upgedated von                     #
+	#    ast126                                              #
+	#    worp1900                                            #
+	#                                                        #
 	##########################################################
 */
-//	error_reporting(E_ALL); // zu testzwecken einschalten
+	// error_reporting(E_ALL); // zu testzwecken einschalten
 	ob_start("ob_gzhandler");
 
 	include("sessionhelpers.inc.php");
@@ -43,11 +47,12 @@
 	$mtime = $mtime[1] + $mtime[0];
 	$start_time = $mtime;
 
-	$version = "1.36.3";
+	$version = "1.60";
 
 	include("./accdata.php");
-	include("./globalvars.php");
 	include("./functions.php");
+	include("./globalvars.php");
+	//include("./functions.php");
 
 	// Kein Fehler zu Beginn ^^
 	$error_code = 0;
@@ -62,29 +67,29 @@
 	$htmlstyle['hell_blau'] = 'aaaaff';
 	$htmlstyle['dunkel_blau'] = '8888ff';
 
-	$SQL_Result = tic_mysql_query("SELECT * FROM `gn4accounts` WHERE id='".$_SESSION['userid']."'") or die(tic_mysql_error(__FILE__,__LINE__));
-	if (mysql_num_rows($SQL_Result) == 1)
+	$SQL_Result = tic_mysql_query("SELECT * FROM `gn4accounts` WHERE id='".$_SESSION['userid']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
+	if (mysqli_num_rows($SQL_Result) == 1)
 	{
 		// Nameinfos setzen
-		$Benutzer['id'] = mysql_result($SQL_Result, 0, 'id');
-		$Benutzer['ticid'] = mysql_result($SQL_Result, 0, 'ticid');
-		$Benutzer['name'] = mysql_result($SQL_Result, 0, 'name');
-		$Benutzer['galaxie'] = mysql_result($SQL_Result, 0, 'galaxie');
-		$Benutzer['pwdandern'] = mysql_result($SQL_Result, 0, 'pwdandern');
-		$Benutzer['planet'] = mysql_result($SQL_Result, 0, 'planet');
-		$Benutzer['rang'] = mysql_result($SQL_Result, 0, 'rang');
-		$Benutzer['allianz'] = mysql_result($SQL_Result, 0, 'allianz');
-		$Benutzer['scantyp'] = mysql_result($SQL_Result, 0, 'scantyp');
-		$Benutzer['zeitformat'] = mysql_result($SQL_Result, 0, 'zeitformat');
-		$Benutzer['svs'] = mysql_result($SQL_Result, 0, 'svs');
-		$Benutzer['sbs'] = mysql_result($SQL_Result, 0, 'sbs');
-		$Benutzer['umod'] = mysql_result($SQL_Result, 0, 'umod');
-		$Benutzer['spy'] = mysql_result($SQL_Result, 0, 'spy');
-		$Benutzer['help'] = mysql_result($SQL_Result, 0, 'help');
-		$Benutzer['tcausw'] = mysql_result($SQL_Result, 0, 'tcausw');
+		$Benutzer['id'] = tic_mysql_result($SQL_Result, 0, 'id');
+		$Benutzer['ticid'] = tic_mysql_result($SQL_Result, 0, 'ticid');
+		$Benutzer['name'] = tic_mysql_result($SQL_Result, 0, 'name');
+		$Benutzer['galaxie'] = tic_mysql_result($SQL_Result, 0, 'galaxie');
+		$Benutzer['pwdandern'] = tic_mysql_result($SQL_Result, 0, 'pwdandern');
+		$Benutzer['planet'] = tic_mysql_result($SQL_Result, 0, 'planet');
+		$Benutzer['rang'] = tic_mysql_result($SQL_Result, 0, 'rang');
+		$Benutzer['allianz'] = tic_mysql_result($SQL_Result, 0, 'allianz');
+		$Benutzer['scantyp'] = tic_mysql_result($SQL_Result, 0, 'scantyp');
+		$Benutzer['zeitformat'] = tic_mysql_result($SQL_Result, 0, 'zeitformat');
+		$Benutzer['svs'] = tic_mysql_result($SQL_Result, 0, 'svs');
+		$Benutzer['sbs'] = tic_mysql_result($SQL_Result, 0, 'sbs');
+		$Benutzer['umod'] = tic_mysql_result($SQL_Result, 0, 'umod');
+		$Benutzer['spy'] = tic_mysql_result($SQL_Result, 0, 'spy');
+		$Benutzer['help'] = tic_mysql_result($SQL_Result, 0, 'help');
+		$Benutzer['tcausw'] = tic_mysql_result($SQL_Result, 0, 'tcausw');
 
 // Erweiterung von Bytehoppers vom 20.07.05 für Attplaner2
-		@$Benutzer['attplaner'] = mysql_result($SQL_Result, 0, 'attplaner');
+		@$Benutzer['attplaner'] = tic_mysql_result($SQL_Result, 0, 'attplaner');
 	}
 	else
 	{
@@ -107,9 +112,9 @@
 	else
 		$modul = "nachrichten";
 
-    // Get the logged in user
-	$SQL_Result2 = tic_mysql_query("SELECT pts, s, d, me, ke FROM `gn4scans` WHERE rg='".$Benutzer['galaxie']."' AND rp='".$Benutzer['planet']."' AND type='0'") or die(tic_mysql_error(__FILE__,__LINE__));
-	if (mysql_num_rows($SQL_Result2) != 1)
+        // Get the logged in user
+	$SQL_Result2 = tic_mysql_query("SELECT pts, s, d, me, ke FROM `gn4scans` WHERE rg='".$Benutzer['galaxie']."' AND rp='".$Benutzer['planet']."' AND type='0'") or die(tic_mysqli_error(__FILE__,__LINE__));
+	if (mysqli_num_rows($SQL_Result2) != 1)
 	{
 		$Benutzer['punkte'] = 0;
 		$Benutzer['schiffe'] = 0;
@@ -119,24 +124,24 @@
 	}
 	else
 	{
-		$Benutzer['punkte'] = mysql_result($SQL_Result2, 0, 'pts');
-		$Benutzer['schiffe'] = mysql_result($SQL_Result2, 0, 's');
-		$Benutzer['defensiv'] = mysql_result($SQL_Result2, 0, 'd');
-		$Benutzer['exen_m'] = mysql_result($SQL_Result2, 0, 'me');
-		$Benutzer['exen_k'] = mysql_result($SQL_Result2, 0, 'ke');
+		$Benutzer['punkte'] = tic_mysql_result($SQL_Result2, 0, 'pts');
+		$Benutzer['schiffe'] = tic_mysql_result($SQL_Result2, 0, 's');
+		$Benutzer['defensiv'] = tic_mysql_result($SQL_Result2, 0, 'd');
+		$Benutzer['exen_m'] = tic_mysql_result($SQL_Result2, 0, 'me');
+		$Benutzer['exen_k'] = tic_mysql_result($SQL_Result2, 0, 'ke');
 	}
-	$SQL_Result2 = tic_mysql_query("SELECT blind FROM `gn4allianzen` WHERE id='".$Benutzer['allianz']."' AND ticid='".$Benutzer['ticid']."'") or die(tic_mysql_error(__FILE__,__LINE__));
-	if (mysql_num_rows($SQL_Result2) != 1)
+	$SQL_Result2 = tic_mysql_query("SELECT blind FROM `gn4allianzen` WHERE id='".$Benutzer['allianz']."' AND ticid='".$Benutzer['ticid']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
+	if (mysqli_num_rows($SQL_Result2) != 1)
 	{
 		$Benutzer['blind'] = 1;
 	}
 	else
 	{
-		$Benutzer['blind'] = mysql_result($SQL_Result2, 0, 'blind');
+		$Benutzer['blind'] = tic_mysql_result($SQL_Result2, 0, 'blind');
 	}
 
 	//lastlogin setzen
-	tic_mysql_query("UPDATE `gn4accounts` SET lastlogin='".time()."' WHERE id='".$Benutzer['id']."' AND ticid='".$Benutzer['ticid']."'") or die(tic_mysql_error(__FILE__,__LINE__));
+	tic_mysql_query("UPDATE `gn4accounts` SET lastlogin='".time()."' WHERE id='".$Benutzer['id']."' AND ticid='".$Benutzer['ticid']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
 
 	// Spion???
 	if($Benutzer['spy'] != 0 && $Benutzer['rang'] != RANG_STECHNIKER)
@@ -174,12 +179,12 @@
 	if (isset($_GET['need_planet']) && isset($_GET['need_galaxie']))
 	{
 		LogAction($_GET['need_galaxie'].":".$_GET['need_planet']." -> Unsafe", LOG_SETSAFE);
-		tic_mysql_query("UPDATE `gn4flottenbewegungen` SET save='0' WHERE verteidiger_galaxie='".$_GET['need_galaxie']."' AND verteidiger_planet='".$_GET['need_planet']."'") or die(tic_mysql_error(__FILE__,__LINE__));
+		tic_mysql_query("UPDATE `gn4flottenbewegungen` SET save='0' WHERE verteidiger_galaxie='".$_GET['need_galaxie']."' AND verteidiger_planet='".$_GET['need_planet']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
 	}
 	if (isset($_GET['needno_planet']) && isset($_GET['needno_galaxie']))
 	{
 		LogAction($_GET['needno_galaxie'].":".$_GET['needno_planet']." -> Safe", LOG_SETSAFE);
-		tic_mysql_query("UPDATE `gn4flottenbewegungen` SET save='1' WHERE verteidiger_galaxie='".$_GET['needno_galaxie']."' AND verteidiger_planet='".$_GET['needno_planet']."'") or die(tic_mysql_error(__FILE__,__LINE__));
+		tic_mysql_query("UPDATE `gn4flottenbewegungen` SET save='1' WHERE verteidiger_galaxie='".$_GET['needno_galaxie']."' AND verteidiger_planet='".$_GET['needno_planet']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
 	}
 
 	if (isset($irc_log)) {
@@ -250,7 +255,7 @@
 			<table width="100%"><tr>
 				<td align="left" valign="top">
 					<font size="-1">T.I.C. v<?=$version?></font><br />
-					<a href="http://www.galaxy-network.de/game/login.php" target="_blank"><img style="border:0px" src="http://www.galaxy-network.de/banner_images/gn-button.gif" alt="Galax-Network" /></a>
+					<a href="https://www.galaxy-network.de/game/login.php" target="_blank"><img style="border:0px" src="https://www.galaxy-network.de/banner_images/gn-button.gif" alt="Galax-Network" /></a>
 				</td>
 				<td align="center" style="white-space:nowrap;">
 					erstellt in
@@ -268,7 +273,13 @@
 ?>
 				</td>
 				<td align="right" valign="top">
-					<a href="irc://irc.quakenet.org/tic-progger" target="_blank"><img style="border:0px" src="./bilder/TICELogo.jpg" alt="Tic-Entwickler" /></a>
+                    <div>
+                        Galaxy-Network-Tools auf github:
+                        <a href="https://github.com/galaxy-network-tools" target="_blank"><img style="border:0px" width="32" height="32" src="https://image.flaticon.com/icons/png/512/2942/2942795.png" alt="Tic-Entwickler" /></a>
+                    </div>
+                    <div>
+                        Icon made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                    </div>
 				</td>
 			</tr></table>
 		</div></div></div></div>

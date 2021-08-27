@@ -19,17 +19,17 @@
     {
         echo "<form action=\"?modul=NWshow\" method=\"post\" name=\"NWshow\">";
 
-        $SQL_Result = tic_mysql_query('SELECT galaxie as num FROM gn4accounts WHERE allianz = "'.$Benutzer['allianz'].'" AND ticid="'.$Benutzer['ticid'].'" GROUP BY galaxie') or die(tic_mysql_error(__FILE__,__LINE__));
+        $SQL_Result = tic_mysql_query('SELECT galaxie as num FROM gn4accounts WHERE allianz = "'.$Benutzer['allianz'].'" AND ticid="'.$Benutzer['ticid'].'" GROUP BY galaxie') or die(tic_mysqli_error(__FILE__,__LINE__));
         echo "<div style=\"font-size:10pt\">Galaxie: <select name=\"gala\">";
-        while($gala = mysql_fetch_assoc($SQL_Result))
+        while($gala = mysqli_fetch_assoc($SQL_Result))
             echo "<option value=\"".$gala['num']."\"".($selected_gala == $gala['num'] ? " selected=\"selected\"" : "").">".$gala['num']."</option>";
 
         echo '</select> <input type="submit" value="Anzeigen" /></div></form>';
     }
 
-    $SQL_Result = tic_mysql_query("SELECT name, planet FROM `gn4accounts` WHERE allianz = '".$Benutzer['allianz']."' AND ticid = '".$Benutzer['ticid']."' AND galaxie = '".$selected_gala."'") or die(tic_mysql_error(__FILE__,__LINE__));
+    $SQL_Result = tic_mysql_query("SELECT name, planet FROM `gn4accounts` WHERE allianz = '".$Benutzer['allianz']."' AND ticid = '".$Benutzer['ticid']."' AND galaxie = '".$selected_gala."'") or die(tic_mysqli_error(__FILE__,__LINE__));
     $gala_member = array("-Keiner-");
-    while($member = mysql_fetch_assoc($SQL_Result))
+    while($member = mysqli_fetch_assoc($SQL_Result))
     {
         $gala_member[$member['planet']] = $member['name'];
     }
@@ -73,9 +73,9 @@
     $prevweekstart = $weekstart - 604800;
     $nextweekstart = $weekstart + 604800;
 
-    $SQL_Result = tic_mysql_query("SELECT time, planet1, done1, planet2, done2, planet3, done3, planet4, done4, planet5, done5, planet6, done6, planet7, done7 FROM gn4nachtwache WHERE ticid = '".$Benutzer['ticid']."' AND gala = '".injsafe($selected_gala)."'") or die(tic_mysql_error(__FILE__,__LINE__));
+    $SQL_Result = tic_mysql_query("SELECT time, planet1, done1, planet2, done2, planet3, done3, planet4, done4, planet5, done5, planet6, done6, planet7, done7 FROM gn4nachtwache WHERE ticid = '".$Benutzer['ticid']."' AND gala = '".injsafe($selected_gala)."'") or die(tic_mysqli_error(__FILE__,__LINE__));
 
-    while($row = mysql_fetch_assoc($SQL_Result))
+    while($row = mysqli_fetch_assoc($SQL_Result))
     {
         $data[$row['time']] = $row;
     }
@@ -233,7 +233,7 @@
             $sqlquery1[] = "planet".$i;
             $sqlquery2[] = $data['planet'+$i];
         }
-        tic_mysql_query("INSERT INTO gn4nachtwache (time, ticid, gala, ".implode(", ", $sqlquery1).") VALUES('".injsafe($time)."', '".$Benutzer['ticid']."', '".injsafe($selected_gala)."', '".implode("', '", $sqlquery2)."')") or die(tic_mysql_error(__FILE__, __LINE__));
+        tic_mysql_query("INSERT INTO gn4nachtwache (time, ticid, gala, ".implode(", ", $sqlquery1).") VALUES('".injsafe($time)."', '".$Benutzer['ticid']."', '".injsafe($selected_gala)."', '".implode("', '", $sqlquery2)."')") or die(tic_mysqli_error(__FILE__, __LINE__));
     }
 
 ?>

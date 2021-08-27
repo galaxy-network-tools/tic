@@ -21,13 +21,13 @@
 	if ($_SESSION['scanner_filter'] == "meta") {
 		$SQL_Query = "SELECT * FROM gn4vars WHERE name='ticeb' ORDER BY value;";
 		$SQL_Result_metas = tic_mysql_query($SQL_Query, $SQL_DBConn);
-		while ($meta = mysql_fetch_assoc($SQL_Result_metas)) {
+		while ($meta = mysqli_fetch_assoc($SQL_Result_metas)) {
 			if ($meta['ticid'] == $_SESSION['scanner_meta'])
 				echo "		&nbsp;<font size=\"+1\"><b><nobr>".$meta['value']."<nobr></font></b>&nbsp;\n";
 			else
 				echo "		&nbsp;<a href=\"./main.php?modul=scanner&md_meta=".$meta['ticid']."\"><nobr> ".$meta['value']." <nobr></a>&nbsp;\n";
 		}
-		mysql_free_result($SQL_Result_metas);
+		mysqli_free_result($SQL_Result_metas);
 	}
 ?>
 	<br />
@@ -80,8 +80,8 @@
 
 	$time_online = time() - 300;
 	
-	$Scanner1_row = mysql_fetch_assoc($SQL_Result_Scanner1);
-	$Scanner2_row = mysql_fetch_assoc($SQL_Result_Scanner2);
+	$Scanner1_row = mysqli_fetch_assoc($SQL_Result_Scanner1);
+	$Scanner2_row = mysqli_fetch_assoc($SQL_Result_Scanner2);
 	while ($Scanner1_row || $Scanner2_row) {
 ?>
 		<tr>
@@ -120,8 +120,8 @@
 ?>
 		</tr>
 <?php
-		$Scanner1_row = mysql_fetch_assoc($SQL_Result_Scanner1);
-		$Scanner2_row = mysql_fetch_assoc($SQL_Result_Scanner2);
+		$Scanner1_row = mysqli_fetch_assoc($SQL_Result_Scanner1);
+		$Scanner2_row = mysqli_fetch_assoc($SQL_Result_Scanner2);
 	}
 ?>
 	</table>

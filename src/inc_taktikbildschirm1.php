@@ -31,8 +31,8 @@
 		</tr>
 <?php
 	$help_scan = "Hier klicken um die Scans einzusehen.<br /><br />";
-	$help_fleet = "Hier klicken um die Flottennummer zu ändern.<br /><br />";
-	$help_safe = "Hier klicken um den Status zu ändern.<br /><br />";
+	$help_fleet = "Hier klicken um die Flottennummer zu &auml;ndern.<br /><br />";
+	$help_safe = "Hier klicken um den Status zu &auml;ndern.<br /><br />";
 
 	// Flottenbewegungen
 	define ("FLEET_MOVEMENT_UNKNOWN", 0);
@@ -44,7 +44,7 @@
 	$tsec = $Ticks['lange']*60;
 	$time_now = ((int)(time()/($tsec)))*($tsec);
 
-	while ($SQL_Row_user = mysql_fetch_assoc($SQL_Result_user)) {
+	while ($SQL_Row_user = mysqli_fetch_assoc($SQL_Result_user)) {
 		$farb_zusatz = "normal";
 		if ($SQL_Row_user['umod'] != '') $farb_zusatz = 'umode';
 		if ($SQL_Row_user['id'] == $Benutzer['id']) $farb_zusatz = 'own';
@@ -65,8 +65,8 @@
 // ------------------
 		$dsp .= "			<td class=\"field".$farb_zusatz."dark\"><a href=\"./main.php?modul=scans&txtScanGalaxie=".$user_g."&txtScanPlanet=".$user_p."\"><img src=\"./bilder/default/scan.gif\" width=\"20\" height=\"20\" border=\"0\" alt=\"Scans erfassen\" title=\"Scans erfassen\"></a></td>\n";
 		$dsp .= "			<td class=\"field".$farb_zusatz."dark\"><a href=\"./main.php?modul=showgalascans&xgala=".$user_g."&xplanet=".$user_p."&displaymode=0\"><img src=\"./bilder/default/ship.gif\" width=\"20\" height=\"20\" border=\"0\" alt=\"Schiffe anzeigen\" title=\"Schiffe anzeigen\"></a></td>\n";
-		$dsp .= "			<td class=\"field".$farb_zusatz."dark\"><a href=\"./main.php?modul=anzeigen&id=".$SQL_Row_user['id']."\"><img src=\"./bilder/default/move.gif\" width=\"20\" height=\"20\" border=\"0\" alt=\"Schiffsbewegungen ändern\" title=\"Schiffsbewegungen ändern\"></a></td>\n";
-		$dsp .= "			<td class=\"field".$farb_zusatz."dark\"><a href=\"./main.php?modul=vergleich&xgala=".$user_g."&xplanet=".$user_p."\"><img src=\"./bilder/default/swords.gif\" width=\"20\" height=\"20\" border=\"0\" alt=\"Flottengegenüberstellung anzeigen\" title=\"Flottengegenüberstellung anzeigen\"></a></td>\n";
+		$dsp .= "			<td class=\"field".$farb_zusatz."dark\"><a href=\"./main.php?modul=anzeigen&id=".$SQL_Row_user['id']."\"><img src=\"./bilder/default/move.gif\" width=\"20\" height=\"20\" border=\"0\" alt=\"Schiffsbewegungen &auml;ndern\" title=\"Schiffsbewegungen &auml;ndern\"></a></td>\n";
+		$dsp .= "			<td class=\"field".$farb_zusatz."dark\"><a href=\"./main.php?modul=vergleich&xgala=".$user_g."&xplanet=".$user_p."\"><img src=\"./bilder/default/swords.gif\" width=\"20\" height=\"20\" border=\"0\" alt=\"Flottengegen&uuml;berstellung anzeigen\" title=\"Flottengegen&uuml;berstellung anzeigen\"></a></td>\n";
 
 		$tooltip_scan = ($Benutzer['help']?$help_scan:"")."<b>Scans von ".$user_g.":".$user_p." ".$user_n."</b><br />";
 		$scan = getScanData($user_g, $user_p);
@@ -93,7 +93,7 @@
 		$SQL_Query = "SELECT * FROM gn4flottenbewegungen WHERE (angreifer_galaxie = '".$user_g."' AND angreifer_planet='".$user_p."') OR (verteidiger_galaxie='".$user_g."' AND verteidiger_planet='".$user_p."') ORDER BY eta;";
 		$SQL_Result_fleets = tic_mysql_query($SQL_Query, $SQL_DBConn); // or error("Error while bilding 'taktik' (step 2).", ERROR_SQL, false);
 
-		while ($SQL_Row_fleets = mysql_fetch_assoc($SQL_Result_fleets)) {
+		while ($SQL_Row_fleets = mysqli_fetch_assoc($SQL_Result_fleets)) {
 			$f_id		= $SQL_Row_fleets['id'];
 			$f_mode		= $SQL_Row_fleets['modus'];
 			$f_nummer	= $SQL_Row_fleets['flottennr'];
@@ -265,7 +265,7 @@
 			}
 		}
 
-		mysql_free_result($SQL_Result_fleets);
+		mysqli_free_result($SQL_Result_fleets);
 
 		$dsp .= "			<td class=\"field".$farb_zusatz."light\" align=\"left\">\n";
 		$dsp .= $f1_liste_namen;

@@ -23,7 +23,7 @@
     if ($_POST['fkt'] == 'remove') {
         if ($_POST['id'] != '') {
            $SQL='UPDATE `gn4accounts` SET attplaner=0 WHERE id = '.$_POST['id'].';';
- 		       $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+ 		       $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
         }
     }
 
@@ -31,7 +31,7 @@
     if ($_POST['fkt'] == 'changeinfo') {
         if ($_POST['lfd'] != '') {
            $SQL='UPDATE `gn4attplanung` SET info="'.$_POST['info'].'" WHERE lfd = '.$_POST['lfd'].';';
-		       $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+		       $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
         }
     }
 
@@ -39,7 +39,7 @@
     if ($_POST['fkt'] == 'newattplaner') {
         if ($_POST['id'] != '' && $_POST['attplaner'] != '') {
            $SQL='UPDATE `gn4accounts` SET attplaner='.$_POST['attplaner'].' WHERE id = '.$_POST['id'].';';
-           $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+           $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
         }
     }
 
@@ -71,14 +71,14 @@
 
             $SQL2="Select rp from gn4scans WHERE rg =".$_POST['galaxie']." GROUP BY rp;";
           
-       		  $SQL2_Result = tic_mysql_query($SQL2) or die(tic_mysql_error(__FILE__,__LINE__));
-            $SQL2_Num = mysql_num_rows($SQL2_Result);
+       		  $SQL2_Result = tic_mysql_query($SQL2) or die(tic_mysqli_error(__FILE__,__LINE__));
+            $SQL2_Num = mysqli_num_rows($SQL2_Result);
               for ( $i=0; $i<$SQL2_Num; $i++ )  {
-                 $_POST['planet'] = mysql_result($SQL2_Result, $i, 'rp');
+                 $_POST['planet'] = tic_mysql_result($SQL2_Result, $i, 'rp');
 
                  $SQL = 'INSERT INTO gn4attplanung (id,galaxie,planet,attdatum,attzeit,freigabe,info,forall,formeta,forallianz)
                       Values ("'.$_POST['id'].'","'.$_POST['galaxie'].'","'.$_POST['planet'].'","'.$_POST['attdatum'].'","'.$_POST['attzeit'].'","'.$_POST['freigabe'].'","'.$_POST['info'].'","'.$ForAll.'","'.$ForMeta.'","'.$ForAllianz.'");';
-             		 $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+             		 $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
  //               echo $SQL;
               }
          } else {
@@ -98,7 +98,7 @@
                        ForMeta = "'.$ForMeta.'",
                        ForAllianz = "'.$ForAllianz.'" WHERE lfd = '.$_POST['lfd'].';';
            }
-           $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+           $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
          }
          echo $_POST['lfd'].': Att erfolgreich eingeplant!';
         }
@@ -106,35 +106,35 @@
 
     if ($_POST['fkt'] == 'delattflotte') {
         $SQL = 'DELETE FROM gn4attflotten WHERE lfd ='.$_POST['lfd'].' AND id ='.$_POST['id'].' AND flottenr = '.$_POST['flotte'].';';
-		    $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+		    $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
         echo 'Att Flotte ausgeplant!';
     }
 
     if ($_POST['fkt'] == 'addattflotte') {
         $SQL = 'INSERT INTO gn4attflotten (lfd, id, flottenr) VALUES ("'.$_POST['lfd'].'","'.$_POST['id'].'","'.$_POST['flotte'].'");';
-        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
         echo 'Att Flotte Eingeplant!';
     }
 
 //    if ($_POST['fkt'] == 'attloeschung') {
 //        $SQL = 'DELETE FROM gn4attflotten WHERE lfd ='.$_POST['lfd'].';';
-//        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+//        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
 //
 //        $SQL = 'DELETE FROM gn4attplanung WHERE lfd ='.$_POST['lfd'].';';
-//        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+//        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
 //        echo 'ATT-Ziel gelöscht!';
 //    }
 
 
 //    if ($_POST['fkt'] == 'attfreigabe') {
 //        $SQL = 'UPDATE gn4attplanung SET freigabe = 1 WHERE lfd ='.$_POST['lfd'].';';
-//        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+//        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
 //        echo 'Att-Ziel freigegeben!';
 //    }
 
     if ($_POST['fkt'] == 'attstatuschange') {
         $SQL = 'UPDATE gn4attplanung SET attstatus = '.$_POST['attstatus'].' WHERE lfd ='.$_POST['lfd'].';';
-        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+        $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
         echo 'Att-Status geändert!';
     }
 ?>

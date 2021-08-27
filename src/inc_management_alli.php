@@ -6,20 +6,20 @@
       			if(isset($_POST['selectid']) && !isset($_POST['Allidelet'])) $selectid=$_POST['selectid'];
       			else $selectid=$Benutzer['allianz'];
       			$SQL_Result=tic_mysql_query('Select name,ticid,tag,info_bnds,info_naps,info_inoffizielle_naps,info_kriege FROM `gn4allianzen` where id="'.$selectid.'" limit 1; ',__FILE__,__LINE__);
-      			$alliname=mysql_result($SQL_Result,'0','name');
-      			$allitag=mysql_result($SQL_Result,'0','tag');
-      			$allibnds=mysql_result($SQL_Result,'0','info_bnds');
-  				$allinaps=mysql_result($SQL_Result,'0','info_naps');
-				$alliinnaps=mysql_result($SQL_Result,'0','info_inoffizielle_naps');
-				$allikriege=mysql_result($SQL_Result,'0','info_kriege');
+      			$alliname=tic_mysql_result($SQL_Result,'0','name');
+      			$allitag=tic_mysql_result($SQL_Result,'0','tag');
+      			$allibnds=tic_mysql_result($SQL_Result,'0','info_bnds');
+  				$allinaps=tic_mysql_result($SQL_Result,'0','info_naps');
+				$alliinnaps=tic_mysql_result($SQL_Result,'0','info_inoffizielle_naps');
+				$allikriege=tic_mysql_result($SQL_Result,'0','info_kriege');
       			if($Benutzer['rang']=='5'){
-      				$alliticid=mysql_result($SQL_Result,'0','ticid');
+      				$alliticid=tic_mysql_result($SQL_Result,'0','ticid');
       				$metaselect='<td align="center" class="fieldnormallight"><Select name="selectMeta">';
       				$SQL_Result=tic_mysql_query('select id,name FROM `gn4meta`;',__FILE__,__LINE__);
-					$SQL_Num=mysql_num_rows($SQL_Result);
+					$SQL_Num=mysqli_num_rows($SQL_Result);
       				for ($x='0';$x<$SQL_Num;$x++){
-      				$meta=mysql_result($SQL_Result,$x,'name');
-					$idmeta=mysql_result($SQL_Result,$x,'id');
+      				$meta=tic_mysql_result($SQL_Result,$x,'name');
+					$idmeta=tic_mysql_result($SQL_Result,$x,'id');
 					$selected='';
 					if($idmeta==$alliticid) $selected='selected';
 					$metaselect .="<option value=\"".$idmeta."\" ".$selected.">".$meta."</option>\n";
@@ -59,8 +59,8 @@
       			Meta:
       			<select onchange="this.form.submit();" name="selectMeta">';
 				for ($x='0';$x<$SQL_Num;$x++){
-					$meta=mysql_result($SQL_Result,$x,'name');
-					$idmeta=mysql_result($SQL_Result,$x,'id');
+					$meta=tic_mysql_result($SQL_Result,$x,'name');
+					$idmeta=tic_mysql_result($SQL_Result,$x,'id');
 					$selected='';
 					if($idmeta==$selectMeta) $selected='selected';
 					echo "<option value=\"".$idmeta."\" ".$selected.">".$meta."</option>\n";
@@ -71,16 +71,16 @@
       		if ($Benutzer['rang']>='4') {
 				$SQL_Result=tic_mysql_query('Select name,tag,id FROM `gn4allianzen` where ticid="'.$selectMeta.'";',__FILE__,__LINE__);
       			echo '<table width="432">';
-      			$SQL_Num=mysql_num_rows($SQL_Result);
+      			$SQL_Num=mysqli_num_rows($SQL_Result);
       			for ($x='0';$x<$SQL_Num;$x++){
       				if ( $x%2 == 0 ) {
 						$colour='class="fieldnormallight"';
 					} else {
 						$colour='class="fieldnormaldark"';
 					}
-      				$alliname=mysql_result($SQL_Result,$x,'name');
-      				$allitag=mysql_result($SQL_Result,$x,'tag');
-      				$alliid=mysql_result($SQL_Result,$x,'id');
+      				$alliname=tic_mysql_result($SQL_Result,$x,'name');
+      				$allitag=tic_mysql_result($SQL_Result,$x,'tag');
+      				$alliid=tic_mysql_result($SQL_Result,$x,'id');
       				echo '<tr '.$colour.'><td width="55%">'.$alliname.'('.$allitag.')</td><td width="45%"><form method="post" action="./main.php?modul=management_alli"><input type="hidden" name="action" value="management_alli" /><input type="hidden" name="selectid" value="'.$alliid.'" /><input type="submit" name="aendern" value="Bearbeiten" /> '.$delet.'</form></td></tr>';
 
       			}

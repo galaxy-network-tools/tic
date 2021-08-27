@@ -80,9 +80,9 @@
     define("LOG_SETSAFE", 2);
 
     $Ticks['lange'] = 15;
-	$SQL_Result = mysql_query('SELECT value FROM gn4vars WHERE name="tickdauer";', $SQL_DBConn);
-	if(mysql_num_rows($SQL_Result) == 1) {
-		$Ticks['lange'] = mysql_result($SQL_Result,0,'value');
+	$SQL_Result = mysqli_query($SQL_DBConn, 'SELECT value FROM gn4vars WHERE name="tickdauer";');
+	if(mysqli_num_rows($SQL_Result) == 1) {
+		$Ticks['lange'] = tic_mysql_result($SQL_Result,0,'value');
 	}
 
 $vag_faktor = 2; // Faktor fuer den Verlustausgleich

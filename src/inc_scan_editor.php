@@ -5,8 +5,8 @@ function sek_edit() {
 
     $qry = 'pts, s, d, me, ke, a';
 
-    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="0";', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
-    $SQL_Num = mysql_num_rows($SQL_Result2);
+    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="0";', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+    $SQL_Num = mysqli_num_rows($SQL_Result2);
     if ($SQL_Num == 0) {
         // keine scans da
 
@@ -23,12 +23,12 @@ function sek_edit() {
         // scan ist in db vorhanden
         $scan_rn   =  gnuser($_POST['galakoord'], $_POST['planetkoord']);
 
-        $scan_pts =  mysql_result($SQL_Result2, 0, 'pts');
-        $scan_s   =  mysql_result($SQL_Result2, 0, 's');
-        $scan_d   =  mysql_result($SQL_Result2, 0, 'd');
-        $scan_me  =  mysql_result($SQL_Result2, 0, 'me');
-        $scan_ke  =  mysql_result($SQL_Result2, 0, 'ke');
-        $scan_a   =  mysql_result($SQL_Result2, 0, 'a');
+        $scan_pts =  tic_mysql_result($SQL_Result2, 0, 'pts');
+        $scan_s   =  tic_mysql_result($SQL_Result2, 0, 's');
+        $scan_d   =  tic_mysql_result($SQL_Result2, 0, 'd');
+        $scan_me  =  tic_mysql_result($SQL_Result2, 0, 'me');
+        $scan_ke  =  tic_mysql_result($SQL_Result2, 0, 'ke');
+        $scan_a   =  tic_mysql_result($SQL_Result2, 0, 'a');
     }
 ?>
 
@@ -81,8 +81,8 @@ function unit_edit() {
 
     $qry = 'sfj, sfb, sff, sfz, sfkr, sfsa, sft, sfko, sfka, sfsu';
 
-    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="1";', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
-    $SQL_Num = mysql_num_rows($SQL_Result2);
+    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="1";', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+    $SQL_Num = mysqli_num_rows($SQL_Result2);
     if ($SQL_Num == 0) {
         // keine scans da
 
@@ -102,15 +102,15 @@ function unit_edit() {
         // scan ist in db vorhanden
         $scan_rn   =  gnuser($_POST['galakoord'], $_POST['planetkoord']);
 
-	$scan_sfj = mysql_result($SQL_Result2, 0, 'sfj');
-	$scan_sfb = mysql_result($SQL_Result2, 0, 'sfb');
-	$scan_sff = mysql_result($SQL_Result2, 0, 'sff');
-	$scan_sfz = mysql_result($SQL_Result2, 0, 'sfz');
-	$scan_sfkr = mysql_result($SQL_Result2, 0, 'sfkr');
-	$scan_sfsa = mysql_result($SQL_Result2, 0, 'sfsa');
-	$scan_sft = mysql_result($SQL_Result2, 0, 'sft');
-	$scan_sfka = mysql_result($SQL_Result2, 0, 'sfka');
-	$scan_sfsu = mysql_result($SQL_Result2, 0, 'sfsu');
+	$scan_sfj = tic_mysql_result($SQL_Result2, 0, 'sfj');
+	$scan_sfb = tic_mysql_result($SQL_Result2, 0, 'sfb');
+	$scan_sff = tic_mysql_result($SQL_Result2, 0, 'sff');
+	$scan_sfz = tic_mysql_result($SQL_Result2, 0, 'sfz');
+	$scan_sfkr = tic_mysql_result($SQL_Result2, 0, 'sfkr');
+	$scan_sfsa = tic_mysql_result($SQL_Result2, 0, 'sfsa');
+	$scan_sft = tic_mysql_result($SQL_Result2, 0, 'sft');
+	$scan_sfka = tic_mysql_result($SQL_Result2, 0, 'sfka');
+	$scan_sfsu = tic_mysql_result($SQL_Result2, 0, 'sfsu');
 
     }
 ?>
@@ -177,8 +177,8 @@ function g_edit() {
 
     $qry =        'glo, glr, gmr, gsr, ga';
 
-    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="3";', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
-    $SQL_Num = mysql_num_rows($SQL_Result2);
+    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="3";', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+    $SQL_Num = mysqli_num_rows($SQL_Result2);
     if ($SQL_Num == 0) {
         // keine scans da
 
@@ -194,11 +194,11 @@ function g_edit() {
         // scan ist in db vorhanden
         $scan_rn   =  gnuser($_POST['galakoord'], $_POST['planetkoord']);
 
-        $scan_glo =  mysql_result($SQL_Result2, 0, 'glo');
-        $scan_glr =  mysql_result($SQL_Result2, 0, 'glr');
-        $scan_gmr =  mysql_result($SQL_Result2, 0, 'gmr');
-        $scan_gsr =  mysql_result($SQL_Result2, 0, 'gsr');
-        $scan_ga  =  mysql_result($SQL_Result2, 0, 'ga');
+        $scan_glo =  tic_mysql_result($SQL_Result2, 0, 'glo');
+        $scan_glr =  tic_mysql_result($SQL_Result2, 0, 'glr');
+        $scan_gmr =  tic_mysql_result($SQL_Result2, 0, 'gmr');
+        $scan_gsr =  tic_mysql_result($SQL_Result2, 0, 'gsr');
+        $scan_ga  =  tic_mysql_result($SQL_Result2, 0, 'ga');
     }
 ?>
 <form name="form1" method="post" action="./main.php?modul=scans">
@@ -250,14 +250,14 @@ function mili_edit() {
     $qry = $qry . 'sf1j, sf1b, sf1f, sf1z, sf1kr, sf1sa, sf1t, sf1ko, sf1ka, sf1su,';
     $qry = $qry . 'sf2j, sf2b, sf2f, sf2z, sf2kr, sf2sa, sf2t, sf2ko, sf2ka, sf2su';
 
-    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="2";', $SQL_DBConn) or die(mysql_errno()." - ".mysql_error());
-    $SQL_Num = mysql_num_rows($SQL_Result2);
+    $SQL_Result2 = tic_mysql_query('SELECT '.$qry.' FROM `gn4scans` WHERE rg="'.$_POST['galakoord'].'" AND rp="'.$_POST['planetkoord'].'" AND type="2";', $SQL_DBConn) or die(mysqli_errno()." - ".mysqli_error());
+    $SQL_Num = mysqli_num_rows($SQL_Result2);
     if ($SQL_Num == 0) {
         // keine scans da
 
         $scan_rn=gnuser($_POST['galakoord'], $_POST['planetkoord']);
 
-        // Jï¿½er
+        // Jäger
         $scan_sf0j =  0;
         $scan_sf1j =  0;
         $scan_sf2j =  0;
@@ -287,7 +287,7 @@ function mili_edit() {
         $scan_sf1sa = 0;
         $scan_sf2sa = 0;
 
-        // trï¿½er
+        // Träger
         $scan_sf0t  = 0;
         $scan_sf1t  = 0;
         $scan_sf2t  = 0;
@@ -305,50 +305,50 @@ function mili_edit() {
         // scan ist in db vorhanden
         $scan_rn   =  gnuser($_POST['galakoord'], $_POST['planetkoord']);
 
-        // Jï¿½er
-        $scan_sf0j =  mysql_result($SQL_Result2, 0, 'sf0j');
-        $scan_sf1j =  mysql_result($SQL_Result2, 0, 'sf1j');
-        $scan_sf2j =  mysql_result($SQL_Result2, 0, 'sf2j');
+        // Jäger
+        $scan_sf0j =  tic_mysql_result($SQL_Result2, 0, 'sf0j');
+        $scan_sf1j =  tic_mysql_result($SQL_Result2, 0, 'sf1j');
+        $scan_sf2j =  tic_mysql_result($SQL_Result2, 0, 'sf2j');
 
         // bomber
-        $scan_sf0b =  mysql_result($SQL_Result2, 0, 'sf0b');
-        $scan_sf1b =  mysql_result($SQL_Result2, 0, 'sf1b');
-        $scan_sf2b =  mysql_result($SQL_Result2, 0, 'sf2b');
+        $scan_sf0b =  tic_mysql_result($SQL_Result2, 0, 'sf0b');
+        $scan_sf1b =  tic_mysql_result($SQL_Result2, 0, 'sf1b');
+        $scan_sf2b =  tic_mysql_result($SQL_Result2, 0, 'sf2b');
 
         // fregs
-        $scan_sf0f =  mysql_result($SQL_Result2, 0, 'sf0f');
-        $scan_sf1f =  mysql_result($SQL_Result2, 0, 'sf1f');
-        $scan_sf2f =  mysql_result($SQL_Result2, 0, 'sf2f');
+        $scan_sf0f =  tic_mysql_result($SQL_Result2, 0, 'sf0f');
+        $scan_sf1f =  tic_mysql_result($SQL_Result2, 0, 'sf1f');
+        $scan_sf2f =  tic_mysql_result($SQL_Result2, 0, 'sf2f');
 
         // zerries
-        $scan_sf0z =  mysql_result($SQL_Result2, 0, 'sf0z');
-        $scan_sf1z =  mysql_result($SQL_Result2, 0, 'sf1z');
-        $scan_sf2z =  mysql_result($SQL_Result2, 0, 'sf2z');
+        $scan_sf0z =  tic_mysql_result($SQL_Result2, 0, 'sf0z');
+        $scan_sf1z =  tic_mysql_result($SQL_Result2, 0, 'sf1z');
+        $scan_sf2z =  tic_mysql_result($SQL_Result2, 0, 'sf2z');
 
         // kreuzer
-        $scan_sf0kr = mysql_result($SQL_Result2, 0, 'sf0kr');
-        $scan_sf1kr = mysql_result($SQL_Result2, 0, 'sf1kr');
-        $scan_sf2kr = mysql_result($SQL_Result2, 0, 'sf2kr');
+        $scan_sf0kr = tic_mysql_result($SQL_Result2, 0, 'sf0kr');
+        $scan_sf1kr = tic_mysql_result($SQL_Result2, 0, 'sf1kr');
+        $scan_sf2kr = tic_mysql_result($SQL_Result2, 0, 'sf2kr');
 
         // schlachter
-        $scan_sf0sa = mysql_result($SQL_Result2, 0, 'sf0sa');
-        $scan_sf1sa = mysql_result($SQL_Result2, 0, 'sf1sa');
-        $scan_sf2sa = mysql_result($SQL_Result2, 0, 'sf2sa');
+        $scan_sf0sa = tic_mysql_result($SQL_Result2, 0, 'sf0sa');
+        $scan_sf1sa = tic_mysql_result($SQL_Result2, 0, 'sf1sa');
+        $scan_sf2sa = tic_mysql_result($SQL_Result2, 0, 'sf2sa');
 
-        // trï¿½er
-        $scan_sf0t  = mysql_result($SQL_Result2, 0, 'sf0t');
-        $scan_sf1t  = mysql_result($SQL_Result2, 0, 'sf1t');
-        $scan_sf2t  = mysql_result($SQL_Result2, 0, 'sf2t');
+        // träger
+        $scan_sf0t  = tic_mysql_result($SQL_Result2, 0, 'sf0t');
+        $scan_sf1t  = tic_mysql_result($SQL_Result2, 0, 'sf1t');
+        $scan_sf2t  = tic_mysql_result($SQL_Result2, 0, 'sf2t');
 
         // Kaper
-        $scan_sf0ka = mysql_result($SQL_Result2, 0, 'sf0ka');
-        $scan_sf1ka = mysql_result($SQL_Result2, 0, 'sf1ka');
-        $scan_sf2ka = mysql_result($SQL_Result2, 0, 'sf2ka');
+        $scan_sf0ka = tic_mysql_result($SQL_Result2, 0, 'sf0ka');
+        $scan_sf1ka = tic_mysql_result($SQL_Result2, 0, 'sf1ka');
+        $scan_sf2ka = tic_mysql_result($SQL_Result2, 0, 'sf2ka');
 
         // schutzies
-        $scan_sf0su = mysql_result($SQL_Result2, 0, 'sf0su');
-        $scan_sf1su = mysql_result($SQL_Result2, 0, 'sf1su');
-        $scan_sf2su = mysql_result($SQL_Result2, 0, 'sf2su');
+        $scan_sf0su = tic_mysql_result($SQL_Result2, 0, 'sf0su');
+        $scan_sf1su = tic_mysql_result($SQL_Result2, 0, 'sf1su');
+        $scan_sf2su = tic_mysql_result($SQL_Result2, 0, 'sf2su');
     }
 ?>
 <form name="form1" method="post" action="./main.php?modul=scans">

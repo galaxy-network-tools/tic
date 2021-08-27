@@ -5,7 +5,7 @@
 		</TD></TR>
 		<TR><TD>
 			<P CLASS="hell">
-				Sie m&uuml;ssen sich ein neues, <b>anderes</b> Passwort geben, um das TIC benutzen zu können.<br>
+				Sie m&uuml;ssen sich ein neues, <b>anderes</b> Passwort geben, um das TIC benutzen zu k&ouml;nnen.<br>
 <?php
 	if ($action == 'passwortaendern') {
 		echo "				<font color=\"#FF0000\"><B>Fehlerhaftes Passwort - bitte erneut versuchen!</B></font><br>\n";
@@ -21,7 +21,7 @@
 						</TR>
 						<TR>
 							<TD></TD>
-							<TD><INPUT TYPE="submit" VALUE="Passwort ändern" /></TD>
+							<TD><INPUT TYPE="submit" VALUE="Passwort &auml;ndern" /></TD>
             					</TR>
 					</TABLE>
 				</FORM>

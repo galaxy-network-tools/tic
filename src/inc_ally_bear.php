@@ -3,14 +3,14 @@
 <?php
 if($Benutzer['rang']!='5')die('Keine Rechte, Kontaktieren Sie ihren nächsten Admin');
                 $SQL_Result=tic_mysql_query('SELECT name, tag, info_bnds, info_naps, info_inoffizielle_naps, info_kriege, code FROM `gn4allianzen` WHERE id="'.$allid.'";', $SQL_DBConn);
-                if (mysql_num_rows($SQL_Result) == 0) die('Alli ID nicht vorhanden');
-                $tag = mysql_result($SQL_Result, 0, 'tag');
-		            $name = mysql_result($SQL_Result, 0, 'name');
-		            $bnd = mysql_result($SQL_Result, 0, 'info_bnds');
-		            $nap = mysql_result($SQL_Result, 0, 'info_naps');
-                $innap = mysql_result($SQL_Result, 0, 'info_inoffizielle_naps');
-		            $krieg = mysql_result($SQL_Result, 0, 'info_kriege');
-		            $code = mysql_result($SQL_Result, 0, 'code');
+                if (mysqli_num_rows($SQL_Result) == 0) die('Alli ID nicht vorhanden');
+                $tag = tic_mysql_result($SQL_Result, 0, 'tag');
+		            $name = tic_mysql_result($SQL_Result, 0, 'name');
+		            $bnd = tic_mysql_result($SQL_Result, 0, 'info_bnds');
+		            $nap = tic_mysql_result($SQL_Result, 0, 'info_naps');
+                $innap = tic_mysql_result($SQL_Result, 0, 'info_inoffizielle_naps');
+		            $krieg = tic_mysql_result($SQL_Result, 0, 'info_kriege');
+		            $code = tic_mysql_result($SQL_Result, 0, 'code');
                 echo '<TR>';
                 echo '<TD><BR></TD>';
                 echo '</TR>';

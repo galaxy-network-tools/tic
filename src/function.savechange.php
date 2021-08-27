@@ -8,9 +8,9 @@
         return;
     }
     
-    $SQL_Result = tic_mysql_query("SELECT verteidiger_galaxie, verteidiger_planet FROM `gn4flottenbewegungen` WHERE id ='".$_GET['fbid']."'") or die(tic_mysql_error(__FILE__,__LINE__));
+    $SQL_Result = tic_mysql_query("SELECT verteidiger_galaxie, verteidiger_planet FROM `gn4flottenbewegungen` WHERE id ='".$_GET['fbid']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
     
-    if(!$row = mysql_fetch_row($SQL_Result))
+    if(!$row = mysqli_fetch_row($SQL_Result))
         return;
 
     if ( $_GET['incsave'] == 1 )
@@ -24,7 +24,7 @@
         LogAction($row[0].":".$row[1]." -> Unsafe", LOG_SETSAFE);
     }
     
-    tic_mysql_query("UPDATE `gn4flottenbewegungen` SET save='".$newsave."' WHERE id='".$_GET['fbid']."'") or die(tic_mysql_error(__FILE__,__LINE__));
+    tic_mysql_query("UPDATE `gn4flottenbewegungen` SET save='".$newsave."' WHERE id='".$_GET['fbid']."'") or die(tic_mysqli_error(__FILE__,__LINE__));
 
 
 ?>

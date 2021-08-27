@@ -70,7 +70,7 @@
             if ( $_POST['ziel'.$i] <> 0 ){
                 $sql = 'select gala, planet from `gn4incplanets`  where gala='.$_POST['ziel'.$i].' and planet=1 ';
                 $SQL_Result2 = tic_mysql_query( $sql, $SQL_DBConn);
-                $count = mysql_num_rows($SQL_Result2) or $count=0;
+                $count = mysqli_num_rows($SQL_Result2) or $count=0;
                 if ( $count == 0 ){
                     for ( $j=0; $j<12; $j++ ) {
                         $nr = $j+1;
@@ -93,7 +93,7 @@
 
         $sql = 'SELECT value from `gn4vars` where name="incfreigabe" ';
         $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-        $count = mysql_num_rows($SQL_Result) or $count=0;
+        $count = mysqli_num_rows($SQL_Result) or $count=0;
         if ( $count > 0 ){
             $sql = 'UPDATE `gn4vars` SET value="'.$incfreigabe.'" WHERE name="incfreigabe"';
             $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn);
@@ -110,9 +110,9 @@
             $sql = 'SELECT name, value from `gn4vars` where name = "galainc" and value !="|" order by id';
 
             $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-            $count = mysql_num_rows($SQL_Result) or $count=0;
+            $count = mysqli_num_rows($SQL_Result) or $count=0;
             for ( $i=0; $i<$count; $i++ ) {
-                $galatr = mysql_result($SQL_Result, $i, 'value' );
+                $galatr = tic_mysql_result($SQL_Result, $i, 'value' );
                 $galatr2= explode("|", $galatr);
 		        $gala   = $galatr2[0];
                 for ( $j=0; $j<12; $j++ ) {

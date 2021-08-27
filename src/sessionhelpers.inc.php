@@ -15,36 +15,37 @@ function injsafe($value) {
 
 function connect() {
     include('./accdata.php' );
-    $SQL_DBConn = mysql_connect($db_info['host'], $db_info['user'], $db_info['password']);
-    mysql_select_db($db_info['dbname'], $SQL_DBConn);
+    $SQL_DBConn = mysqli_connect($db_info['host'], $db_info['user'], $db_info['password']);
+    mysqli_select_db($SQL_DBConn, $db_info['dbname'] );
 
     $SQL_Query = "SET CHARACTER SET latin1";
-    @mysql_query($SQL_Query, $SQL_DBConn);
+    @mysqli_query($SQL_DBConn, $SQL_Query );
     return $SQL_DBConn;
 }
 
 function check_user($name, $pass) {
+	global $SQL_DBConn;
 	$SQL_Query = "SELECT ip, versuche FROM `gn4accounts` WHERE name='".$name."' LIMIT 1;";
-	$SQL_Result_iplock = mysql_query($SQL_Query) or die(mysql_errno()." - ".mysql_error());
-	$iplock = mysql_fetch_assoc($SQL_Result_iplock);
+	$SQL_Result_iplock = mysqli_query($SQL_DBConn, $SQL_Query) or die(mysqli_errno()." - ".mysqli_error());
+	$iplock = mysqli_fetch_assoc($SQL_Result_iplock);
 	if (!$iplock)
 		return false;
-	
+
 	if($iplock['ip'] == $_SERVER['REMOTE_ADDR'] && $iplock['versuche'] >= 3)
 		die ('Dieser Account ist gesperrt, wenden sie sich an Ihren Adminstrator');
-	mysql_free_result($SQL_Result_iplock);
-	
+	mysqli_free_result($SQL_Result_iplock);
+
 	$SQL_Query = "SELECT id FROM gn4accounts WHERE name='".$name."' AND passwort=MD5('".$pass."') LIMIT 1;";
-	$SQL_Result_login = mysql_query($SQL_Query) or die(mysql_errno()." - ".mysql_error());
-	if ($user = mysql_fetch_assoc($SQL_Result_login)) {
-		mysql_free_result($SQL_Result_login);
+	$SQL_Result_login = mysqli_query($SQL_DBConn, $SQL_Query) or die(mysqli_errno()." - ".mysqli_error());
+	if ($user = mysqli_fetch_assoc($SQL_Result_login)) {
+		mysqli_free_result($SQL_Result_login);
 		$SQL_Query = "UPDATE gn4accounts SET versuche=0, ip='' WHERE name='".$name."';";
-		mysql_query($SQL_Query) or die(mysql_errno()." - ".mysql_error());
+		mysqli_query($SQL_DBConn, $SQL_Query) or die(mysqli_errno()." - ".mysqli_error());
 		return $user['id'];
 	}
-	
+
 	$SQL_Query = "UPDATE gn4accounts SET versuche=versuche + 1, ip='".$_SERVER['REMOTE_ADDR']."' WHERE name='".$name."';";
-	mysql_query($SQL_Query) or die(mysql_errno()." - ".mysql_error());
+	mysqli_query($SQL_DBConn, $SQL_Query) or die(mysqli_errno()." - ".mysqli_error());
 	return false;
 }
 
@@ -64,7 +65,7 @@ function logged_in()
     WHERE session='".session_id()."'
     LIMIT 1";
     $result= mysql_query($sql);
-      return ( mysql_num_rows($result)==1);
+      return ( mysqli_num_rows($result)==1);
 }
 
 function logout()

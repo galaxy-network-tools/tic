@@ -9,15 +9,15 @@
 	else if (!isset($_SESSION['metanr'])) $_SESSION['metanr'] = $Benutzer['ticid'];
 	$SQL_Query = "SELECT * FROM gn4vars WHERE name='ticeb' ORDER BY value;";
 	$SQL_Result_metas = tic_mysql_query($SQL_Query, $SQL_DBConn) or $error_code = 4;
-	for ($m=0; $m<mysql_num_rows($SQL_Result_metas); $m++) {
-		$MetaNummer = mysql_result($SQL_Result_metas, $m, 'ticid');
-		$MetaName = mysql_result($SQL_Result_metas, $m, 'value');
+	for ($m=0; $m<mysqli_num_rows($SQL_Result_metas); $m++) {
+		$MetaNummer = tic_mysql_result($SQL_Result_metas, $m, 'ticid');
+		$MetaName = tic_mysql_result($SQL_Result_metas, $m, 'value');
 		if ($MetaNummer == $_SESSION['metanr'])
 			echo "<h2>".$MetaName."</h2>\n";
 		else
 			echo "<h2><a href=\"./main.php?modul=allifleets&metanr=".$MetaNummer."\">".$MetaName."</a></h2>\n";
 	}
-	mysql_free_result($SQL_Result_metas);
+	mysqli_free_result($SQL_Result_metas);
 	foreach ($AllianzName as $AllianzNummer => $AllianzNummerName) {
 		if ($AllianzInfo[$AllianzNummer]['meta'] == $_SESSION['metanr']) {
 			if ($AllianzInfo[$allianz]['meta'] != $_SESSION['metanr']) $allianz = $AllianzNummer;
@@ -88,31 +88,31 @@
     $gaj = 0;
 	$SQL_Result2 = tic_mysql_query('SELECT a.id, a.name, a.galaxie, a.planet, b.sfj, b.sfb, b.sff, b.sfz, b.sfkr, b.sfsa, b.sft, b.sfka, b.sfsu, c.glo, c.glr, c.gmr, c.gsr, c.ga FROM `gn4accounts` AS a LEFT JOIN `gn4scans` AS b ON(a.galaxie = b.rg AND a.planet = b.rp AND b.type = 1) LEFT JOIN `gn4scans` AS c ON(a.galaxie = c.rg AND a.planet = c.rp AND c.type = 3) WHERE a.allianz="'.$allianz.'" order by a.galaxie, a.planet', $SQL_DBConn);
 	$color = 0;
-	if(mysql_num_rows($SQL_Result2) > 0)
+	if(mysqli_num_rows($SQL_Result2) > 0)
 	{
-		for ( $i=0; $i<mysql_num_rows($SQL_Result2); $i++ ) {
+		for ( $i=0; $i<mysqli_num_rows($SQL_Result2); $i++ ) {
 			$color = !$color;
 			$ftype = "normal";
-			$gala   = mysql_result($SQL_Result2, $i, 'galaxie');
-			$planet = mysql_result($SQL_Result2, $i, 'planet');
-			$name   = mysql_result($SQL_Result2, $i, 'name');
+			$gala   = tic_mysql_result($SQL_Result2, $i, 'galaxie');
+			$planet = tic_mysql_result($SQL_Result2, $i, 'planet');
+			$name   = tic_mysql_result($SQL_Result2, $i, 'name');
 			
 			
-			$ja = mysql_result($SQL_Result2, $i, 'sfj' );
-			$bo = mysql_result($SQL_Result2, $i, 'sfb' );
+			$ja = tic_mysql_result($SQL_Result2, $i, 'sfj' );
+			$bo = tic_mysql_result($SQL_Result2, $i, 'sfb' );
 			
-			$fr     = mysql_result($SQL_Result2, $i, 'sff' );
-			$ze     = mysql_result($SQL_Result2, $i, 'sfz' );
-			$kr     = mysql_result($SQL_Result2, $i, 'sfkr' );
-			$sl     = mysql_result($SQL_Result2, $i, 'sfsa' );
-			$tr     = mysql_result($SQL_Result2, $i, 'sft' );
-			$ka     = mysql_result($SQL_Result2, $i, 'sfka' );
-			$ca     = mysql_result($SQL_Result2, $i, 'sfsu' );
-			$lo     = mysql_result($SQL_Result2, $i, 'glo' );
-			$ro     = mysql_result($SQL_Result2, $i, 'glr' );
-			$mr     = mysql_result($SQL_Result2, $i, 'gmr' );
-			$sr     = mysql_result($SQL_Result2, $i, 'gsr' );
-			$aj     = mysql_result($SQL_Result2, $i, 'ga' );
+			$fr     = tic_mysql_result($SQL_Result2, $i, 'sff' );
+			$ze     = tic_mysql_result($SQL_Result2, $i, 'sfz' );
+			$kr     = tic_mysql_result($SQL_Result2, $i, 'sfkr' );
+			$sl     = tic_mysql_result($SQL_Result2, $i, 'sfsa' );
+			$tr     = tic_mysql_result($SQL_Result2, $i, 'sft' );
+			$ka     = tic_mysql_result($SQL_Result2, $i, 'sfka' );
+			$ca     = tic_mysql_result($SQL_Result2, $i, 'sfsu' );
+			$lo     = tic_mysql_result($SQL_Result2, $i, 'glo' );
+			$ro     = tic_mysql_result($SQL_Result2, $i, 'glr' );
+			$mr     = tic_mysql_result($SQL_Result2, $i, 'gmr' );
+			$sr     = tic_mysql_result($SQL_Result2, $i, 'gsr' );
+			$aj     = tic_mysql_result($SQL_Result2, $i, 'ga' );
 			$gja += $ja;
 			$gbo += $bo;
 			$gfr += $fr;
@@ -165,20 +165,20 @@
 			echo "			<td title=\"Kaperschiffe\" align=\"right\">".IntVal($gka)."</td>\n";
 			echo "			<td title=\"Schildschiffe\" align=\"right\">".IntVal($gca)."</td>\n";
 			echo "		</tr>\n";
-			$gja = IntVal($gja/mysql_num_rows($SQL_Result2));
-			$gbo = IntVal($gbo/mysql_num_rows($SQL_Result2));
-			$gfr = IntVal($gfr/mysql_num_rows($SQL_Result2));
-			$gze = IntVal($gze/mysql_num_rows($SQL_Result2));
-			$gkr = IntVal($gkr/mysql_num_rows($SQL_Result2));
-			$gsl = IntVal($gsl/mysql_num_rows($SQL_Result2));
-			$gtr = IntVal($gtr/mysql_num_rows($SQL_Result2));
-			$gka = IntVal($gka/mysql_num_rows($SQL_Result2));
-			$gca = IntVal($gca/mysql_num_rows($SQL_Result2));
-			$glo = IntVal($glo/mysql_num_rows($SQL_Result2));
-			$gro = IntVal($gro/mysql_num_rows($SQL_Result2));
-			$gmr = IntVal($gmr/mysql_num_rows($SQL_Result2));
-			$gsr = IntVal($gsr/mysql_num_rows($SQL_Result2));
-			$gaj = IntVal($gaj/mysql_num_rows($SQL_Result2));
+			$gja = IntVal($gja/mysqli_num_rows($SQL_Result2));
+			$gbo = IntVal($gbo/mysqli_num_rows($SQL_Result2));
+			$gfr = IntVal($gfr/mysqli_num_rows($SQL_Result2));
+			$gze = IntVal($gze/mysqli_num_rows($SQL_Result2));
+			$gkr = IntVal($gkr/mysqli_num_rows($SQL_Result2));
+			$gsl = IntVal($gsl/mysqli_num_rows($SQL_Result2));
+			$gtr = IntVal($gtr/mysqli_num_rows($SQL_Result2));
+			$gka = IntVal($gka/mysqli_num_rows($SQL_Result2));
+			$gca = IntVal($gca/mysqli_num_rows($SQL_Result2));
+			$glo = IntVal($glo/mysqli_num_rows($SQL_Result2));
+			$gro = IntVal($gro/mysqli_num_rows($SQL_Result2));
+			$gmr = IntVal($gmr/mysqli_num_rows($SQL_Result2));
+			$gsr = IntVal($gsr/mysqli_num_rows($SQL_Result2));
+			$gaj = IntVal($gaj/mysqli_num_rows($SQL_Result2));
 			$color = !$color;
 			echo "		<tr class=\"fieldnormal".($color ? "dark" : "light")."\" style=\"font-weight:bold;\">\n";
 			echo "			<td align=\"center\">Allianz</td>\n";

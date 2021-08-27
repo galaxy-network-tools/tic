@@ -72,24 +72,24 @@
     echo '<tr class="datatablehead" align="center"><td>Benutzer Verwaltung</td></tr>';
     $sql = "SELECT gn4allianzen.id, gn4allianzen.tag, gn4meta.name as meta FROM gn4allianzen LEFT JOIN gn4meta ON(gn4allianzen.ticid = gn4meta.id) ORDER BY gn4allianzen.tag;";
 
-    $SQL_result = tic_mysql_query( $sql ) or print tic_mysql_error();
-    $allianzahl = mysql_num_rows( $SQL_result );
+    $SQL_result = tic_mysql_query( $sql ) or print tic_mysqli_error();
+    $allianzahl = mysqli_num_rows( $SQL_result );
     echo '<tr><td class="fieldnormallight"><table cellspacing="3">';
     if ( $allianzahl > 0 ) {
         for ($n = 0; $n < $allianzahl; $n++) {
-            $allid = mysql_result( $SQL_result, $n, 'id');
+            $allid = tic_mysql_result( $SQL_result, $n, 'id');
             echo '<tr>';
-            echo '<td>'.mysql_result( $SQL_result, $n, 'meta').'</td>';
-            echo '<td>'.mysql_result( $SQL_result, $n, 'tag').'</td>';
+            echo '<td>'.tic_mysql_result( $SQL_result, $n, 'meta').'</td>';
+            echo '<td>'.tic_mysql_result( $SQL_result, $n, 'tag').'</td>';
             $sql2 = "SELECT DISTINCT(galaxie) FROM gn4accounts WHERE allianz='".$allid."' ORDER BY galaxie DESC";
             $SQL_result2 = tic_mysql_query($sql2, $SQL_DBConn);
-            $galanzahl = mysql_num_rows( $SQL_result2);
-            $galanum = mysql_num_rows( $SQL_result2);
+            $galanzahl = mysqli_num_rows( $SQL_result2);
+            $galanum = mysqli_num_rows( $SQL_result2);
             if ( $galanzahl != '' ) {
                 for ($p = 0; $p < $galanzahl; $p++) {
                     $SQL_result2 = tic_mysql_query($sql2, $SQL_DBConn);
                     for ($i = 0;$i < $galanum; $i++) {
-                          $gala = mysql_fetch_array($SQL_result2, MYSQL_NUM);
+                          $gala = mysqli_fetch_array($SQL_result2);
                     }
                     $galanum = $galanum - 1;
                     echo '<td>';
@@ -137,7 +137,7 @@
         $sql = 'select * from gn4accounts where galaxie='.$_GET['selgala'].' order by planet';
         $SQL_result = tic_mysql_query( $sql, $SQL_DBConn);
 		$color = 0;
-		while($urow = mysql_fetch_assoc($SQL_result)) {
+		while($urow = mysqli_fetch_assoc($SQL_result)) {
 			$color = !$color;
 			echo '<tr style="font-size:8pt;" class="fieldnormal'.($color ? 'light' : 'dark').'">';
 

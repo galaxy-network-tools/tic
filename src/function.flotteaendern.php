@@ -22,12 +22,12 @@
 
         if ($_POST['flottenid'] != '' && $_POST['id'] != '') {
             $SQL_Result = tic_mysql_query('SELECT flugzeit_ende, ruckflug_ende, angreifer_galaxie, verteidiger_galaxie, modus FROM `gn4flottenbewegungen` WHERE id="'.$_POST['flottenid'].'";', $SQL_DBConn) or $error_code = 7;
-            if (mysql_num_rows($SQL_Result) == 1) {
-                $tmp_galaxie_angreifer = mysql_result($SQL_Result, 0, 'angreifer_galaxie');
-                $tmp_galaxie_verteidiger = mysql_result($SQL_Result, 0, 'verteidiger_galaxie');
-                $flugzeit = mysql_result($SQL_Result, 0, 'flugzeit_ende');
-                $ruckflug = mysql_result($SQL_Result, 0, 'ruckflug_ende');
-                $tmp_modus = mysql_result($SQL_Result, 0, 'modus');
+            if (mysqli_num_rows($SQL_Result) == 1) {
+                $tmp_galaxie_angreifer = tic_mysql_result($SQL_Result, 0, 'angreifer_galaxie');
+                $tmp_galaxie_verteidiger = tic_mysql_result($SQL_Result, 0, 'verteidiger_galaxie');
+                $flugzeit = tic_mysql_result($SQL_Result, 0, 'flugzeit_ende');
+                $ruckflug = tic_mysql_result($SQL_Result, 0, 'ruckflug_ende');
+                $tmp_modus = tic_mysql_result($SQL_Result, 0, 'modus');
             		$_ruckflug = $_flugzeit + (eta($flugzeit,$ruckflug) * $tsec);
             }
             if ($_POST['optModus'] == 0 or $_POST['optModus'] == 3 or $_POST['optModus'] == 4 ) {

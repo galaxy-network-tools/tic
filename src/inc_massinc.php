@@ -4,14 +4,14 @@
 
     $sql = 'SELECT value from `gn4vars` where name="incfreigabe"  ';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-    $allowed = mysql_result($SQL_Result, 0, 'value' );
+    $allowed = tic_mysql_result($SQL_Result, 0, 'value' );
     $isadmin = 0;
     $isscanner=0;
     $sql = 'SELECT name, value from `gn4vars` where value="'.$Benutzer['galaxie'].':'.$Benutzer['planet'].'"  ';
     $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-	$count = mysql_num_rows($SQL_Result);
+	$count = mysqli_num_rows($SQL_Result);
 	if($count=='1'){
-	$admin = mysql_result($SQL_Result, 'name');
+	$admin = tic_mysql_result($SQL_Result, 'name');
     if ( $admin == "admin") {
         $allowed = 1;
         $isadmin = 1;
@@ -69,26 +69,26 @@
       <?php
         $sql2 = 'select name, value from `gn4vars` where name="galainc" and value!="|"  order by id asc ';
 	    $SQL_Result3 = tic_mysql_query( $sql2, $SQL_DBConn );
-	    $count2 = mysql_num_rows( $SQL_Result3 ) or $count=0;
+	    $count2 = mysqli_num_rows( $SQL_Result3 ) or $count=0;
 
 	    for ( $x=0; $x<$count2; $x++ ){
             $sql2 = 'select name, value from `gn4vars` where name="galainc" and value!="|"  order by id asc ';
 	        $SQL_Result3 = tic_mysql_query( $sql2, $SQL_DBConn );
-            $trennen1 = mysql_result( $SQL_Result3, $x, 'value' );
+            $trennen1 = tic_mysql_result( $SQL_Result3, $x, 'value' );
             $trennen = explode("|", $trennen1 );
             $vgala = $trennen[0];
             $beschreibung = $trennen[1];
 
         $sql = 'SELECT planet, bestaetigt, vorgemerkt, frei FROM `gn4incplanets` where gala="'.$vgala.'"  ORDER BY planet ';
         $SQL_Result = tic_mysql_query( $sql, $SQL_DBConn );
-        $count = mysql_num_rows( $SQL_Result ) or $count=0;
+        $count = mysqli_num_rows( $SQL_Result ) or $count=0;
 
         for ( $i=0; $i<$count; $i++ ) {
 
-            $plan         = mysql_result( $SQL_Result, $i, 'planet' );
-            $bestaetigt   = mysql_result( $SQL_Result, $i, 'bestaetigt' );
-            $vorgemerkt   = mysql_result( $SQL_Result, $i, 'vorgemerkt' );
-            $frei         = mysql_result( $SQL_Result, $i, 'frei' );
+            $plan         = tic_mysql_result( $SQL_Result, $i, 'planet' );
+            $bestaetigt   = tic_mysql_result( $SQL_Result, $i, 'bestaetigt' );
+            $vorgemerkt   = tic_mysql_result( $SQL_Result, $i, 'vorgemerkt' );
+            $frei         = tic_mysql_result( $SQL_Result, $i, 'frei' );
 
             if ( $plan=='' )
                 continue;
@@ -111,31 +111,31 @@
                     <?php
                     $sql = 'SELECT pts, me, ke FROM `gn4scans` WHERE rg="'.$vgala.'" and rp="'.$plan.'"  and type=0';
                     $SQL_Result2 = tic_mysql_query( $sql, $SQL_DBConn );
-                    if ( mysql_num_rows($SQL_Result2) == 0 ) {
+                    if ( mysqli_num_rows($SQL_Result2) == 0 ) {
                         $pts = 0;
                         $me  = 0;
                         $ke  = 0;
                     } else {
-                        $pts = mysql_result( $SQL_Result2, 0, 'pts' );
-                        $me  = mysql_result( $SQL_Result2, 0, 'me' );
-                        $ke  = mysql_result( $SQL_Result2, 0, 'ke' );
+                        $pts = tic_mysql_result( $SQL_Result2, 0, 'pts' );
+                        $me  = tic_mysql_result( $SQL_Result2, 0, 'me' );
+                        $ke  = tic_mysql_result( $SQL_Result2, 0, 'ke' );
                     }
                     printf( "%s Pnkts &nbsp;-&nbsp; %d MEx &nbsp;-&nbsp; %d KEx\n", number_format($pts, 0, ',', '.'), $me, $ke );
 
                     $sql = 'SELECT glo,glr,gmr,gsr,ga FROM `gn4scans` WHERE rg="'.$vgala.'"  and rp="'.$plan.'" and type=3';
                     $SQL_Result2 = tic_mysql_query( $sql, $SQL_DBConn );
-                    if ( mysql_num_rows($SQL_Result2) == 0 ) {
+                    if ( mysqli_num_rows($SQL_Result2) == 0 ) {
                         $lo     = 0;
                         $ro     = 0;
                         $mr     = 0;
                         $sr     = 0;
                         $aj     = 0;
                     } else {
-                        $lo     = mysql_result($SQL_Result2, 0, 'glo' );
-                        $ro     = mysql_result($SQL_Result2, 0, 'glr' );
-                        $mr     = mysql_result($SQL_Result2, 0, 'gmr' );
-                        $sr     = mysql_result($SQL_Result2, 0, 'gsr' );
-                        $aj     = mysql_result($SQL_Result2, 0, 'ga' );
+                        $lo     = tic_mysql_result($SQL_Result2, 0, 'glo' );
+                        $ro     = tic_mysql_result($SQL_Result2, 0, 'glr' );
+                        $mr     = tic_mysql_result($SQL_Result2, 0, 'gmr' );
+                        $sr     = tic_mysql_result($SQL_Result2, 0, 'gsr' );
+                        $aj     = tic_mysql_result($SQL_Result2, 0, 'ga' );
                     }
                     printf( " &nbsp;-&nbsp; %d LO &nbsp;-&nbsp; %d LR &nbsp;-&nbsp; %d MR &nbsp;-&nbsp; %d SR &nbsp;-&nbsp; %d AJ\n", $lo , $ro , $mr , $sr , $aj );
 
@@ -147,7 +147,7 @@
                     <?php
                     $sql = 'SELECT sfj ,sfb ,sff ,sfz ,sfkr ,sfsa ,sft ,sfka ,sfsu FROM `gn4scans` WHERE rg="'.$vgala.'"  and rp="'.$plan.'" and type=1';
                     $SQL_Result2 = tic_mysql_query( $sql, $SQL_DBConn );
-                    if ( mysql_num_rows($SQL_Result2) == 0 ) {
+                    if ( mysqli_num_rows($SQL_Result2) == 0 ) {
                         $ja     = " ";
                         $bo     = " ";
                         $fr     = " ";
@@ -159,15 +159,15 @@
                         $ca     = " ";
                     } else {
 
-                        $ja     = mysql_result($SQL_Result2, 0, 'sfj' );
-                        $bo     = mysql_result($SQL_Result2, 0, 'sfb' );
-                        $fr     = mysql_result($SQL_Result2, 0, 'sff' );
-                        $ze     = mysql_result($SQL_Result2, 0, 'sfz' );
-                        $kr     = mysql_result($SQL_Result2, 0, 'sfkr' );
-                        $sl     = mysql_result($SQL_Result2, 0, 'sfsa' );
-                        $tr     = mysql_result($SQL_Result2, 0, 'sft' );
-                        $ka     = mysql_result($SQL_Result2, 0, 'sfka' );
-                        $ca     = mysql_result($SQL_Result2, 0, 'sfsu' );
+                        $ja     = tic_mysql_result($SQL_Result2, 0, 'sfj' );
+                        $bo     = tic_mysql_result($SQL_Result2, 0, 'sfb' );
+                        $fr     = tic_mysql_result($SQL_Result2, 0, 'sff' );
+                        $ze     = tic_mysql_result($SQL_Result2, 0, 'sfz' );
+                        $kr     = tic_mysql_result($SQL_Result2, 0, 'sfkr' );
+                        $sl     = tic_mysql_result($SQL_Result2, 0, 'sfsa' );
+                        $tr     = tic_mysql_result($SQL_Result2, 0, 'sft' );
+                        $ka     = tic_mysql_result($SQL_Result2, 0, 'sfka' );
+                        $ca     = tic_mysql_result($SQL_Result2, 0, 'sfsu' );
                     }
                     printf( "%d J&auml; &nbsp;-&nbsp; %d Bo &nbsp;-&nbsp; %d Fr &nbsp;-&nbsp; %d Ze &nbsp;-&nbsp; %d Kr &nbsp;-&nbsp; %d Schl &nbsp;-&nbsp; %d Tr &nbsp;-&nbsp; %d Schutz &nbsp;-&nbsp; %d Kaper\n", $ja ,$bo ,$fr ,$ze ,$kr ,$sl ,$tr ,$ca, $ka );
                   ?>

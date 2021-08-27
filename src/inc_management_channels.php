@@ -6,7 +6,7 @@ if(isset($metaerror))
 
 $Result_Chans = tic_mysql_query('SELECT * from gn4channels;',__FILE__,__LINE__);
 $Result_Allies = tic_mysql_query('SELECT * from gn4allianzen;',__FILE__,__LINE__);
-$SQL_Num=mysql_num_rows($Result_Chans);
+$SQL_Num=mysqli_num_rows($Result_Chans);
 if (isset($_REQUEST['selectChan'])) {
 	$selChan = $_REQUEST['selectChan'];
 } else {
@@ -32,7 +32,7 @@ $opfor = 2;
 $invitefor = 2;
 $opcontrol = 1;
 $answer = 0;
-while ($row = mysql_fetch_object($Result_Chans)) {
+while ($row = mysqli_fetch_object($Result_Chans)) {
 	printf("<option %s value=\"%d\">%s</option>\n", $row->id == $selChan ? "selected" : "", $row->id, $row->channame);
 	$channel[$row->id] = $i++;
 	if ($row->id == $selChan) {
@@ -79,7 +79,7 @@ foreach (array("join", "privmsg L invite", "privmsg Q invite") as $jn => $jc) {
 				<select name="ally">
 					<option value="0">--keine--</option>
 <?php
-while ($allyrow = mysql_fetch_object($Result_Allies)) {
+while ($allyrow = mysqli_fetch_object($Result_Allies)) {
 	printf("<option %s value=\"%d\">%s</option>\n", $ally == $allyrow->id ? "selected" : "", $allyrow->id, $allyrow->tag);
 };
 ?>

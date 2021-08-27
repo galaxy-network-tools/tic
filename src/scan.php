@@ -2,7 +2,7 @@
     include('./accdata.php');
 
     // Verbindung zur Datenbank aufbauen
-    $SQL_DBConn = @mysql_connect($db_info['host'], $db_info['user'], $db_info['password']) or $error_code = 1;
+    $SQL_DBConn = @tic_mysql_query($db_info['host'], $db_info['user'], $db_info['password']) or $error_code = 1;
     @mysql_select_db($db_info['dbname'], $SQL_DBConn) or $error_code = 2;
 
     include('./functions.php');
@@ -150,9 +150,9 @@
 
 
     $SQL_Result = tic_mysql_query('SELECT id, name, passwort FROM `gn4accounts` WHERE galaxie="'.$g.'" and passwort="'.md5($pw).'" AND planet="'.$p.'";', $SQL_DBConn);
-    if (mysql_num_rows($SQL_Result) != 1) die("<html>\n<body>\nERROR 0 Spieler nicht gefunden\n</body>\n</html>");
-    $name = mysql_result($SQL_Result, 0, 'name');
-    CountScans(mysql_result($SQL_Result, 0, 'id'));
+    if (mysqli_num_rows($SQL_Result) != 1) die("<html>\n<body>\nERROR 0 Spieler nicht gefunden\n</body>\n</html>");
+    $name = tic_mysql_result($SQL_Result, 0, 'name');
+    CountScans(tic_mysql_result($SQL_Result, 0, 'id'));
 
     addgnuser($rg, $rp, $rn);
 

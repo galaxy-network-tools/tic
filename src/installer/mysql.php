@@ -26,7 +26,7 @@
         var $result;
         var $use;
 
-        function mysql($args)
+        public function __construct($args)
         {
             $this->querys = 0;
             $this->link = null;
@@ -48,8 +48,8 @@
         function connect($host,$user,$password,$dbname = "")
         {
             $this->connected = 0;
-            if (!$this->link = mysql_connect($host,$user,$password)) {
-                $this->errortext = "Konnte keine Verbindung zu $host herstellen: ".mysql_error();
+            if (!$this->link = mysqli_connect($host,$user,$password)) {
+                $this->errortext = "Konnte keine Verbindung zu $host herstellen: ".mysqli_error($this->link);
                 return false;
             }
             if($dbname != "")
@@ -60,21 +60,21 @@
             $this->connected = 1;
             return true;
         }
-        
+
         function select_db($dbname)
         {
             $this->querys++;
-            if (!mysql_select_db($dbname,$this->link))
+            if (!mysqli_select_db($this->link, $dbname))
             {
-                 $this->errortext = "Datenbank $dbname konnte nicht ausgeählt werden: ".mysql_error();
+                $this->errortext = "Datenbank $dbname konnte nicht ausgeählt werden: ".mysqli_error($this->link);
                  return false;
             }
-            return true;        
+            return true;
         }
 
         function disconnect()
         {
-            mysql_close();
+            mysqli_close($this->link);
             $this->connected = 0;
         }
 
@@ -107,7 +107,7 @@
         function query($cmd, $saveresult=1)
         {
             $this->querys++;
-            $result = mysql_query($cmd, $this->link);
+            $result = mysqli_query($this->link, $cmd);
             if($saveresult)
             {
                 if($this->use)
@@ -116,7 +116,7 @@
                     $this->result[0] = $result;
             }
             if (!$result)
-                $this->errortext = "Query (\"<i>$cmd</i>\") fehlegeschlagen, Fehlermeldung: \"<i>".mysql_error()."\"</i>";
+            $this->errortext = "Query (\"<i>$cmd</i>\") fehlegeschlagen, Fehlermeldung: \"<i>".mysqli_error($this->link)."\"</i>";
             return $result;
         }
 
@@ -125,7 +125,7 @@
             if($this->errortext != "" )
                 return "<b>Mysql Fehler:</b> ".$this->errortext.($file != "" && $line != "" ? " in ".$file."(".$line.")" : "");
             else
-                return "<b>Mysql Fehler:</b> ".mysql_error()." in ".$file."(".$line.")";  ;
+            return "<b>Mysql Fehler:</b> ".mysqli_error($this->link)." in ".$file."(".$line.")";  ;
         }
 
         function numQuerys()
@@ -154,25 +154,25 @@
         function rows()
         {
             if($this->use)
-                return mysql_num_rows($this->result[$this->use]);
+                return mysqli_num_rows($this->result[$this->use]);
             else
-                return mysql_num_rows($this->result[0]);
+                return mysqli_num_rows($this->result[0]);
         }
 
         function fetch($result=0)
         {
             if($result)
-                return mysql_fetch_array($result);
+                return mysqli_fetch_array($result);
 
             if($this->use)
-                return mysql_fetch_array($this->result[$this->use]);
+                return mysqli_fetch_array($this->result[$this->use]);
             else
-                return mysql_fetch_array($this->result[0]);
+                return mysqli_fetch_array($this->result[0]);
         }
 
         function insert_id()
         {
-            return mysql_insert_id();
+            return mysqli_insert_id($this->link);
         }
 
         function multiquery($string)
@@ -189,7 +189,7 @@
             }
             return true;
         }
-        
+
         function fromfile($filename)
         {
             $file = fopen($filename, "r");

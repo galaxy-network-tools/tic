@@ -30,30 +30,30 @@
    if ($fkt == "attumplanung") {
      $SQL = "SELECT * FROM gn4attplanung WHERE lfd=".$lfd.";";
 
-     $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+     $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
 
-     if (mysql_num_rows($SQL_Result) !=0) {
-        $galaxie = mysql_result($SQL_Result, 0, 'galaxie');
-        $planet =  mysql_result($SQL_Result, 0, 'planet');
-        $attdatum = ConvertDatumToText(mysql_result($SQL_Result, 0, 'attdatum'));
-        $attzeit = substr(mysql_result($SQL_Result, 0, 'attzeit'),0,5);
-        if (mysql_result($SQL_Result, 0, 'forallianz') != 0) {
+     if (mysqli_num_rows($SQL_Result) !=0) {
+        $galaxie = tic_mysql_result($SQL_Result, 0, 'galaxie');
+        $planet =  tic_mysql_result($SQL_Result, 0, 'planet');
+        $attdatum = ConvertDatumToText(tic_mysql_result($SQL_Result, 0, 'attdatum'));
+        $attzeit = substr(tic_mysql_result($SQL_Result, 0, 'attzeit'),0,5);
+        if (tic_mysql_result($SQL_Result, 0, 'forallianz') != 0) {
            $ForAllianz = " selected ";
         } else {
            $ForAllianz = "";
         }
-        if (mysql_result($SQL_Result, 0, 'formeta') != 0) {
+        if (tic_mysql_result($SQL_Result, 0, 'formeta') != 0) {
            $ForMeta = " selected ";
         } else {
            $ForMeta = "";
         }
-        if (mysql_result($SQL_Result, 0, 'forall') != 0) {
+        if (tic_mysql_result($SQL_Result, 0, 'forall') != 0) {
            $ForAll = " selected ";
         } else {
            $ForAll = "";
         }
-        $info = mysql_result($SQL_Result, 0, 'info');
-        if (mysql_result($SQL_Result, 0, 'freigabe') != 0) {
+        $info = tic_mysql_result($SQL_Result, 0, 'info');
+        if (tic_mysql_result($SQL_Result, 0, 'freigabe') != 0) {
              $freigabesel = " selected";
         }
         echo '<INPUT TYPE="hidden" NAME="lfd"  VALUE="'.$lfd.'">';

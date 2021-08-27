@@ -56,7 +56,7 @@
                 <tr><td colspan=\"2\" style=\"text-align:center\"><input type=\"submit\" value=\"Weiter\" /></td></tr>
               </table>";
 
-            if($data['errormsg'] != "")
+            if(isset($data['errormsg']) && $data['errormsg'] != "")
                echo "<div style=\"color:#800000;text-align:left;\">".$data['errormsg']."</div>";
             echo "</form>
             </div>";
@@ -70,10 +70,10 @@
 
         $mysql = new mysql(array());
         if(!@$mysql->connect($_POST['host'], $_POST['username'], $_POST['password']))
-            return "Es konnte keine Verbindung zum Server hergestellt werden.<br />&Uuml;berpr&uuml;fe bitte deine Angaben auf ihre Richtigkeit.<br />".mysql_error();
+            die("Es konnte keine Verbindung zum Server hergestellt werden.<br />&Uuml;berpr&uuml;fe bitte deine Angaben auf ihre Richtigkeit.<br />".mysqli_error($mysql));
 
         if(!@$mysql->select_db($_POST['database']))
-            return "Die gew&uuml;nschte Datenbank konnte nicht ausgew&auml;hlt werden.<br />Entweder existiert diese nicht oder der gew&auml;hlte Benutzer hat keine Zugriffsrechte.<br />".mysql_error();
+            return "Die gew&uuml;nschte Datenbank konnte nicht ausgew&auml;hlt werden.<br />Entweder existiert diese nicht oder der gew&auml;hlte Benutzer hat keine Zugriffsrechte.<br />".mysqli_error($mysql);
 
         $_SESSION['install']['mysql']['host'] = $_POST['host'];
         $_SESSION['install']['mysql']['username'] = $_POST['username'];
@@ -159,7 +159,7 @@
              <tr><td>Benutzerpasswort:</td><td><input type=\"password\" name=\"user_password\" value=\"".(isset($_POST['user_password']) ? $_POST['user_pasword'] : "")."\" /></td></tr>
              <tr><td>Benutzercoords:</td><td><input type=\"text\" name=\"user_coords1\" value=\"".(isset($_POST['user_coords1']) ? $_POST['user_coords1'] : "")."\" size=\"3\" maxlength=\"4\" />:<input type=\"text\" name=\"user_coords2\" value=\"".(isset($_POST['user_coords2']) ? $_POST['user_coords2'] : "")."\" size=\"2\" maxlength=\"2\" /></td></tr>
              <tr><td colspan=\"2\" style=\"text-align:center\"><input type=\"submit\" value=\"Weiter\" /></td></tr>";
-         if($data['errormsg'] != "")
+         if(isset($data['errormsg']) && $data['errormsg'] != "")
              echo "<tr><td colspan=\"2\" style=\"color:#800000\">".$data['errormsg']."</td></tr>";
          echo "</table>
          </div>";

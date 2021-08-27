@@ -81,11 +81,11 @@
    }
 
    $NOTICUSER = "SELECT galaxie FROM gn4accounts GROUP BY galaxie;";
-   $SQL_Result = tic_mysql_query($NOTICUSER) or die(tic_mysql_error(__FILE__,__LINE__));
+   $SQL_Result = tic_mysql_query($NOTICUSER) or die(tic_mysqli_error(__FILE__,__LINE__));
    $NOTIC = "";
-   $TIC_Num = mysql_num_rows($SQL_Result);
+   $TIC_Num = mysqli_num_rows($SQL_Result);
    for ($n = 0; $n < $TIC_Num; $n++) {
-       $galaxie = mysql_result($SQL_Result, $n, 'galaxie');
+       $galaxie = tic_mysql_result($SQL_Result, $n, 'galaxie');
        if ($n == 0 ) {
           $NOTIC = " g<>".$galaxie;
        } else {
@@ -103,7 +103,7 @@
 
    $SQL = "SELECT * FROM `gn4scans` WHERE ".$SQL." ORDER BY ".$order." ".$DESC.";";
 //   $SQL_Result = mysql_query($SQL, $SQL_DBConn);
-   $SQL_Result = tic_mysql_query($SQL) or die(tic_mysql_error(__FILE__,__LINE__));
+   $SQL_Result = tic_mysql_query($SQL) or die(tic_mysqli_error(__FILE__,__LINE__));
 
    include './ink_scanlistbody.php';
 

@@ -5,10 +5,10 @@
         if ($_GET['id'] != '') {
         if($Benutzer['rang']==0) die;
             $SQL_Result = tic_mysql_query('SELECT * FROM `gn4accounts` WHERE id="'.$_GET['id'].'";', $SQL_DBConn) or $error_code = 4;
-            if (mysql_num_rows($SQL_Result) == 1) {
-                $tmp_rang = mysql_result($SQL_Result, 0, 'rang');
-                $tmp_galaxie = mysql_result($SQL_Result, 0, 'galaxie');
-                $tmp_alli = mysql_result($SQL_Result,0,'allianz');
+            if (mysqli_num_rows($SQL_Result) == 1) {
+                $tmp_rang = tic_mysql_result($SQL_Result, 0, 'rang');
+                $tmp_galaxie = tic_mysql_result($SQL_Result, 0, 'galaxie');
+                $tmp_alli = tic_mysql_result($SQL_Result,0,'allianz');
                 if ($Benutzer['allianz'] != $tmp_alli && $Benutzer['rang']<4 ){
                 $error_code = 5;
                 }else{

@@ -14,37 +14,37 @@ echo'<form action="./main.php?modul=management_meta" method="post">
     $query='';
     if($Benutzer['rang']== RANG_TECHNIKER) $query='where id="'.$Benutzer['ticid'].'"';
 		$SQL_Result=tic_mysql_query('select id,name,sysmsg,duell,wars,naps,bnds FROM `gn4meta` '.$query.' order by id asc;',__FILE__,__LINE__);
-		$SQL_Num=mysql_num_rows($SQL_Result);
+		$SQL_Num=mysqli_num_rows($SQL_Result);
         if(isset($newmetaid)) $selectMeta=$newmetaid;
         else if(isset($_POST['selectMeta'])) $selectMeta=$_POST['selectMeta'];
         if(!isset($selectMeta) || $selectMeta < 1) $selectMeta=$Benutzer['ticid'];
 
         for ($x=0;$x<$SQL_Num;$x++){
-			$meta=mysql_result($SQL_Result,$x,'name');
+			$meta=tic_mysql_result($SQL_Result,$x,'name');
 			$selected='';
-			if(mysql_result($SQL_Result,$x,'id') == $selectMeta)
+			if(tic_mysql_result($SQL_Result,$x,'id') == $selectMeta)
             {
                 $selected='selected';
-                $metaid=mysql_result($SQL_Result,$x,'id');
-                $metaname=mysql_result($SQL_Result,$x,'name');
-                $duell=mysql_result($SQL_Result,$x,'duell');
-                $sysmsg=mysql_result($SQL_Result,$x,'sysmsg');
-                $wars=mysql_result($SQL_Result,$x,'wars');
-                $bnds=mysql_result($SQL_Result,$x,'bnds');
-                $naps=mysql_result($SQL_Result,$x,'naps');
+                $metaid=tic_mysql_result($SQL_Result,$x,'id');
+                $metaname=tic_mysql_result($SQL_Result,$x,'name');
+                $duell=tic_mysql_result($SQL_Result,$x,'duell');
+                $sysmsg=tic_mysql_result($SQL_Result,$x,'sysmsg');
+                $wars=tic_mysql_result($SQL_Result,$x,'wars');
+                $bnds=tic_mysql_result($SQL_Result,$x,'bnds');
+                $naps=tic_mysql_result($SQL_Result,$x,'naps');
             }
-			echo "<option value=\"".mysql_result($SQL_Result,$x,'id')."\" ".$selected.">".$meta."</option>\n";
+			echo "<option value=\"".tic_mysql_result($SQL_Result,$x,'id')."\" ".$selected.">".$meta."</option>\n";
 		}
 
         if(!isset($metaname))
         {
-                $metaid=mysql_result($SQL_Result,0,'id');
-                $metaname=mysql_result($SQL_Result,0,'name');
-                $duell=mysql_result($SQL_Result,0,'duell');
-                $sysmsg=mysql_result($SQL_Result,0,'sysmsg');
-                $wars=mysql_result($SQL_Result,0,'wars');
-                $bnds=mysql_result($SQL_Result,0,'bnds');
-                $naps=mysql_result($SQL_Result,0,'naps');
+                $metaid=tic_mysql_result($SQL_Result,0,'id');
+                $metaname=tic_mysql_result($SQL_Result,0,'name');
+                $duell=tic_mysql_result($SQL_Result,0,'duell');
+                $sysmsg=tic_mysql_result($SQL_Result,0,'sysmsg');
+                $wars=tic_mysql_result($SQL_Result,0,'wars');
+                $bnds=tic_mysql_result($SQL_Result,0,'bnds');
+                $naps=tic_mysql_result($SQL_Result,0,'naps');
         }
         if($Benutzer['rang']==RANG_TECHNIKER) $schaltflaeche='<td align="center">&nbsp;</td><td colspan="2" align="center"><input name="metaspeichern" value="Speichern" type="submit" /></td>
 	  <td align="center">&nbsp;</td>';

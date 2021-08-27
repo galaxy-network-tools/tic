@@ -52,15 +52,15 @@
 			if (!isset($_SESSION['metanr'])) $_SESSION['metanr'] = $Benutzer['ticid'];
 			$SQL_Query = "SELECT id as ticid, name as value FROM gn4meta ORDER BY name;";
 			$SQL_Result_metas = tic_mysql_query($SQL_Query, $SQL_DBConn) or $error_code = 4;
-			for ($m=0; $m<mysql_num_rows($SQL_Result_metas); $m++) {
-				$MetaNummer = mysql_result($SQL_Result_metas, $m, 'ticid');
-				$MetaName = mysql_result($SQL_Result_metas, $m, 'value');
+			for ($m=0; $m<mysqli_num_rows($SQL_Result_metas); $m++) {
+				$MetaNummer = tic_mysql_result($SQL_Result_metas, $m, 'ticid');
+				$MetaName = tic_mysql_result($SQL_Result_metas, $m, 'value');
 				if ($MetaNummer == $_SESSION['metanr'])
 					echo "		&nbsp;<font size=\"+1\"><b><nobr>".$MetaName."<nobr></font></b>&nbsp;\n";
 				else
 					echo "		&nbsp;<a href=\"./main.php?modul=taktikbildschirm&mode=".$mode."&metanr=".$MetaNummer."\"><nobr> ".$MetaName." <nobr></a>&nbsp;\n";
 			}
-			mysql_free_result($SQL_Result_metas);
+			mysqli_free_result($SQL_Result_metas);
 			break;
 	}
 	if ($mode == 4) {
@@ -102,7 +102,7 @@
 	}
 
 	$SQL_Result_user = tic_mysql_query($SQL_Query, $SQL_DBConn); // or error("Error while bilding 'taktik' (step 1).<br>".$SQL_Query, ERROR_SQL, false);
-	$SQL_Num_user = mysql_num_rows($SQL_Result_user);
+	$SQL_Num_user = mysqli_num_rows($SQL_Result_user);
 
 	$time_online = time() - 300;
 

@@ -25,7 +25,7 @@
 <table width="90%" align="center">
 	<tr><td class="datatablehead">Scans aus dem IRC einf&uuml;gen(Clipboard)</td></tr>
 	<tr><td bgcolor="#ccccec">
-			<font color="#b22222">Bitte pro Scantyp nur einen Scan einfügen!!!</font>
+			<font color="#b22222">Bitte pro Scantyp nur einen Scan einf&uuml;gen!!!</font>
 	</td></tr>
 	<tr><td class="fieldnormallight">
 		<form action="main.php?modul=ircpaste" method="post">
