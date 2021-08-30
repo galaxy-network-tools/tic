@@ -6,6 +6,16 @@ The project is written in PHP and uses Mysql.
 This code base on the version 1.36.3
 \<ticgeneration>.\<gn-rounde number>.\<minor release number>
 
+## Running without Docker
+
+To install this project on common web servers, you'll need PHP with MySQL set up, also you should have this repository cloned into any folder readable (and writeable) by the web server, e.g. `/usr/local/www/tic`. The example assumes that the web server runs as the `www` user:
+
+    % cd /usr/local/www
+    % git clone https://github.com/galaxy-network-tools/tic
+    % chown -R www tic
+
+Then, run the installer (to be found in `.../tic/installer/index.php`) inside your web browser and follow the instructions on your screen. Note that the installer is in German.
+
 ## Running with Docker
 
 This project can be run as a Docker container:
